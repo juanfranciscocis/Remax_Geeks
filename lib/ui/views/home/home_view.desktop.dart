@@ -31,7 +31,6 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
                 MainDesktopNavBar(),
                 verticalSpaceMassive,
                 //MAIN CONTENT
-                //ON THE LEFT SIDE, ADD A COLUMN WITH A TITLE, SUBTITLE, AND 2 BUTTONS. ON THE RIGHT SIDE, ADD AN IMAGE
                 LandingPageDesktopSite(),
               ],
             ),

@@ -1,8 +1,10 @@
+import 'package:iconsax/iconsax.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import 'home_viewmodel.dart';
 
 class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
@@ -10,17 +12,21 @@ class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
 
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
-    return Scaffold(
+    return  const Scaffold(
+      backgroundColor: backgroundColor,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-
-              ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  //ADD A RECTANGLE IN THE TOP OF THE SCREEN, NAVBAR COLOR
+                  MainMobileNavBar(),
+                ],
+              ),
             ),
           ),
         ),
@@ -28,3 +34,5 @@ class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
     );
   }
 }
+
+
