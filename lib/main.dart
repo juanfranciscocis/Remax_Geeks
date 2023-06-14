@@ -27,12 +27,11 @@ class MyApp extends StatelessWidget {
     return ResponsiveApp(
         preferDesktop: true,
         builder: (_) => MaterialApp.router(
-              title: 'Stacked Application',
+              title: 'Remax Geeks',
               theme: Theme.of(context).copyWith(
                 primaryColor: kcBackgroundColor,
-                focusColor: kcPrimaryColor,
                 textTheme: Theme.of(context).textTheme.apply(
-                      bodyColor: Colors.black,
+                      bodyColor: Colors.white,
                     ),
               ),
               routerDelegate: stackedRouter.delegate(),

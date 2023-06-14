@@ -33,4 +33,5 @@ class HomeViewModel extends BaseViewModel {
       description: ksHomeBottomSheetDescription,
     );
   }
+
 }

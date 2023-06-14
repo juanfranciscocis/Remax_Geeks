@@ -11,7 +11,7 @@ class UnknownViewDesktop extends ViewModelWidget<UnknownViewModel> {
   @override
   Widget build(BuildContext context, UnknownViewModel viewModel) {
     return const Scaffold(
-      backgroundColor: kcBackgroundColor,
+      backgroundColor:kcBackgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -19,7 +19,8 @@ class UnknownViewDesktop extends ViewModelWidget<UnknownViewModel> {
             Text(
               '404',
               style: TextStyle(
-                color: Colors.white,
+                fontFamily:'OutfitBold',
+                color: fontMainColor,
                 fontSize: 80,
                 fontWeight: FontWeight.w800,
                 height: 0.95,
@@ -30,7 +31,8 @@ class UnknownViewDesktop extends ViewModelWidget<UnknownViewModel> {
             Text(
               'PAGE NOT FOUND',
               style: TextStyle(
-                color: Colors.white,
+                fontFamily: "OutfitMedium",
+                color: fontMainColor,
                 fontSize: 20,
                 letterSpacing: 20.0,
                 wordSpacing: 10.0,

@@ -19,8 +19,27 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
             height: kdDesktopMaxContentHeight,
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                verticalSpaceLarge,
+                Title(color: Colors.black, child: Text('HomeView', style: TextStyle(fontSize: 100))),
+                Row(
+                  //mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: (){
+                        //show popup with ok button
+                        viewModel.showDialog();
+                      },
+                      child: Text('StartUpView'),
+                    ),
+                    TextButton(
+                      onPressed: (){},
+                      child: Text('UnknownView'),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

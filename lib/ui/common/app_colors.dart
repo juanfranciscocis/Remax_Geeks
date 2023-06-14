@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
 
-const Color kcPrimaryColor = Color(0xFF9600FF);
-const Color kcPrimaryColorDark = Color(0xFF300151);
-const Color kcBlack = Color(0xFF000000);
-const Color kcDarkGreyColor = Color(0xFF1A1B1E);
-const Color kcMediumGrey = Color(0xFF474A54);
-const Color kcLightGrey = Color.fromARGB(255, 187, 187, 187);
-const Color kcVeryLightGrey = Color(0xFFE3E3E3);
-const Color kcWhite = Color(0xFFFFFFFF);
-const Color kcBackgroundColor = kcDarkGreyColor;
+
+//MAIN APP COLORS
+const Color kcPrimaryColor = Color(0xffee8f23);
+const Color secondaryColor = Color(0xfff2bc39);
+const Color kcBackgroundColor = Color(0xfff5efd9);
+
+//BUTTON COLORS
+const Color primaryButtonColor = Color(0xffee8f23);
+const Color secondaryButtonColor = Color(0xfff2bc39);
+  //CONFIRMATION BUTTON COLORS
+const Color confirmButtonColor = Color(0xff84aa74);
+
+//CARD COLORS
+const Color primaryCardColor = Color(0xffee8f23);
+const Color secondaryCardColor = Color(0xffd1d1d2);
+const Color thirdCardColor = Color(0xfff2bc39);
+const Color loginCardColor = Color(0xfff5f5f6);
+const Color goldCardColor = Color(0xffccaa39);
+
+//TEXT COLORS
+const Color fontMainColor = Color(0xff122637);
+const Color fontSecondColor = Color(0xff9e9e9f);
+const Color fontWhiteColor = Color(0xfff5f5f6);
+
+
+
