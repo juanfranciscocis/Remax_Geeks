@@ -11,7 +11,7 @@ class UnknownViewTablet extends ViewModelWidget<UnknownViewModel> {
   @override
   Widget build(BuildContext context, UnknownViewModel viewModel) {
     return const Scaffold(
-      backgroundColor: kcBackgroundColor,
+      backgroundColor: backgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

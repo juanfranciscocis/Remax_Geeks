@@ -12,6 +12,7 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: Center(
           child: SizedBox(
@@ -22,21 +23,30 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 verticalSpaceLarge,
-                Title(color: Colors.black, child: Text('HomeView', style: TextStyle(fontSize: 100))),
+                Title(color: fontMainColor,
+                child: Text('HomeView', style: TextStyle(fontSize: 100, color: fontMainColor))),
                 Row(
                   //mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextButton(
+                    MaterialButton(
+                      child: Padding(padding: EdgeInsets.all(8),
+                      child: Text('Show Dialog', style: TextStyle(fontSize: 50, color: fontWhiteColor))),
+                      color: secondaryButtonColor,
+                      //rounded rectangle button, 8pt
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      //add shadow
+                      elevation: 10,
                       onPressed: (){
                         //show popup with ok button
                         viewModel.showDialog();
                       },
-                      child: Text('StartUpView'),
                     ),
                     TextButton(
                       onPressed: (){},
-                      child: Text('UnknownView'),
+                      child: Text('UnknownView', style: TextStyle(fontSize: 50, color: fontSecondColor)),
                     ),
                   ],
                 ),

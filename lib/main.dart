@@ -25,15 +25,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveApp(
+
         preferDesktop: true,
         builder: (_) => MaterialApp.router(
               title: 'Remax Geeks',
               theme: Theme.of(context).copyWith(
-                primaryColor: kcBackgroundColor,
+                primaryColor: backgroundColor,
                 textTheme: Theme.of(context).textTheme.apply(
-                      bodyColor: Colors.white,
+                      bodyColor: backgroundColor,
                     ),
               ),
+              debugShowCheckedModeBanner: false,
               routerDelegate: stackedRouter.delegate(),
               routeInformationParser: stackedRouter.defaultRouteParser(),
             ).animate().fadeIn(

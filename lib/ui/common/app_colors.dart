@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 
 //MAIN APP COLORS
-const Color kcPrimaryColor = Color(0xffee8f23);
+const Color primaryColor = Color(0xffee8f23);
 const Color secondaryColor = Color(0xfff2bc39);
-const Color kcBackgroundColor = Color(0xfff5efd9);
+const Color backgroundColor = Color(0xffffffff);
 
 //BUTTON COLORS
 const Color primaryButtonColor = Color(0xffee8f23);
