@@ -31,7 +31,7 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
                   children: [
                     MaterialButton(
                       child: Padding(padding: EdgeInsets.all(8),
-                      child: Text('Show Dialog', style: TextStyle(fontSize: 50, color: fontWhiteColor))),
+                      child: Text('Show', style: TextStyle(fontSize: 50, color: fontWhiteColor))),
                       color: secondaryButtonColor,
                       //rounded rectangle button, 8pt
                       shape: RoundedRectangleBorder(
