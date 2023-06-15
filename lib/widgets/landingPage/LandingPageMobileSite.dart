@@ -20,7 +20,7 @@ class LandingPageMobileSite extends StatelessWidget {
         const Center(
           child: Text(
             landingPageTitle1,
-            textAlign: TextAlign.justify,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: fontThirdColor,
               fontFamily: fontOutfitBold,
@@ -31,7 +31,7 @@ class LandingPageMobileSite extends StatelessWidget {
         const Center(
           child: Text(
             landingPageTitle2,
-            textAlign: TextAlign.justify,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: fontMainColor,
               fontFamily: fontOutfitBold,

@@ -28,7 +28,7 @@ class LandingPageDesktopSite extends StatelessWidget {
                 landingPageTitle1,
                 style: TextStyle(
                   color: fontThirdColor,
-                  fontFamily: 'OutfitBold',
+                  fontFamily: fontOutfitBold,
                   fontSize: 55,
                 ),
               ),
@@ -36,7 +36,7 @@ class LandingPageDesktopSite extends StatelessWidget {
                 landingPageTitle2,
                 style: TextStyle(
                   color: fontMainColor,
-                  fontFamily: 'OutfitBold',
+                  fontFamily: fontOutfitBold,
                   fontSize: 55,
                 ),
               ),
@@ -44,7 +44,7 @@ class LandingPageDesktopSite extends StatelessWidget {
                 landingPageSubtitle,
                 style: TextStyle(
                   color: fontMainColor,
-                  fontFamily: 'OutfitRegular',
+                  fontFamily: fontOutfitRegular,
                   fontSize: 35,
                 ),
               ),
@@ -65,7 +65,7 @@ class LandingPageDesktopSite extends StatelessWidget {
                         child: Text(
                           landingPageSellNowButton,
                           style: TextStyle(
-                            fontFamily: 'OutfitMedium',
+                            fontFamily: fontOutfitMedium,
                             color: fontWhiteColor,
                             fontSize: 30,
                           ),
@@ -92,7 +92,7 @@ class LandingPageDesktopSite extends StatelessWidget {
                         child: Text(
                           landingPageBuyNowButton,
                           style: TextStyle(
-                            fontFamily: 'OutfitMedium',
+                            fontFamily: fontOutfitMedium,
                             color: fontWhiteColor,
                             fontSize: 30,
                           ),
@@ -113,7 +113,7 @@ class LandingPageDesktopSite extends StatelessWidget {
         ),
         //RIGHT SIDE
         //VECTOR IMAGE
-        Expanded(child: const Image(image: AssetImage(landingPageHouseImage), width: 500, height: 500,))
+        const Expanded(child: Image(image: AssetImage(landingPageHouseImage), width: 500, height: 500,))
       ],
     );
   }

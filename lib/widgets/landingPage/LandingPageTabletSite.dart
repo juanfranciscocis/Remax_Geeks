@@ -21,7 +21,7 @@ class LandingPageTabletSite extends StatelessWidget {
         const Center(
           child: Text(
             landingPageTitle1,
-            textAlign: TextAlign.justify,
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 50,
               color: fontThirdColor,
@@ -32,7 +32,7 @@ class LandingPageTabletSite extends StatelessWidget {
         const Center(
           child: Text(
             landingPageTitle2,
-            textAlign: TextAlign.justify,
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 50,
               color: fontMainColor,
@@ -78,7 +78,7 @@ class LandingPageTabletSite extends StatelessWidget {
                   child: Text(
                     landingPageSellNowButton,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: fontWhiteColor,
                       fontSize: 30,
                       fontFamily: fontOutfitMedium,
                     ),
@@ -103,7 +103,7 @@ class LandingPageTabletSite extends StatelessWidget {
                   child: Text(
                     landingPageBuyNowButton,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: fontWhiteColor,
                       fontSize: 30,
                       fontFamily: fontOutfitMedium,
                     ),
@@ -117,9 +117,7 @@ class LandingPageTabletSite extends StatelessWidget {
             ),
           ],
         ),
-
       ],
-
     );
   }
 }
