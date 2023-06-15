@@ -63,7 +63,7 @@ class LandingPageDesktopSite extends StatelessWidget {
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          'Sell Now',
+                          landingPageSellNowButton,
                           style: TextStyle(
                             fontFamily: 'OutfitMedium',
                             color: fontWhiteColor,
@@ -90,7 +90,7 @@ class LandingPageDesktopSite extends StatelessWidget {
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          'Buy Now',
+                          landingPageBuyNowButton,
                           style: TextStyle(
                             fontFamily: 'OutfitMedium',
                             color: fontWhiteColor,
@@ -113,7 +113,7 @@ class LandingPageDesktopSite extends StatelessWidget {
         ),
         //RIGHT SIDE
         //VECTOR IMAGE
-        const Image(image: AssetImage('assets/landingPage/landingPageHouse.png'), width: 500, height: 500,)
+        const Image(image: AssetImage(landingPageHouseImage), width: 500, height: 500,)
       ],
     );
   }

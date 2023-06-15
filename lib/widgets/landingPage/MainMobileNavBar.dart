@@ -1,5 +1,6 @@
 //import material
 import 'package:flutter/material.dart';
+import 'package:remax_geeks/ui/common/app_strings.dart';
 
 import '../../ui/common/app_colors.dart';
 
@@ -12,7 +13,7 @@ class MainMobileNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 50,
+      height: 80,
       decoration: BoxDecoration(
         color: navColor,
         borderRadius: BorderRadius.circular(8),
@@ -38,9 +39,9 @@ class MainMobileNavBar extends StatelessWidget {
                 print('RETURN TO HOME PRESSED');
               },
               child: const Image(
-                image: AssetImage('assets/landingPage/logo.png'),
-                width: 100,
-                height: 100,
+                image: AssetImage(landingPageNavBarLogo),
+                width: 150,
+                height: 150,
               ),
             ),
           ),
@@ -58,7 +59,7 @@ class MainMobileNavBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(top:5.0, bottom: 5.0, left: 20.0, right: 10.0),
+                    padding: const EdgeInsets.only(top:8.0, bottom: 8.0, left: 20.0, right: 10.0),
                     child: Container(
                       //MAKE IT secondaryCardColor, add a shadow to it
                         decoration: BoxDecoration(
@@ -75,7 +76,7 @@ class MainMobileNavBar extends StatelessWidget {
                           ],
                         ),
                         child: const Image(
-                          image: AssetImage('assets/landingPage/burgerMenu.png'),
+                          image: AssetImage(landingPageNavBarBurgerMenu),
                           width: 70,
                           height: 100,
                         )
