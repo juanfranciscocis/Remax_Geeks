@@ -113,7 +113,7 @@ class LandingPageDesktopSite extends StatelessWidget {
         ),
         //RIGHT SIDE
         //VECTOR IMAGE
-        const Image(image: AssetImage(landingPageHouseImage), width: 500, height: 500,)
+        Expanded(child: const Image(image: AssetImage(landingPageHouseImage), width: 500, height: 500,))
       ],
     );
   }

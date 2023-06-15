@@ -61,7 +61,7 @@ class MainDesktopNavBar extends StatelessWidget {
                     child: Text(
                       landingPageNavBarLearnMore,
                       style: TextStyle(
-                        fontFamily: 'OutfitMedium',
+                        fontFamily: fontOutfitMedium,
                         color: fontWhiteColor,
                         fontSize: 30,
                       ),
@@ -87,7 +87,7 @@ class MainDesktopNavBar extends StatelessWidget {
                     child: Text(
                       landingPageNavBarGetToKnowUs,
                       style: TextStyle(
-                        fontFamily: 'OutfitMedium',
+                        fontFamily: fontOutfitMedium,
                         color: fontWhiteColor,
                         fontSize: 30,
                       ),
