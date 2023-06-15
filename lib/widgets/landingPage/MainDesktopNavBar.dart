@@ -1,5 +1,6 @@
 //Import material
 import 'package:flutter/material.dart';
+import 'package:remax_geeks/ui/common/app_strings.dart';
 
 import '../../ui/common/app_colors.dart';
 
@@ -39,7 +40,7 @@ class MainDesktopNavBar extends StatelessWidget {
                 print('RETURN TO HOME PRESSED');
               },
               child: const Image(
-                image: AssetImage('assets/landingPage/logo.png'),
+                image: AssetImage(landingPageNavBarLogo),
                 width: 150,
                 height: 100,
               ),
@@ -58,9 +59,9 @@ class MainDesktopNavBar extends StatelessWidget {
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      'Learn More',
+                      landingPageNavBarLearnMore,
                       style: TextStyle(
-                        fontFamily: 'OutfitMedium',
+                        fontFamily: fontOutfitMedium,
                         color: fontWhiteColor,
                         fontSize: 30,
                       ),
@@ -84,9 +85,9 @@ class MainDesktopNavBar extends StatelessWidget {
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      'Get To Know Us',
+                      landingPageNavBarGetToKnowUs,
                       style: TextStyle(
-                        fontFamily: 'OutfitMedium',
+                        fontFamily: fontOutfitMedium,
                         color: fontWhiteColor,
                         fontSize: 30,
                       ),

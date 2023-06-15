@@ -13,7 +13,7 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
   const HomeViewDesktop({super.key});
 
   @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
+  Widget build(BuildContext context,  viewModel) {
     return const Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
