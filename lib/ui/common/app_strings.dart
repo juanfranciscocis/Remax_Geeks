@@ -21,3 +21,16 @@ const String landingPageSubtitle = 'List for just \$3,000 or 1% or buy a \nhome 
 const String landingPageSellNowButton = 'Sell Now';
 const String landingPageBuyNowButton = 'Buy Now';
 const String landingPageHouseImage = 'assets/landingPage/landingPageHouse.png';
+
+//ADDRESS PAGE STRINGS
+const String addressLocationOfProperty = 'Location of the Property';
+const String addressBox = 'Main Street,Town,State,Postal Code';
+const String addressCondition = 'Condition of the Property';
+const String condition1 = 'New/Excellent';
+const String condition2 = 'Good';
+const String condition3 = 'Under Construction';
+const String condition4 = 'Needs Renovation';
+const String addressTypeOfProperty = 'Type of the Property';
+const String type1 = 'Residential';
+const String type2 = 'Commercial';
+const String type3 = 'Land';

@@ -6,6 +6,7 @@ const Color primaryColor = Color(0xffee8f23);
 const Color secondaryColor = Color(0xfff2bc39);
 const Color navColor = Color(0xfff5d3a7);
 const Color backgroundColor = Color(0xffffffff);
+const Color inputColor = Color(0xffd1d1d2);
 
 //BUTTON COLORS
 const Color primaryButtonColor = Color(0xffee8f23);
