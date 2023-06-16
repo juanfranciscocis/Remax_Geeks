@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../ui/common/app_colors.dart';
 import '../../ui/common/app_strings.dart';
 import '../../ui/common/ui_helpers.dart';
+import '../../ui/views/address/address_view.dart';
 
 
 class LandingPageTabletSite extends StatelessWidget {
@@ -71,6 +72,7 @@ class LandingPageTabletSite extends StatelessWidget {
               child: MaterialButton(
                 onPressed: () {
                   print('SELL NOW PRESSED');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AddressView()));
                 },
                 child: const Padding(
                   padding: EdgeInsets.only(
