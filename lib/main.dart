@@ -7,8 +7,10 @@ import 'package:remax_geeks/app/app.router.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
   setPathUrlStrategy();
   setupLocator(
     stackedRouter: stackedRouter,
@@ -17,6 +19,10 @@ void main() {
   setupBottomSheetUi();
 
   runApp(const MyApp());
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
 
 class MyApp extends StatelessWidget {

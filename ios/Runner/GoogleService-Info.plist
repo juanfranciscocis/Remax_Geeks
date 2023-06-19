@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>507863831854-qdnni2uqa8d24d86ldd793qbuilp9ng4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.507863831854-qdnni2uqa8d24d86ldd793qbuilp9ng4</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCdrr3r67sUSc3lK6TVWhMVeo3jC-GoXSE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>507863831854</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.remaxGeeks</string>
+	<key>PROJECT_ID</key>
+	<string>remax-geeks</string>
+	<key>STORAGE_BUCKET</key>
+	<string>remax-geeks.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:507863831854:ios:a72038c98fb58cd92796bf</string>
+	<key>DATABASE_URL</key>
+	<string>https://remax-geeks-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
