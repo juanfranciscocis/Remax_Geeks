@@ -1,6 +1,8 @@
 //import material
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/dbProvider.dart';
 import '../../ui/common/app_colors.dart';
 import '../../ui/common/app_strings.dart';
 import '../../ui/common/ui_helpers.dart';
@@ -58,7 +60,7 @@ class LandingPageDesktopSite extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20.0),
                     child: MaterialButton(
-                      onPressed: () {
+                      onPressed: () async {
                         print('SELL NOW PRESSED');
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const AddressView()));
                       }, //TODO: CHANGE TO START SELLING PAGE

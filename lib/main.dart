@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:remax_geeks/app/app.bottomsheets.dart';
 import 'package:remax_geeks/app/app.dialogs.dart';
@@ -30,23 +32,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => DBProvider()),
+      ],
+      child: ResponsiveApp(
 
-        preferDesktop: true,
-        builder: (_) => MaterialApp.router(
-              title: 'Remax Geeks',
-              theme: Theme.of(context).copyWith(
-                primaryColor: backgroundColor,
-                textTheme: Theme.of(context).textTheme.apply(
-                      bodyColor: backgroundColor,
-                    ),
-              ),
-              debugShowCheckedModeBanner: false,
-              routerDelegate: stackedRouter.delegate(),
-              routeInformationParser: stackedRouter.defaultRouteParser(),
-            ).animate().fadeIn(
-                  delay: const Duration(milliseconds: 50),
-                  duration: const Duration(milliseconds: 400),
-                ));
+          preferDesktop: true,
+          builder: (_) => MaterialApp.router(
+                title: 'Remax Geeks',
+                theme: Theme.of(context).copyWith(
+                  primaryColor: backgroundColor,
+                  textTheme: Theme.of(context).textTheme.apply(
+                        bodyColor: backgroundColor,
+                      ),
+                ),
+                debugShowCheckedModeBanner: false,
+                routerDelegate: stackedRouter.delegate(),
+                routeInformationParser: stackedRouter.defaultRouteParser(),
+              ).animate().fadeIn(
+                    delay: const Duration(milliseconds: 50),
+                    duration: const Duration(milliseconds: 400),
+                  )),
+    );
   }
 }
