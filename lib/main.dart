@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
+import 'package:remax_geeks/providers/sellFormProvider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:remax_geeks/app/app.bottomsheets.dart';
 import 'package:remax_geeks/app/app.dialogs.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => DBProvider()),
+        ChangeNotifierProvider(create: (_) => SellFormProvider()),
       ],
       child: ResponsiveApp(
 

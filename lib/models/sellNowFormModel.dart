@@ -1,38 +1,33 @@
+// To parse this JSON data, do
+//
+//     final sellingForm = sellingFormFromJson(jsonString);
 
+import 'dart:convert';
 
-class SellNowFormModel{
+class SellingForm {
+  String? address;
+  String? condition;
+  String? type;
 
-  //PROPERTIES
-  String _address;
-  String _conditionOfProperty;
-  String _propertyType;
-  //String _serviceType;
-  //List _services;
+  SellingForm({
+    this.address,
+    this.condition,
+    this.type,
+  });
 
-  //CONSTRUCTOR
-  SellNowFormModel(this._address, this._conditionOfProperty, this._propertyType,); // TODO: INITIALIZE SERVICES AND SERVICE TYPE
+  factory SellingForm.fromRawJson(String str) => SellingForm.fromJson(json.decode(str));
 
-  //GETTERS
-  String get address => _address;
-  String get conditionOfProperty => _conditionOfProperty;
-  String get propertyType => _propertyType;
-  //String get serviceType => _serviceType;
-  //List get services => _services;
+  String toRawJson() => json.encode(toJson());
 
-  //SETTERS
-  set address(String address){
-    _address = address;
-  }
-  set conditionOfProperty(String conditionOfProperty){
-    _conditionOfProperty = conditionOfProperty;
-  }
-  set propertyType(String propertyType){
-    _propertyType = propertyType;
-  }
-  // set serviceType(String serviceType){
-  //   _serviceType = serviceType;
-  // }
-  // set services(List services){
-  //   _services = services;
-  // }
+  factory SellingForm.fromJson(Map<String, dynamic> json) => SellingForm(
+    address: json["ADDRESS"],
+    condition: json["CONDITION"],
+    type: json["TYPE"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "ADDRESS": address,
+    "CONDITION": condition,
+    "TYPE": type,
+  };
 }

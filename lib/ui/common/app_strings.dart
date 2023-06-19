@@ -34,3 +34,4 @@ const String addressTypeOfProperty = 'Type of the Property';
 const String type1 = 'Residential';
 const String type2 = 'Commercial';
 const String type3 = 'Land';
+const String addressContinueButton = 'assets/confirm.png';

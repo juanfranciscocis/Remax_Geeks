@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
@@ -5,6 +6,8 @@ import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../providers/dbProvider.dart';
+import '../../../providers/sellFormProvider.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
 import 'address_viewmodel.dart';
@@ -14,6 +17,8 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
 
   @override
   Widget build(BuildContext context,  viewModel) {
+    final sellFormProvider = Provider.of<SellFormProvider>(context);
+    final dbProvider = Provider.of<DBProvider>(context);
     return  Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -79,7 +84,9 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                       padding:  EdgeInsets.only(left: 20.0),
                       child: MaterialButton(
                         onPressed: () {
-                          print('NEW/EXCELLENT PRESSED');
+                          //ADD NEW/EXCELLENT TO THE FORM PROVIDER
+                          sellFormProvider.condition = condition1;
+                          print(sellFormProvider.condition);
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
@@ -103,7 +110,9 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                       padding: const EdgeInsets.only(left: 20.0),
                       child: MaterialButton(
                         onPressed: () {
-                          print('GOOD PRESSED');
+                          //ADD GOOD TO THE FORM PROVIDER
+                          sellFormProvider.condition = condition2;
+                          print(sellFormProvider.condition);
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
@@ -132,7 +141,9 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                 children: [
                   MaterialButton(
                     onPressed: () {
-                      print('UNDER CONSTRUCTION PRESSED');
+                      //ADD FAIR TO THE FORM PROVIDER
+                      sellFormProvider.condition = condition3;
+                      print(sellFormProvider.condition);
                     },
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),
@@ -155,7 +166,9 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                     padding: const EdgeInsets.only(left: 5),
                     child: MaterialButton(
                       onPressed: () {
-                        print('NEEDS RENOVATION PRESSED');
+                        //ADD POOR TO THE FORM PROVIDER
+                        sellFormProvider.condition = condition4;
+                        print(sellFormProvider.condition);
                       },
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
@@ -197,7 +210,7 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                       padding: const EdgeInsets.only(left: 20.0),
                       child: MaterialButton(
                         onPressed: () {
-                          print('RESIDENTIAL PRESSED');
+
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
@@ -280,11 +293,18 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                 child: MaterialButton(
                   onPressed: () {
                     print('NEXT PART OF THE FORM PRESSED');
+                    Map<String, dynamic> data = {
+                      'ADDRESS': sellFormProvider.address,
+                      'CONDITION': sellFormProvider.condition,
+                      'TYPE': sellFormProvider.type,
+                    };
+                    dbProvider.setSellingFormData(data);
+
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Image.asset(
-                      'assets/confirm.png',
+                      addressContinueButton,
                       height: 50,
                       width: 100,
                     ),
