@@ -51,6 +51,14 @@ class ChooseServiceTypeDesktop extends ViewModelWidget<ChooseServiceTypeViewMode
                   decoration: BoxDecoration(
                     color: primaryCardColor,
                     borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.25),
+                        spreadRadius: 0,
+                        blurRadius: 4,
+                        offset: const Offset(0, 4), // changes position of shadow
+                      ),
+                    ],
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -111,6 +119,14 @@ class ChooseServiceTypeDesktop extends ViewModelWidget<ChooseServiceTypeViewMode
                 decoration: BoxDecoration(
                   color: primaryCardColor,
                   borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.25),
+                      spreadRadius: 0,
+                      blurRadius: 4,
+                      offset: const Offset(0, 4), // changes position of shadow
+                    ),
+                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
