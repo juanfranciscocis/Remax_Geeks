@@ -24,14 +24,15 @@ class CardServices extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Container(
-          height: 300.0,
+          height: 400.0,
           width: 300.0,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Text(
-                  "titleCard4",
+                  title,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: fontWhiteColor,
@@ -43,12 +44,12 @@ class CardServices extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(20.0),
                 child: Text(
-                  'DESCRIPTION',
+                  description,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: fontWhiteColor,
                     fontFamily: fontOutfitRegular,
-                    fontSize: 10,
+                    fontSize: 25,
                   ),
                 ),
               ),

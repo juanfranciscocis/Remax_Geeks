@@ -22,10 +22,10 @@ class FullServiceTablet extends ViewModelWidget<FullServiceViewModel> {
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
   String averageApiPrice = '\$100,000.00'; //TODO: API CALL AVERAGE PRICE
-  String titleCard = 'Title'; //TODO: DB CALL
-  String descriptionCard = 'Description'; //TODO: DB CALL
+  List<String> premiumTitles;
+  List<String> premiumDescriptions;
 
-  FullServiceTablet({super.key, required this.dbProvider, required this.sellFormProvider});
+  FullServiceTablet({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions});
 
   @override
   Widget build(BuildContext context, FullServiceViewModel viewModel) {
@@ -206,13 +206,7 @@ class FullServiceTablet extends ViewModelWidget<FullServiceViewModel> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      //3 cards, smaller ones
-                      //CARD 4
-                      //TODO: READ FROM API TITLE AND DESCRIPTION
-
-                      CardServices(color: goldCardColor, title: titleCard, description: descriptionCard,),
-                      CardServices(color: goldCardColor, title: titleCard, description: descriptionCard,),
-                      CardServices(color: goldCardColor, title: titleCard, description: descriptionCard,),
+                      ...premiumTitles.map((e) => CardServices(color: goldCardColor, title: e, description: premiumDescriptions[premiumTitles.indexOf(e)],)).toList(),
                     ],
                   ),
                   verticalSpaceLarge,

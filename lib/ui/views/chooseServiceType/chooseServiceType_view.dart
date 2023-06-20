@@ -19,7 +19,8 @@ class ChooseServiceTypeView extends StackedView<ChooseServiceTypeViewModel> {
     ChooseServiceTypeViewModel viewModel,
     Widget? child,
   ) {
-    final dbProvider = Provider.of<DBProvider>(context);
+    final dbProvider = Provider.of<DBProvider>(context, listen: false);
+    dbProvider.getTitlesAndDescriptions(); //GETTING TITLES BEFORE BUILDING THE WIDGETS
     final sellFormProvider = Provider.of<SellFormProvider>(context);
     return ScreenTypeLayout.builder(
       mobile: (_) => ChooseServiceTypeMobile(dbProvider: dbProvider, sellFormProvider: sellFormProvider),

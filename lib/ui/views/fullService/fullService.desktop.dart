@@ -20,10 +20,10 @@ class FullServiceDesktop extends StatelessWidget {
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
+  List<String> premiumTitles;
+  List<String> premiumDescriptions;
   String averageApiPrice = '\$100,000.00'; //TODO: API CALL AVERAGE PRICE
-  String titleCard = 'Title'; //TODO: DB CALL
-  String descriptionCard = 'Description'; //TODO: DB CALL
-  FullServiceDesktop({super.key, required this.dbProvider, required this.sellFormProvider});
+  FullServiceDesktop({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions});
 
   @override
   Widget build(BuildContext context) {
@@ -199,17 +199,14 @@ class FullServiceDesktop extends StatelessWidget {
               ),
               verticalSpaceMedium,
 
+
+
               //A row of three cards, color will be gold, with a title a description and a checkbox centered
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  //3 cards, smaller ones
-                  //CARD 4
-                  //TODO: READ FROM API TITLE AND DESCRIPTION
-
-                  Expanded(child: CardServices(color: goldCardColor, title: titleCard, description: descriptionCard,)),
-                  Expanded(child: CardServices(color: goldCardColor, title: titleCard, description: descriptionCard,)),
-                  Expanded(child: CardServices(color: goldCardColor, title: titleCard, description: descriptionCard,)),
+                  //dynamicly create tje CardServices based on the titles and descriptions from the API
+                  ...premiumTitles.map((e) => Expanded(child: CardServices(color: goldCardColor, title: e, description: premiumDescriptions[premiumTitles.indexOf(e)],))).toList(),
                 ],
               ),
               verticalSpaceLarge,

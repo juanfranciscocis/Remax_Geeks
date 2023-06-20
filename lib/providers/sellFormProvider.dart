@@ -17,7 +17,7 @@ class SellFormProvider extends ChangeNotifier{
     notifyListeners();
   }
   set type (String type){
-    _sellingFormModel.type = type;
+    _sellingFormModel.typeProperty = type;
     notifyListeners();
   }
   set serviceType (String serviceType){
@@ -40,20 +40,20 @@ class SellFormProvider extends ChangeNotifier{
     _sellingFormModel.sendAgent = sendAgent;
     notifyListeners();
   }
+  set servicesChosen (List<String> servicesChosen){
+    _sellingFormModel.servicesChosen = servicesChosen;
+    notifyListeners();
+  }
 
   //GETTERS
   String get condition => _sellingFormModel.condition ?? 'NO CONDITION';
   String get address => _sellingFormModel.address ?? 'NO ADDRESS';
-  String get type => _sellingFormModel.type ?? 'NO TYPE';
+  String get type => _sellingFormModel.typeProperty ?? 'NO TYPE';
   String get serviceType => _sellingFormModel.serviceType ?? 'NO SERVICE TYPE';
   List<int> get apiPrices => _sellingFormModel.apiPrices ?? [0,0,0];
   int get averageApiPrice => _sellingFormModel.averageApiPrice ?? 0;
   int get costumerPrice => _sellingFormModel.costumerPrice ?? 0;
   bool get sendAgent => _sellingFormModel.sendAgent ?? false;
-
-
-
-  //TODO: OTHER PROPERTIES
-
+  List<String> get servicesChosen => _sellingFormModel.servicesChosen ?? [];
 
 }
