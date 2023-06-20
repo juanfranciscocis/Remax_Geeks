@@ -17,7 +17,7 @@ class CardServices extends StatelessWidget {
       child: Card(
 
         //add a title, a description and a checkbox
-        color: goldCardColor,
+        color: color,
         elevation: 10.0,
         //ROUND CORNERS
         shape: RoundedRectangleBorder(
@@ -62,7 +62,7 @@ class CardServices extends StatelessWidget {
                   //round corners of the container
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
-                    color: secondaryCardColor,
+                    color: thirdCardColor,
                     //shadow
                     boxShadow: [
                       BoxShadow(

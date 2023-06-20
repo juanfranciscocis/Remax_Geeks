@@ -84,4 +84,4 @@ const String whatYouGetDescription = 'Experience the Ultimate Convenience with o
 const String addPremiumServices = 'Add Premium Services...';
 
 //CUSTOM SERVICES
-const String chooseService = 'Choose Service';
+const String addCustomServices = 'Choose Services...';
