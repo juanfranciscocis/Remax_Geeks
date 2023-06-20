@@ -10,10 +10,10 @@ import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
-import '../../../widgets/services/CardApiInformationDesktop.dart';
-import '../../../widgets/services/CardAverageApiDesktop.dart';
-import '../../../widgets/services/CardSendAgent.dart';
+import '../../../widgets/services/forDesktop/CardApiInformationDesktop.dart';
+import '../../../widgets/services/forDesktop/CardAverageApiDesktop.dart';
 import '../../../widgets/services/CardServices.dart';
+import '../../../widgets/services/forDesktop/CardSendAgentDesktop.dart';
 import 'fullService_viewmodel.dart';
 
 class FullServiceDesktop extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../ui/common/app_colors.dart';
-import '../../ui/common/app_strings.dart';
+import '../../../ui/common/app_colors.dart';
+import '../../../ui/common/app_strings.dart';
 
 
 class CardAverageApiDesktop extends StatelessWidget {

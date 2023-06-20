@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../providers/sellFormProvider.dart';
-import '../../ui/common/app_colors.dart';
-import '../../ui/common/app_strings.dart';
+import '../../../providers/sellFormProvider.dart';
+import '../../../ui/common/app_colors.dart';
+import '../../../ui/common/app_strings.dart';
+
+
 
 //AGENT CHECKBOX
 class CheckBoxAgent extends StatefulWidget {

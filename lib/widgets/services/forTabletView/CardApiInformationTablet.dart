@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../ui/common/app_colors.dart';
-import '../../ui/common/app_strings.dart';
+import '../../../ui/common/app_colors.dart';
+import '../../../ui/common/app_strings.dart';
 
-class CardApiInformationDesktop extends StatelessWidget {
+
+class CardApiInformationTablet extends StatelessWidget {
   final String imagePath;
   final String estimatedPriceApi;
-  const CardApiInformationDesktop({
+  const CardApiInformationTablet({
     super.key, required this.imagePath, required this.estimatedPriceApi,
   });
 
@@ -52,7 +53,7 @@ class CardApiInformationDesktop extends StatelessWidget {
                         style: TextStyle(
                           color: fontSecondColor,
                           fontFamily: fontOutfitMedium,
-                          fontSize: 50,
+                          fontSize: 40,
                         ),
                       ),
                     ),
@@ -69,7 +70,7 @@ class CardApiInformationDesktop extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.black,
                       fontFamily: fontOutfitMedium,
-                      fontSize: 100,
+                      fontSize: 70,
                     ),
                   ),
                 ),
