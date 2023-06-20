@@ -15,8 +15,6 @@ class LandingPageDesktopSite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dbProvider = Provider.of<DBProvider>(context);
-    print(dbProvider.getNumberOfCostumers());
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

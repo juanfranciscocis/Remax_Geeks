@@ -39,7 +39,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SellFormProvider()),
       ],
       child: ResponsiveApp(
-
           preferDesktop: true,
           builder: (_) => MaterialApp.router(
                 title: 'Remax Geeks',

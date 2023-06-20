@@ -1,15 +1,21 @@
+import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../providers/sellFormProvider.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../common/app_strings.dart';
 import 'address_viewmodel.dart';
 
 class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
-  const AddressViewMobile({super.key});
+
+  DBProvider dbProvider;
+  SellFormProvider sellFormProvider;
+
+  AddressViewMobile({super.key, required this.dbProvider, required this.sellFormProvider});
 
   @override
   Widget build(BuildContext context, AddressViewModel viewModel) {
@@ -73,7 +79,9 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                         padding: const EdgeInsets.only(left: 20.0),
                         child: MaterialButton(
                           onPressed: () {
-                            print('NEW/EXCELLENT PRESSED');
+                            //ADD NEW/EXCELLENT TO THE FORM PROVIDER
+                            sellFormProvider.condition = condition1;
+                            print(sellFormProvider.condition);
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -97,7 +105,9 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                         padding: const EdgeInsets.only(left: 20.0),
                         child: MaterialButton(
                           onPressed: () {
-                            print('GOOD PRESSED');
+                            //ADD GOOD TO THE FORM PROVIDER
+                            sellFormProvider.condition = condition2;
+                            print(sellFormProvider.condition);
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -128,7 +138,9 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                       padding: const EdgeInsets.only(left: 20.0),
                       child: MaterialButton(
                         onPressed: () {
-                          print('UNDER CONSTRUCTION PRESSED');
+                          //ADD FAIR TO THE FORM PROVIDER
+                          sellFormProvider.condition = condition3;
+                          print(sellFormProvider.condition);
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
@@ -152,7 +164,9 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                       padding: const EdgeInsets.only(left: 20.0),
                       child: MaterialButton(
                         onPressed: () {
-                          print('NEEDS RENOVATION PRESSED');
+                          //ADD POOR TO THE FORM PROVIDER
+                          sellFormProvider.condition = condition4;
+                          print(sellFormProvider.condition);
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
@@ -194,7 +208,9 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                         padding: const EdgeInsets.only(left: 20.0),
                         child: MaterialButton(
                           onPressed: () {
-                            print('RESIDENTIAL PRESSED');
+                            //ADD RESIDENTIAL TO THE FORM PROVIDER
+                            sellFormProvider.type = type1;
+                            print(sellFormProvider.type);
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -218,7 +234,9 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                         padding: const EdgeInsets.only(left: 20.0),
                         child: MaterialButton(
                           onPressed: () {
-                            print('COMMERCIAL PRESSED');
+                            //ADD COMMERCIAL TO THE FORM PROVIDER
+                            sellFormProvider.type = type2;
+                            print(sellFormProvider.type);
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -249,7 +267,9 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                       padding: const EdgeInsets.only(left: 20.0),
                       child: MaterialButton(
                         onPressed: () {
-                          print('LAND PRESSED');
+                          //ADD LAND TO THE FORM PROVIDER
+                          sellFormProvider.type = type3;
+                          print(sellFormProvider.type);
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
@@ -275,13 +295,20 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                 //add a button to the right of the screen, confirmation color
                 Center(
                   child: MaterialButton(
-                    onPressed: () {
+                    onPressed: () async {
                       print('NEXT PART OF THE FORM PRESSED');
+                      Map<String, dynamic> data = {
+                        'ADDRESS': sellFormProvider.address,
+                        'CONDITION': sellFormProvider.condition,
+                        'TYPE': sellFormProvider.type,
+                      };
+                      await dbProvider.setSellingFormData(data);
+                      await dbProvider.incrementNumberOfCostumers();
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Image.asset(
-                        'assets/confirm.png',
+                        addressContinueButton,
                         height: 50,
                         width: 100,
                       ),
