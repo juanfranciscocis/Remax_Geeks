@@ -8,6 +8,7 @@ import 'package:stacked/stacked.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../common/app_strings.dart';
+import '../fullService/fullService_view.dart';
 import 'chooseServiceType_viewmodel.dart';
 
 class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel> {
@@ -94,7 +95,8 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                               //SELL FORM PROVIDER => 'Full Service'
                               sellFormProvider.serviceType = chooseServiceTypeCard1Title;
                               print(sellFormProvider.serviceType);
-                              //TODO: NAVIGATE TO NEXT PAGE
+                              //NAVIGATE TO NEXT PAGE
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const FullServiceView()));
                             },
                             color: confirmButtonColor,
                             shape: RoundedRectangleBorder(

@@ -6,7 +6,7 @@ import 'package:stacked/stacked.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
 import 'chooseServiceType.desktop.dart';
-import 'chooseServiceType_view.tablet.dart';
+import 'chooseServiceType.tablet.dart';
 import 'chooseServiceType.mobile.dart';
 import 'chooseServiceType_viewmodel.dart';
 

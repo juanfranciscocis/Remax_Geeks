@@ -4,6 +4,7 @@ import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:remax_geeks/ui/views/fullService/fullService_view.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../providers/dbProvider.dart';
@@ -94,7 +95,9 @@ class ChooseServiceTypeDesktop extends ViewModelWidget<ChooseServiceTypeViewMode
                             //SELL FORM PROVIDER => 'Full Service'
                             sellFormProvider.serviceType = chooseServiceTypeCard1Title;
                             print(sellFormProvider.serviceType);
-                            //TODO: NAVIGATE TO NEXT PAGE
+                            //NAVIGATE TO NEXT PAGE
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const FullServiceView()));
+
                           },
                           color: confirmButtonColor,
                           shape: RoundedRectangleBorder(

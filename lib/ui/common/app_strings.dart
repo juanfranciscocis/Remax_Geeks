@@ -1,3 +1,4 @@
+
 const String ksHomeBottomSheetTitle = 'Build Great Apps!';
 const String ksHomeBottomSheetDescription =
     'Stacked is built to help you build better apps. Give us a chance and we\'ll prove it to you. Check out stacked.filledstacks.com to learn more';
@@ -63,3 +64,23 @@ const String chooseServiceTypeCard2Subtitle = 'Experience the Ultimate '
 'satisfaction.Experience the Ultimate '
 'Convenience with our Full Service Package!';
 const String chooseServiceTypeCardConfirmButton = 'assets/confirm.png';
+
+//GENERAL SERVICES
+const String estimatesPrice = 'ESTIMATES YOUR PROPERTY PRICE AT:';
+const String imageZillow = 'assets/services/zillow.png';
+const String imageRM  = 'assets/services/rm.png';
+const String imageAmericanRealState = 'assets/services/americanRealState.png';
+const String averagePrice = 'Average Price';
+const String enterYourDesiredPrice = 'ENTER YOUR DESIRED PRICE';
+const String enterYourDesiredPriceBox = 'Enter Price';
+const String sendAgent = 'SEND AN AGENT FOR COMPARATIVE MARKET ANALYSIS?';
+const String confirmForm = 'assets/confirm.png';
+const String sendInformation = 'Send Information';
+
+//FULL SERVICES
+const String whatYouGet = 'Full Service Includes:';
+const String whatYouGetDescription = 'Experience the Ultimate Convenience with our Full Service Package!Get the greatest deal while enjoying a personalized, hands-on approach that ensures your complete satisfaction.Experience the Ultimate Convenience with our Full Service Package!Get the greatest deal while enjoying a personalized, hands-on approach that ensures your complete satisfaction.Experience the Ultimate Convenience with our Full Service Package!Get the greatest deal while enjoying a personalized, hands-on approach that ensures your complete satisfaction.Experience the Ultimate Convenience with our ';
+const String addPremiumServices = 'Add Premium Services...';
+
+//CUSTOM SERVICES
+const String chooseService = 'Choose Service';
