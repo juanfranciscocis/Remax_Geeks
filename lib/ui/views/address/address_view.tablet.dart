@@ -8,6 +8,7 @@ import '../../../providers/sellFormProvider.dart';
 import '../../../widgets/landingPage/LandingPageTabletSite.dart';
 import '../../../widgets/landingPage/MainTabletNavBar.dart';
 import '../../common/app_strings.dart';
+import '../chooseServiceType/chooseServiceType_view.dart';
 import 'address_viewmodel.dart';
 
 class AddressViewTablet extends ViewModelWidget<AddressViewModel> {
@@ -299,6 +300,7 @@ class AddressViewTablet extends ViewModelWidget<AddressViewModel> {
                   Center(
                     child: MaterialButton(
                       onPressed: () async {
+                        /*
                         print('NEXT PART OF THE FORM PRESSED');
                         Map<String, dynamic> data = {
                           'ADDRESS': sellFormProvider.address,
@@ -307,6 +309,9 @@ class AddressViewTablet extends ViewModelWidget<AddressViewModel> {
                         };
                         await dbProvider.setSellingFormData(data);
                         await dbProvider.incrementNumberOfCostumers();
+                         */
+                        //NAVIGATE TO THE CHOOSE SERVICE TYPE SCREEN
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseServiceTypeView()));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

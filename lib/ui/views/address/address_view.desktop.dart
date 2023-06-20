@@ -10,6 +10,7 @@ import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
+import '../chooseServiceType/chooseServiceType_view.dart';
 import 'address_viewmodel.dart';
 
 class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
@@ -300,16 +301,8 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
               Center(
                 child: MaterialButton(
                   onPressed: () async {
-                    //TODO: JUST CHANGE TO THE NEXT PAGE
-                    await dbProvider.getNumberOfCostumers();
-                    print('NEXT PART OF THE FORM PRESSED');
-                    Map<String, dynamic> data = {
-                      'ADDRESS': sellFormProvider.address,
-                      'CONDITION': sellFormProvider.condition,
-                      'TYPE': sellFormProvider.type,
-                    };
-                    await dbProvider.setSellingFormData(data);
-                    await dbProvider.incrementNumberOfCostumers();
+                    //NAVIGATE TO THE CHOOSE SERVICE TYPE SCREEN
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseServiceTypeView()));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
