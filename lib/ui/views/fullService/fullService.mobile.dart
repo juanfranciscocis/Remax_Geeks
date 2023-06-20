@@ -23,8 +23,9 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
   String averageApiPrice = '\$100,000.00'; //TODO: API CALL AVERAGE PRICE
   List<String> premiumTitles;
   List<String> premiumDescriptions;
+  String fullServiceIncludes;
 
-  FullServiceMobile({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions});
+  FullServiceMobile({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions, required this.fullServiceIncludes});
 
   @override
   Widget build(BuildContext context, FullServiceViewModel viewModel) {
@@ -171,7 +172,7 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
                             child: Padding(
                               padding: EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 0.0),
                               child: Text(
-                                whatYouGetDescription,
+                                fullServiceIncludes,
                                 textAlign: TextAlign.justify,
                                 style: TextStyle(
                                   color: fontWhiteColor,

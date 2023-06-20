@@ -22,9 +22,9 @@ class FullServiceView extends StackedView<FullServiceViewModel> {
     final dbProvider = Provider.of<DBProvider>(context, listen: false);
     final sellFormProvider = Provider.of<SellFormProvider>(context);
     return ScreenTypeLayout.builder(
-      mobile: (_) => FullServiceMobile(dbProvider: dbProvider, sellFormProvider: sellFormProvider,premiumTitles: dbProvider.pTitles, premiumDescriptions: dbProvider.pDescriptions ,),
-      tablet: (_) => FullServiceTablet(dbProvider: dbProvider, sellFormProvider: sellFormProvider, premiumTitles: dbProvider.pTitles, premiumDescriptions: dbProvider.pDescriptions ,), //ADD TABLET VIEW IF NEEDED
-      desktop: (_) => FullServiceDesktop(dbProvider: dbProvider,sellFormProvider: sellFormProvider, premiumTitles: dbProvider.pTitles, premiumDescriptions: dbProvider.pDescriptions ,),
+      mobile: (_) => FullServiceMobile(dbProvider: dbProvider, sellFormProvider: sellFormProvider,premiumTitles: dbProvider.pTitles, premiumDescriptions: dbProvider.pDescriptions , fullServiceIncludes: dbProvider.pFullServiceIncludes,),
+      tablet: (_) => FullServiceTablet(dbProvider: dbProvider, sellFormProvider: sellFormProvider, premiumTitles: dbProvider.pTitles, premiumDescriptions: dbProvider.pDescriptions , fullServiceIncludes: dbProvider.pFullServiceIncludes,),
+      desktop: (_) => FullServiceDesktop(dbProvider: dbProvider,sellFormProvider: sellFormProvider, premiumTitles: dbProvider.pTitles, premiumDescriptions: dbProvider.pDescriptions , fullServiceIncludes: dbProvider.pFullServiceIncludes,),
     );
   }
 

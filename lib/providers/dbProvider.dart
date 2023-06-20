@@ -13,6 +13,7 @@ class DBProvider extends ChangeNotifier{
   //GETTING PREMIUM SERVICES TITLES AND DESCRIPTIONS
   late List<String> pTitles;
   late List<String> pDescriptions;
+  late String pFullServiceIncludes;
 
   //CONSTRUCTOR
   DBProvider(){
@@ -57,6 +58,15 @@ class DBProvider extends ChangeNotifier{
 
   }
 
+  //GET FULL SERVICE DESCRIPTION
+  Future<String> getFullServiceIncludes() async{
+    final snapshot = await _databaseReference!.child('FULL_SERVICE_INCLUDES').get();
+    final fullServiceIncludes = snapshot.value as String;
+    this.pFullServiceIncludes = fullServiceIncludes;
+    notifyListeners();
+    return pFullServiceIncludes;
+  }
+
   //GET PREMIUM SERVICES DESCRIPTIONS
   Future<List<String>> getPremiumServicesDescriptions() async{
     final snapshot = await _databaseReference!.child('PREMIUM_SERVICES_DESCRIPTIONS').get();
@@ -85,6 +95,7 @@ class DBProvider extends ChangeNotifier{
     //PREMIUM
     getPremiumServicesTitles();
     getPremiumServicesDescriptions();
+    getFullServiceIncludes();
 
   }
 

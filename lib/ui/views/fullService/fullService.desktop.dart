@@ -22,8 +22,9 @@ class FullServiceDesktop extends StatelessWidget {
   SellFormProvider sellFormProvider;
   List<String> premiumTitles;
   List<String> premiumDescriptions;
+  String fullServiceIncludes;
   String averageApiPrice = '\$100,000.00'; //TODO: API CALL AVERAGE PRICE
-  FullServiceDesktop({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions});
+  FullServiceDesktop({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions, required this.fullServiceIncludes});
 
   @override
   Widget build(BuildContext context) {
@@ -149,10 +150,11 @@ class FullServiceDesktop extends StatelessWidget {
                     height: 350.0,
                     width: 1000.0,
                     child:  Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Center(
                           child: Padding(
-                            padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0, bottom: 0.0),
+                            padding: EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 0.0),
                             child: Text(
                               whatYouGet,
                               textAlign: TextAlign.center,
@@ -168,12 +170,12 @@ class FullServiceDesktop extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 0.0),
                             child: Text(
-                              whatYouGetDescription,
+                              fullServiceIncludes,
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 color: fontWhiteColor,
                                 fontFamily: fontOutfitRegular,
-                                fontSize: 20,
+                                fontSize: 22,
                               ),
                             ),
                           ),
