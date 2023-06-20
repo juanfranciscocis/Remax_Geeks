@@ -301,6 +301,7 @@ class AddressViewTablet extends ViewModelWidget<AddressViewModel> {
                     child: MaterialButton(
                       onPressed: () async {
                         /*
+                        await dbProvider.getNumberOfCostumers();
                         print('NEXT PART OF THE FORM PRESSED');
                         Map<String, dynamic> data = {
                           'ADDRESS': sellFormProvider.address,
@@ -309,6 +310,7 @@ class AddressViewTablet extends ViewModelWidget<AddressViewModel> {
                         };
                         await dbProvider.setSellingFormData(data);
                         await dbProvider.incrementNumberOfCostumers();
+
                          */
                         //NAVIGATE TO THE CHOOSE SERVICE TYPE SCREEN
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseServiceTypeView()));

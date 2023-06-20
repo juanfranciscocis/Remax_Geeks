@@ -35,3 +35,31 @@ const String type1 = 'Residential';
 const String type2 = 'Commercial';
 const String type3 = 'Land';
 const String addressContinueButton = 'assets/confirm.png';
+
+//CHOOSE SERVICE TYPE
+const String chooseServiceTypeTitle = 'Choose service type...';
+const String chooseServiceTypeCard1Title = 'Full Service';
+const String chooseServiceTypeCard1Subtitle = 'Experience the Ultimate '
+    'Convenience with our Full Service Package!Get the greatest deal while '
+    'enjoying a personalized, hands-on approach that ensures your complete '
+    'satisfaction. Experience the Ultimate '
+    'Convenience with our Full Service Package!Get the greatest deal while '
+    'enjoying a personalized, hands-on approach that ensures your complete '
+    'satisfaction.Experience the Ultimate '
+    'Convenience with our Full Service Package!Get the greatest deal while '
+    'enjoying a personalized, hands-on approach that ensures your complete '
+    'satisfaction.Experience the Ultimate '
+    'Convenience with our Full Service Package!';
+const String chooseServiceTypeCard2Title = 'Custom Service';
+const String chooseServiceTypeCard2Subtitle = 'Experience the Ultimate '
+'Convenience with our Full Service Package!Get the greatest deal while '
+'enjoying a personalized, hands-on approach that ensures your complete '
+'satisfaction. Experience the Ultimate '
+'Convenience with our Full Service Package!Get the greatest deal while '
+'enjoying a personalized, hands-on approach that ensures your complete '
+'satisfaction.Experience the Ultimate '
+'Convenience with our Full Service Package!Get the greatest deal while '
+'enjoying a personalized, hands-on approach that ensures your complete '
+'satisfaction.Experience the Ultimate '
+'Convenience with our Full Service Package!';
+const String chooseServiceTypeCardConfirmButton = 'assets/confirm.png';

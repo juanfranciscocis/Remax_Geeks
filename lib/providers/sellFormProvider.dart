@@ -20,11 +20,16 @@ class SellFormProvider extends ChangeNotifier{
     _sellingFormModel.type = type;
     notifyListeners();
   }
+  set serviceType (String serviceType){
+    _sellingFormModel.serviceType = serviceType;
+    notifyListeners();
+  }
 
   //GETTERS
   String get condition => _sellingFormModel.condition ?? 'NO CONDITION';
   String get address => _sellingFormModel.address ?? 'NO ADDRESS';
   String get type => _sellingFormModel.type ?? 'NO TYPE';
+  String get serviceType => _sellingFormModel.serviceType ?? 'NO SERVICE TYPE';
 
 
 

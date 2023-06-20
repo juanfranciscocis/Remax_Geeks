@@ -30,6 +30,140 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
 
+                //TEXT, CENTER IN SCREEN, "Choose a service type...", outfibold, color fontMainColor, size 55
+                verticalSpaceLarge,
+                const Text(
+                  chooseServiceTypeTitle,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: fontMainColor,
+                    fontFamily: fontOutfitBold,
+                    fontSize: 55,
+                  ),
+                ),
+                //TO CARDS IN A ROW, WITH A TITLE, A SUBTITLE AND ONE CENTERED BUTTON, A MATERIAL BUTTON
+                //CARD 1
+                verticalSpaceLarge,
+                Center(
+                  child: Container(
+                    width: 500,
+                    height: 850,
+                    decoration: BoxDecoration(
+                      color: primaryCardColor,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          //TITLE
+                          const Padding(
+                            padding: EdgeInsets.only(top: 10.0),
+                            child: Text(
+                              chooseServiceTypeCard1Title,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: fontWhiteColor,
+                                fontFamily: fontOutfitBold,
+                                fontSize: 60,
+                              ),
+                            ),
+                          ),
+                          //SUBTITLE
+                          const Text(
+                            chooseServiceTypeCard1Subtitle,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: fontWhiteColor,
+                              fontFamily: fontOutfitRegular,
+                              fontSize: 25,
+                            ),
+                          ),
+                          //BUTTON
+                          MaterialButton(
+                            onPressed: () {
+                              //SELL FORM PROVIDER => 'Full Service'
+                              sellFormProvider.serviceType = chooseServiceTypeCard1Title;
+                              print(sellFormProvider.serviceType);
+                              //TODO: NAVIGATE TO NEXT PAGE
+                            },
+                            color: confirmButtonColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Image.asset(
+                              chooseServiceTypeCardConfirmButton,
+                              width: 600,
+                              height: 70,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                verticalSpaceLarge,
+                //CARD 2
+                Container(
+                  width: 500,
+                  height: 850,
+                  decoration: BoxDecoration(
+                    color: primaryCardColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        //TITLE
+                        const Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            chooseServiceTypeCard2Title,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: fontWhiteColor,
+                              fontFamily: fontOutfitBold,
+                              fontSize: 55,
+                            ),
+                          ),
+                        ),
+                        //SUBTITLE
+                        const Text(
+                          chooseServiceTypeCard2Subtitle,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: fontWhiteColor,
+                            fontFamily: fontOutfitRegular,
+                            fontSize: 25,
+                          ),
+                        ),
+                        //BUTTON
+                        MaterialButton(
+                          onPressed: () {
+                            //SELL FORM PROVIDER => 'Full Service'
+                            sellFormProvider.serviceType = chooseServiceTypeCard2Title;
+                            print(sellFormProvider.serviceType);
+                            //TODO: NAVIGATE TO NEXT PAGE
+                          },
+                          color: confirmButtonColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Image.asset(
+                            chooseServiceTypeCardConfirmButton,
+                            width: 600,
+                            height: 70,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                verticalSpaceLarge,
+
             ],
             ),
         ),
