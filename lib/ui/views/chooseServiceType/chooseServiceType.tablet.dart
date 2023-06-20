@@ -21,6 +21,7 @@ class ChooseServiceTypeTablet extends ViewModelWidget<ChooseServiceTypeViewModel
   @override
   Widget build(BuildContext context, ChooseServiceTypeViewModel viewModel) {
     return  Scaffold(
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

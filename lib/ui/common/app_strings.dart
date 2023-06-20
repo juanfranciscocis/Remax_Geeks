@@ -66,6 +66,7 @@ const String chooseServiceTypeCard2Subtitle = 'Experience the Ultimate '
 const String chooseServiceTypeCardConfirmButton = 'assets/confirm.png';
 
 //GENERAL SERVICES
+const String thisIsWhatWeFound = 'This is what we found out!';
 const String estimatesPrice = 'ESTIMATES YOUR PROPERTY PRICE AT:';
 const String imageZillow = 'assets/services/zillow.png';
 const String imageRM  = 'assets/services/rm.png';

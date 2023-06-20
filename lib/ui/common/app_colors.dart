@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 const Color primaryColor = Color(0xffee8f23);
 const Color secondaryColor = Color(0xfff2bc39);
 const Color navColor = Color(0xfff5d3a7);
-const Color backgroundColor = Color(0xffffffff);
+const Color backgroundColor = Color(0xfffff8e0);
 const Color inputColor = Color(0xffd1d1d2);
 const Color inputColor2 = Color(0xff404041);
 

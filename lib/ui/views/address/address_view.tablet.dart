@@ -21,6 +21,7 @@ class AddressViewTablet extends ViewModelWidget<AddressViewModel> {
   @override
   Widget build(BuildContext context, AddressViewModel viewModel) {
     return  Scaffold(
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

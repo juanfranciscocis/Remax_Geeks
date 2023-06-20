@@ -30,6 +30,7 @@ class FullServiceTablet extends ViewModelWidget<FullServiceViewModel> {
   @override
   Widget build(BuildContext context, FullServiceViewModel viewModel) {
     return  Scaffold(
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -39,10 +40,20 @@ class FullServiceTablet extends ViewModelWidget<FullServiceViewModel> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   verticalSpaceLarge,
                   // A CARD, WITH 1 IMAGE AT THE LEFT INSIDE THE CARD, 1 TEXT ON THE RIGHT INSIDE THE CARD AND FINIALY ANOTHER TEXT BELOW CENTERED INSIDE THE CARD
                   //CARD 1
+                  Text(
+                    thisIsWhatWeFound,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: fontMainColor,
+                      fontFamily: fontOutfitBold,
+                      fontSize: 60,
+                    ),
+                  ),
+
+                  verticalSpaceLarge,
                   //TODO: API CALL AS A LIST
                   CardApiInformationTablet(imagePath:imageZillow,estimatedPriceApi: '\$100,000.00' ,),
                   verticalSpaceTiny,
