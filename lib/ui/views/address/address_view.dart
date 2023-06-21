@@ -21,6 +21,7 @@ class AddressView extends StackedView<AddressViewModel> {
   ) {
     final dbProvider = Provider.of<DBProvider>(context);
     dbProvider.getFullServiceIncludes();
+    dbProvider.getCustomServicesIncludes();
     final sellFormProvider = Provider.of<SellFormProvider>(context);
     return ScreenTypeLayout.builder(
       mobile: (_) => AddressViewMobile(dbProvider: dbProvider, sellFormProvider: sellFormProvider),
