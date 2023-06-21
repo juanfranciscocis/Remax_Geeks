@@ -25,25 +25,23 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),
+            padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //ADD A TITLE IN THE TOP OF THE SCREEN, fontPrimaryColor, OutfitBold
+                verticalSpaceLarge,
                 const Text(
                   addressLocationOfProperty,
                   style: TextStyle(
                     color: fontMainColor,
                     fontFamily: fontOutfitBold,
-                    fontSize: 50,
+                    fontSize: 60,
                   ),
                 ),
                 verticalSpaceMedium,
                 const TextField(
                   decoration: InputDecoration(
                     labelText: addressBox,
-                    //label text style
                     labelStyle: TextStyle(
                       color: fontSecondColor,
                       fontFamily: fontOutfitRegular,
@@ -56,270 +54,177 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                       ),
                     ),
                     filled: true,
-                    //fill color red
                     fillColor: inputColor,
                   ),
                 ),
                 verticalSpaceLarge,
-                //add another title adressCondition, fontPrimaryColor, OutfitBold
                 const Text(
                   addressCondition,
                   style: TextStyle(
                     color: fontMainColor,
                     fontFamily: fontOutfitBold,
-                    fontSize: 50,
+                    fontSize: 60,
                   ),
                 ),
-                //add 4 material buttons, 2 in each row
                 verticalSpaceMedium,
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: MaterialButton(
-                          onPressed: () {
-                            //ADD NEW/EXCELLENT TO THE FORM PROVIDER
-                            sellFormProvider.condition = condition1;
-                            print(sellFormProvider.condition);
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              condition1,
-                              style: TextStyle(
-                                color: fontWhiteColor,
-                                fontFamily: fontOutfitMedium,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                          color: primaryButtonColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          elevation: 5.0,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: MaterialButton(
-                          onPressed: () {
-                            //ADD GOOD TO THE FORM PROVIDER
-                            sellFormProvider.condition = condition2;
-                            print(sellFormProvider.condition);
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              condition2,
-                              style: TextStyle(
-                                color: fontWhiteColor,
-                                fontFamily: fontOutfitMedium,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                          color: primaryButtonColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          elevation: 5.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                verticalSpaceTiny,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //A COLUMN WITH TWO ROWS WITH TWO BUTTONS IN EACH ROW,
+                Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: MaterialButton(
-                        onPressed: () {
-                          //ADD FAIR TO THE FORM PROVIDER
-                          sellFormProvider.condition = condition3;
-                          print(sellFormProvider.condition);
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            condition3,
-                            style: TextStyle(
-                              color: fontWhiteColor,
-                              fontFamily: fontOutfitMedium,
-                              fontSize: 20,
-                            ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildMaterialButton(
+                            title: condition1,
+                            onPressed: () {
+                              // Handle button 1 press
+                            },
                           ),
                         ),
-                        color: primaryButtonColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                        SizedBox(width: 16.0), // Adjust the spacing between buttons
+                        Expanded(
+                          child: _buildMaterialButton(
+                            title: condition2,
+                            onPressed: () {
+                              // Handle button 2 press
+                            },
+                          ),
                         ),
-                        elevation: 5.0,
-                      ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: MaterialButton(
-                        onPressed: () {
-                          //ADD POOR TO THE FORM PROVIDER
-                          sellFormProvider.condition = condition4;
-                          print(sellFormProvider.condition);
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            condition4,
-                            style: TextStyle(
-                              color: fontWhiteColor,
-                              fontFamily: fontOutfitMedium,
-                              fontSize: 20,
-                            ),
+                    SizedBox(height: 16.0), // Adjust the spacing between rows
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildMaterialButton(
+                            title: condition3,
+                            onPressed: () {
+                              // Handle button 3 press
+                            },
                           ),
                         ),
-                        color: primaryButtonColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                        SizedBox(width: 16.0), // Adjust the spacing between buttons
+                        Expanded(
+                          child: _buildMaterialButton(
+                            title: condition4,
+                            onPressed: () {
+                              // Handle button 4 press
+                            },
+                          ),
                         ),
-                        elevation: 5.0,
-                      ),
+                      ],
                     ),
                   ],
                 ),
+
+
                 verticalSpaceLarge,
-                //add another title adressCondition, fontPrimaryColor, OutfitBold
                 const Text(
                   addressTypeOfProperty,
                   style: TextStyle(
                     color: fontMainColor,
                     fontFamily: fontOutfitBold,
-                    fontSize: 50,
+                    fontSize: 60,
                   ),
                 ),
-                //add 4 material buttons, 2 in each row
                 verticalSpaceMedium,
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: MaterialButton(
-                          onPressed: () {
-                            //ADD RESIDENTIAL TO THE FORM PROVIDER
-                            sellFormProvider.type = type1;
-                            print(sellFormProvider.type);
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              type1,
-                              style: TextStyle(
-                                color: fontWhiteColor,
-                                fontFamily: fontOutfitMedium,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                          color: primaryButtonColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          elevation: 5.0,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: MaterialButton(
-                          onPressed: () {
-                            //ADD COMMERCIAL TO THE FORM PROVIDER
-                            sellFormProvider.type = type2;
-                            print(sellFormProvider.type);
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              type2,
-                              style: TextStyle(
-                                color: fontWhiteColor,
-                                fontFamily: fontOutfitMedium,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                          color: primaryButtonColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          elevation: 5.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                verticalSpaceTiny,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //A COLUMN WITH TWO ROWS WITH TWO BUTTONS IN ROW 1 AND ONE BUTTON IN ROW 2 CENTERED
+                Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: MaterialButton(
-                        onPressed: () {
-                          //ADD LAND TO THE FORM PROVIDER
-                          sellFormProvider.type = type3;
-                          print(sellFormProvider.type);
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            type3,
-                            style: TextStyle(
-                              color: fontWhiteColor,
-                              fontFamily: fontOutfitMedium,
-                              fontSize: 20,
-                            ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildMaterialButton(
+                            title: type1,
+                            onPressed: () {
+                              // Handle button 1 press
+                            },
                           ),
                         ),
-                        color: primaryButtonColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                        SizedBox(width: 16.0), // Adjust the spacing between buttons
+                        Expanded(
+                          child: _buildMaterialButton(
+                            title: type2,
+                            onPressed: () {
+                              // Handle button 2 press
+                            },
+                          ),
                         ),
-                        elevation: 5.0,
-                      ),
+                      ],
+                    ),
+                    SizedBox(height: 16.0), // Adjust the spacing between rows
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: _buildMaterialButton(
+                            title: type3,
+                            onPressed: () {
+                              // Handle button 3 press
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              verticalSpaceLarge,
-                //add a button to the right of the screen, confirmation color
-                Center(
-                  child: MaterialButton(
-                    onPressed: () async {
-                      //NAVIGATE TO THE CHOOSE SERVICE TYPE SCREEN
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseServiceTypeView()));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        addressContinueButton,
-                        height: 50,
-                        width: 100,
+
+                verticalSpaceLarge,
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: FractionallySizedBox(
+                    widthFactor: 0.2, // Adjust the width as needed
+                    child: MaterialButton(
+                      onPressed: () async {
+                        // Navigate to the ChooseServiceTypeView
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseServiceTypeView()));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset(
+                          addressContinueButton,
+                          height: 50,
+                          width: 100,
+                        ),
                       ),
+                      color: confirmButtonColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      elevation: 5.0,
                     ),
-                    color: confirmButtonColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    elevation: 5.0,
                   ),
                 ),
-            ],
+                verticalSpaceLarge,
+              ],
             ),
+          ),
         ),
       ),
-    ));
+    );
+  }
+  Widget _buildMaterialButton({
+    required String title,
+    required VoidCallback onPressed,
+  }) {
+    return MaterialButton(
+      //round the corners of the button
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      elevation: 5.0,
+      onPressed: onPressed,
+      color: primaryButtonColor,
+      textColor: Colors.white,
+      child: Text(
+        title,
+        //center
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: fontOutfitBold,
+          fontSize: 29,
+        ),
+      ),
+    );
   }
 }
 
