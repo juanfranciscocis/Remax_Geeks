@@ -21,9 +21,10 @@ class CustomServiceDesktop extends StatelessWidget {
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
   String averageApiPrice = '\$100,000.00'; //TODO: API CALL AVERAGE PRICE
-  String titleCard = 'Title'; //TODO: DB CALL
-  String descriptionCard = 'Description'; //TODO: DB CALL
-  CustomServiceDesktop({super.key, required this.dbProvider, required this.sellFormProvider});
+  List<String> customTitles;
+  List<String> customDescriptions;
+
+  CustomServiceDesktop({super.key, required this.dbProvider, required this.sellFormProvider, required this.customTitles, required this.customDescriptions});
 
   @override
   Widget build(BuildContext context) {
@@ -144,36 +145,43 @@ class CustomServiceDesktop extends StatelessWidget {
                   fontSize: 60,
                 ),
               ),
-              verticalSpaceMedium,
+              //verticalSpaceMedium,
 
 
-              //TODO: MAKE IT DYNAMIC
-              //A row of three cards, color will be gold, with a title a description and a checkbox centered
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  //3 cards, smaller ones
-                  //CARD 4
-                  //TODO: READ FROM API TITLE AND DESCRIPTION
+              //TODO: MAKE IT DYNAMIC, READ FROM DB, 3 CARDS IN A ROW
+            Container(
+              height: MediaQuery.of(context).size.height, // Set a specific height or use MediaQuery to get the available height
+              child: ListView.builder(
+                itemCount: (customTitles.length / 3).ceil(),
+                itemBuilder: (context, index) {
+                  final startIndex = index * 3;
+                  final endIndex = startIndex + 3;
 
-                  Expanded(child: CardServices(color: primaryCardColor, title: titleCard, description: descriptionCard,)),
-                  Expanded(child: CardServices(color: primaryCardColor, title: titleCard, description: descriptionCard,)),
-                  Expanded(child: CardServices(color: primaryCardColor, title: titleCard, description: descriptionCard,)),
-                ],
+                  return Row(
+                    children: [
+                      for (var i = startIndex; i < endIndex && i < customTitles.length; i++)
+                        Expanded(
+                          child: CardServices(
+                            color: primaryCardColor,
+                            title: customTitles[i],
+                            description: customDescriptions[i],
+                          ),
+                        ),
+                    ],
+                  );
+                },
               ),
-              //A row of three cards, color will be gold, with a title a description and a checkbox centered
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  //3 cards, smaller ones
-                  //CARD 4
-                  //TODO: READ FROM API TITLE AND DESCRIPTION
+            ),
 
-                  Expanded(child: CardServices(color: primaryCardColor, title: titleCard, description: descriptionCard,)),
-                  Expanded(child: CardServices(color: primaryCardColor, title: titleCard, description: descriptionCard,)),
-                  Expanded(child: CardServices(color: primaryCardColor, title: titleCard, description: descriptionCard,)),
-                ],
-              ),
+
+
+
+
+
+
+
+
+
               verticalSpaceLarge,
               MaterialButton(
                 //make it round, and color confirmation

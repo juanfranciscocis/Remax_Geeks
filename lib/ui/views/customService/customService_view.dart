@@ -24,7 +24,7 @@ class CustomServiceView extends StackedView<CustomServiceViewModel> {
     return ScreenTypeLayout.builder(
       mobile: (_) => CustomServiceMobile(dbProvider: dbProvider, sellFormProvider: sellFormProvider),
       tablet: (_) => CustomServiceTablet(dbProvider: dbProvider, sellFormProvider: sellFormProvider), //ADD TABLET VIEW IF NEEDED
-      desktop: (_) => CustomServiceDesktop(dbProvider: dbProvider,sellFormProvider: sellFormProvider),
+      desktop: (_) => CustomServiceDesktop(dbProvider: dbProvider,sellFormProvider: sellFormProvider, customTitles: dbProvider.cTitles, customDescriptions: dbProvider.cDescriptions),
     );
   }
 

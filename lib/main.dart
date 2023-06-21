@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
@@ -21,11 +22,15 @@ Future<void> main() async {
   setupDialogUi();
   setupBottomSheetUi();
 
-  runApp(const MyApp());
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await FirebaseDatabase.instance;
+
+  runApp(const MyApp());
+
+
 }
 
 class MyApp extends StatelessWidget {

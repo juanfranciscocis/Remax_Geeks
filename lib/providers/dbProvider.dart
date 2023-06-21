@@ -5,6 +5,8 @@ import 'package:remax_geeks/models/sellNowFormModel.dart';
 
 class DBProvider extends ChangeNotifier{
 
+  late final FirebaseDatabase _database;
+
 
   //REFERENCE TO THE DATABASE
   DatabaseReference? _databaseReference;
@@ -13,12 +15,16 @@ class DBProvider extends ChangeNotifier{
   //GETTING PREMIUM SERVICES TITLES AND DESCRIPTIONS
   late List<String> pTitles;
   late List<String> pDescriptions;
-  late String pFullServiceIncludes;
+  late String? pFullServiceIncludes = '';
+  //GETTING CUSTOM SERVICES TITLES AND DESCRIPTIONS
+  late List<String> cTitles;
+  late List<String> cDescriptions;
+  late String? cCustomIncludes = '';
 
   //CONSTRUCTOR
   DBProvider(){
     //INITIALIZE FIREBASE REALTIME
-    final FirebaseDatabase _database = FirebaseDatabase.instance;
+    _database = FirebaseDatabase.instance;
     _databaseReference = _database.ref();
   }
 
@@ -59,7 +65,7 @@ class DBProvider extends ChangeNotifier{
   }
 
   //GET FULL SERVICE DESCRIPTION
-  Future<String> getFullServiceIncludes() async{
+  Future<String?> getFullServiceIncludes() async{
     final snapshot = await _databaseReference!.child('FULL_SERVICE_INCLUDES').get();
     final fullServiceIncludes = snapshot.value as String;
     this.pFullServiceIncludes = fullServiceIncludes;
@@ -80,21 +86,40 @@ class DBProvider extends ChangeNotifier{
   //GET CUSTOM SERVICES TITLES
   Future<List<String>> getCustomServicesTitles() async{
     final snapshot = await _databaseReference!.child('CUSTOM_SERVICES_TITLES').get();
-    final customServicesTitles = snapshot.value as List<dynamic>;
-    for (dynamic title in customServicesTitles){
-      print(title);
-    }
+    List<dynamic> customServicesTitles = snapshot.value as List<dynamic>;
+    this.cTitles = customServicesTitles.map((e) => e.toString()).toList();
     notifyListeners();
-    return customServicesTitles.map((e) => e.toString()).toList();
+    return cTitles;
+  }
+
+  //GET CUSTOM SERVICES DESCRIPTIONS
+  Future<List<String>> getCustomServicesDescriptions() async{
+    final snapshot = await _databaseReference!.child('CUSTOM_SERVICES_DESCRIPTIONS').get();
+    List<dynamic> customServicesDescriptions = snapshot.value as List<dynamic>;
+    this.cDescriptions = customServicesDescriptions.map((e) => e.toString()).toList();
+    notifyListeners();
+    return cDescriptions;
+  }
+
+  //GET CUSTOM SERVICES INCLUDES
+  Future<String?> getCustomServicesIncludes() async{
+    final snapshot = await _databaseReference!.child('CUSTOM_SERVICE_INCLUDES').get();
+    final customServicesIncludes = snapshot.value as String;
+    this.cCustomIncludes = customServicesIncludes;
+    notifyListeners();
+    return cCustomIncludes;
   }
 
   //GET TITLES AND DESCRIPTIONS FOR SERVICES
   Future<void> getTitlesAndDescriptions() async{
     //CUSTOM
     getCustomServicesTitles();
+    getCustomServicesDescriptions();
+    getCustomServicesIncludes();
     //PREMIUM
     getPremiumServicesTitles();
     getPremiumServicesDescriptions();
+    getFullServiceIncludes();
   }
 
 

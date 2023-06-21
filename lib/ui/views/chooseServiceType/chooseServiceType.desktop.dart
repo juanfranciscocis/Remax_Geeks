@@ -14,7 +14,7 @@ import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
 import 'chooseServiceType_viewmodel.dart';
 
-class ChooseServiceTypeDesktop extends ViewModelWidget<ChooseServiceTypeViewModel> {
+class ChooseServiceTypeDesktop extends StatelessWidget {
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
@@ -24,7 +24,7 @@ class ChooseServiceTypeDesktop extends ViewModelWidget<ChooseServiceTypeViewMode
   ChooseServiceTypeDesktop({super.key, required this.dbProvider, required this.sellFormProvider, required this.fullServiceDescription, required this.customServiceDescription});
 
   @override
-  Widget build(BuildContext context,  viewModel) {
+  Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -83,15 +83,7 @@ class ChooseServiceTypeDesktop extends ViewModelWidget<ChooseServiceTypeViewMode
                           ),
                         ),
                         //SUBTITLE
-                        Text(
-                          fullServiceDescription,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: fontWhiteColor,
-                            fontFamily: fontOutfitRegular,
-                            fontSize: 25,
-                          ),
-                        ),
+                        FullServiceDescription(fullServiceDescription: fullServiceDescription),
                         //BUTTON
                         MaterialButton(
                           onPressed: () {
@@ -189,6 +181,33 @@ class ChooseServiceTypeDesktop extends ViewModelWidget<ChooseServiceTypeViewMode
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class FullServiceDescription extends StatefulWidget {
+  const FullServiceDescription({
+    super.key,
+    required this.fullServiceDescription,
+  });
+
+  final String fullServiceDescription;
+
+  @override
+  State<FullServiceDescription> createState() => _FullServiceDescriptionState();
+}
+
+class _FullServiceDescriptionState extends State<FullServiceDescription> {
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      widget.fullServiceDescription,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: fontWhiteColor,
+        fontFamily: fontOutfitRegular,
+        fontSize: 25,
       ),
     );
   }
