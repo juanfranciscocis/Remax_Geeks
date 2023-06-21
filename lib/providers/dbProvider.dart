@@ -95,8 +95,6 @@ class DBProvider extends ChangeNotifier{
     //PREMIUM
     getPremiumServicesTitles();
     getPremiumServicesDescriptions();
-    getFullServiceIncludes();
-
   }
 
 

@@ -18,8 +18,10 @@ class ChooseServiceTypeDesktop extends ViewModelWidget<ChooseServiceTypeViewMode
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
+  String fullServiceDescription;
+  String customServiceDescription;
 
-  ChooseServiceTypeDesktop({super.key, required this.dbProvider, required this.sellFormProvider});
+  ChooseServiceTypeDesktop({super.key, required this.dbProvider, required this.sellFormProvider, required this.fullServiceDescription, required this.customServiceDescription});
 
   @override
   Widget build(BuildContext context,  viewModel) {
@@ -81,8 +83,8 @@ class ChooseServiceTypeDesktop extends ViewModelWidget<ChooseServiceTypeViewMode
                           ),
                         ),
                         //SUBTITLE
-                        const Text(
-                          chooseServiceTypeCard1Subtitle,
+                        Text(
+                          fullServiceDescription,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: fontWhiteColor,
@@ -151,8 +153,8 @@ class ChooseServiceTypeDesktop extends ViewModelWidget<ChooseServiceTypeViewMode
                         ),
                       ),
                       //SUBTITLE
-                      const Text(
-                        chooseServiceTypeCard2Subtitle,
+                       Text(
+                        customServiceDescription,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: fontWhiteColor,

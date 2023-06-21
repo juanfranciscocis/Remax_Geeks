@@ -16,8 +16,10 @@ class ChooseServiceTypeTablet extends ViewModelWidget<ChooseServiceTypeViewModel
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
+  String fullServiceDescription;
+  String customServiceDescription;
 
-  ChooseServiceTypeTablet({super.key, required this.dbProvider, required this.sellFormProvider});
+  ChooseServiceTypeTablet({super.key, required this.dbProvider, required this.sellFormProvider, required this.fullServiceDescription, required this.customServiceDescription});
 
   @override
   Widget build(BuildContext context, ChooseServiceTypeViewModel viewModel) {
@@ -81,8 +83,8 @@ class ChooseServiceTypeTablet extends ViewModelWidget<ChooseServiceTypeViewModel
                               ),
                             ),
                             //SUBTITLE
-                            const Text(
-                              chooseServiceTypeCard1Subtitle,
+                             Text(
+                              fullServiceDescription,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: fontWhiteColor,
@@ -150,8 +152,8 @@ class ChooseServiceTypeTablet extends ViewModelWidget<ChooseServiceTypeViewModel
                             ),
                           ),
                           //SUBTITLE
-                          const Text(
-                            chooseServiceTypeCard2Subtitle,
+                           Text(
+                            customServiceDescription,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: fontWhiteColor,

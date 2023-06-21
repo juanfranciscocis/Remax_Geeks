@@ -23,9 +23,9 @@ class ChooseServiceTypeView extends StackedView<ChooseServiceTypeViewModel> {
     dbProvider.getTitlesAndDescriptions(); //GETTING TITLES BEFORE BUILDING THE WIDGETS
     final sellFormProvider = Provider.of<SellFormProvider>(context);
     return ScreenTypeLayout.builder(
-      mobile: (_) => ChooseServiceTypeMobile(dbProvider: dbProvider, sellFormProvider: sellFormProvider),
-      tablet: (_) => ChooseServiceTypeTablet(dbProvider: dbProvider, sellFormProvider: sellFormProvider), //ADD TABLET VIEW IF NEEDED
-      desktop: (_) => ChooseServiceTypeDesktop(dbProvider: dbProvider,sellFormProvider: sellFormProvider),
+      mobile: (_) => ChooseServiceTypeMobile(dbProvider: dbProvider, sellFormProvider: sellFormProvider, fullServiceDescription: dbProvider.pFullServiceIncludes, customServiceDescription: '', ),
+      tablet: (_) => ChooseServiceTypeTablet(dbProvider: dbProvider, sellFormProvider: sellFormProvider, fullServiceDescription: dbProvider.pFullServiceIncludes, customServiceDescription: '', ), //ADD TABLET VIEW IF NEEDED
+      desktop: (_) => ChooseServiceTypeDesktop(dbProvider: dbProvider,sellFormProvider: sellFormProvider, fullServiceDescription: dbProvider.pFullServiceIncludes, customServiceDescription: '', ),
     );
   }
 
