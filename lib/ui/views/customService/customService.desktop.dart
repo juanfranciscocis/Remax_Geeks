@@ -145,10 +145,8 @@ class CustomServiceDesktop extends StatelessWidget {
                   fontSize: 60,
                 ),
               ),
-              //verticalSpaceMedium,
-
-
-              //TODO: MAKE IT DYNAMIC, READ FROM DB, 3 CARDS IN A ROW
+              verticalSpaceMedium,
+              //MAKE IT DYNAMIC, READ FROM DB, 3 CARDS IN A ROW
             Container(
               height: MediaQuery.of(context).size.height, // Set a specific height or use MediaQuery to get the available height
               child: ListView.builder(

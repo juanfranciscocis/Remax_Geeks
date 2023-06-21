@@ -22,10 +22,10 @@ class CustomServiceTablet extends ViewModelWidget<CustomServiceViewModel> {
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
   String averageApiPrice = '\$100,000.00'; //TODO: API CALL AVERAGE PRICE
-  String titleCard = 'Title'; //TODO: DB CALL
-  String descriptionCard = 'Description'; //TODO: DB CALL
+  List<String> customTitles;
+  List<String> customDescriptions;
 
-  CustomServiceTablet({super.key, required this.dbProvider, required this.sellFormProvider});
+  CustomServiceTablet({super.key, required this.dbProvider, required this.sellFormProvider, required this.customTitles, required this.customDescriptions});
 
   @override
   Widget build(BuildContext context, CustomServiceViewModel viewModel) {
@@ -154,13 +154,10 @@ class CustomServiceTablet extends ViewModelWidget<CustomServiceViewModel> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      //3 cards, smaller ones
-                      //CARD 4
-                      //TODO: READ FROM API TITLE AND DESCRIPTION
-
-                      CardServices(color: primaryCardColor, title: titleCard, description: descriptionCard,),
-                      CardServices(color: primaryCardColor, title: titleCard, description: descriptionCard,),
-                      CardServices(color: primaryCardColor, title: titleCard, description: descriptionCard,),
+                      ...customTitles.map((e) => CardServices(
+                        title: e,
+                        description: customDescriptions[customTitles.indexOf(e)], color: primaryCardColor,
+                      )),
                     ],
                   ),
                   verticalSpaceLarge,
