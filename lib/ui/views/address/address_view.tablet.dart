@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
@@ -5,13 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../providers/sellFormProvider.dart';
+import '../../../services/GooglePlacesService.dart';
 import '../../../widgets/landingPage/LandingPageTabletSite.dart';
 import '../../../widgets/landingPage/MainTabletNavBar.dart';
 import '../../common/app_strings.dart';
 import '../chooseServiceType/chooseServiceType_view.dart';
 import 'address_viewmodel.dart';
 
-class AddressViewTablet extends ViewModelWidget<AddressViewModel> {
+class AddressViewTablet extends StatefulWidget {
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
@@ -19,7 +21,31 @@ class AddressViewTablet extends ViewModelWidget<AddressViewModel> {
   AddressViewTablet({super.key, required this.dbProvider, required this.sellFormProvider});
 
   @override
-  Widget build(BuildContext context, AddressViewModel viewModel) {
+  State<AddressViewTablet> createState() => _AddressViewTabletState(sellFormProvider: sellFormProvider);
+}
+
+class _AddressViewTabletState extends State<AddressViewTablet> {
+  late GooglePlacesService google;
+  TextEditingController addressController = TextEditingController();
+  SellFormProvider sellFormProvider;
+
+  _AddressViewTabletState({required this.sellFormProvider});
+
+  void changeTextFieldToSuggestion(String suggestion){
+    setState(() {
+      addressController.text = suggestion;
+      sellFormProvider.address = suggestion;
+      google.listOfPredictions = ['','',''];
+    });
+  }
+
+
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    google = Provider.of<GooglePlacesService>(context);
     return  Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
@@ -39,7 +65,8 @@ class AddressViewTablet extends ViewModelWidget<AddressViewModel> {
                   ),
                 ),
                 verticalSpaceMedium,
-                const TextField(
+                 TextField(
+                  controller: addressController,
                   decoration: InputDecoration(
                     labelText: addressBox,
                     labelStyle: TextStyle(
@@ -56,7 +83,89 @@ class AddressViewTablet extends ViewModelWidget<AddressViewModel> {
                     filled: true,
                     fillColor: inputColor,
                   ),
+                  style: TextStyle(
+                    color: fontMainColor,
+                    fontFamily: fontOutfitRegular,
+                    fontSize: 30,
+                  ),
+                  onChanged: (value) {
+                    google.getMax3PredictionsGoogle(value);
+                  },
                 ),
+                verticalSpaceTiny,
+
+                //GOOGLE SUGGESTION
+                Visibility(
+                  visible: google.listOfPredictions[0] != '',
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildMaterialButton(
+                              buttonColor: inputColor,
+                              textSize: 30,
+                              title: google.listOfPredictions[0],
+                              onPressed: () {
+                                changeTextFieldToSuggestion(google.listOfPredictions[0]);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      verticalSpaceSmall,
+                    ],
+                  ),
+                ),
+                Visibility(
+                  visible: google.listOfPredictions[1] != '',
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildMaterialButton(
+                              buttonColor: inputColor,
+                              textSize: 30,
+                              title: google.listOfPredictions[1],
+                              onPressed: () {
+                                changeTextFieldToSuggestion(google.listOfPredictions[1] );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      verticalSpaceSmall,
+                    ],
+                  ),
+                ),
+                Visibility(
+                  visible: google.listOfPredictions[2] != '',
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildMaterialButton(
+                              buttonColor: inputColor,
+                              textSize: 30,
+                              title: google.listOfPredictions[2],
+                              onPressed: () {
+                                changeTextFieldToSuggestion(google.listOfPredictions[2] );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      verticalSpaceSmall,
+                    ],
+                  ),
+                ),
+
+
+
+
+
                 verticalSpaceLarge,
                 const Text(
                   addressCondition,
@@ -206,6 +315,8 @@ class AddressViewTablet extends ViewModelWidget<AddressViewModel> {
   Widget _buildMaterialButton({
     required String title,
     required VoidCallback onPressed,
+    Color? buttonColor,
+    double? textSize,
   }) {
     return MaterialButton(
       //round the corners of the button
@@ -214,7 +325,7 @@ class AddressViewTablet extends ViewModelWidget<AddressViewModel> {
       ),
       elevation: 5.0,
       onPressed: onPressed,
-      color: primaryButtonColor,
+      color: buttonColor ?? (buttonColor = primaryButtonColor),
       textColor: Colors.white,
       child: Text(
         title,
@@ -222,7 +333,7 @@ class AddressViewTablet extends ViewModelWidget<AddressViewModel> {
         textAlign: TextAlign.center,
         style: TextStyle(
           fontFamily: fontOutfitBold,
-          fontSize: 40,
+          fontSize: textSize ?? (textSize = 40),
         ),
       ),
     );

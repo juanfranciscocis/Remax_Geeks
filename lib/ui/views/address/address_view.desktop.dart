@@ -1,3 +1,4 @@
+
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
@@ -8,23 +9,42 @@ import 'package:stacked/stacked.dart';
 
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
+import '../../../services/GooglePlacesService.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
 import '../chooseServiceType/chooseServiceType_view.dart';
 import 'address_viewmodel.dart';
 
 
-
-
-
-class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
+class AddressViewDesktop extends StatefulWidget {
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
 
   AddressViewDesktop({super.key, required this.dbProvider, required this.sellFormProvider});
 
   @override
-  Widget build(BuildContext context, viewModel) {
+  State<AddressViewDesktop> createState() => _AddressViewDesktopState(sellFormProvider: sellFormProvider);
+}
+
+class _AddressViewDesktopState extends State<AddressViewDesktop> {
+  late GooglePlacesService google;
+  TextEditingController addressController = TextEditingController();
+  SellFormProvider sellFormProvider;
+
+  _AddressViewDesktopState({required this.sellFormProvider});
+
+  void changeTextFieldToSuggestion(String suggestion){
+    setState(() {
+      addressController.text = suggestion;
+      sellFormProvider.address = suggestion;
+      google.listOfPredictions = ['','',''];
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    google = Provider.of<GooglePlacesService>(context);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -43,13 +63,14 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                 ),
               ),
               verticalSpaceMedium,
-              const TextField(
+              TextField(
+                controller: addressController,
                 decoration: InputDecoration(
                   labelText: addressBox,
                   labelStyle: TextStyle(
                     color: fontSecondColor,
                     fontFamily: fontOutfitRegular,
-                    fontSize: 20,
+                    fontSize: 30,
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -59,8 +80,91 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                   ),
                   filled: true,
                   fillColor: inputColor,
+
+                ),
+                style: TextStyle(
+                  color: fontMainColor,
+                  fontFamily: fontOutfitRegular,
+                  fontSize: 30,
+                ),
+                onChanged: (value) {
+                  // MAKE GOOGLE API CALL TO GET ADDRESS SUGGESTIONS
+                  google.getMax3PredictionsGoogle(value);
+                },
+              ),
+              verticalSpaceTiny,
+
+
+              //GOOGLE SUGGESTION
+              Visibility(
+                visible: google.listOfPredictions[0] != '',
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildMaterialButton(
+                            buttonColor: inputColor,
+                            textSize: 30,
+                            title: google.listOfPredictions[0],
+                            onPressed: () {
+                              changeTextFieldToSuggestion(google.listOfPredictions[0]);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    verticalSpaceSmall,
+                  ],
                 ),
               ),
+              Visibility(
+                visible: google.listOfPredictions[1] != '',
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildMaterialButton(
+                            buttonColor: inputColor,
+                            textSize: 30,
+                            title: google.listOfPredictions[1],
+                            onPressed: () {
+                              changeTextFieldToSuggestion(google.listOfPredictions[1] );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    verticalSpaceSmall,
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: google.listOfPredictions[2] != '',
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildMaterialButton(
+                            buttonColor: inputColor,
+                            textSize: 30,
+                            title: google.listOfPredictions[2],
+                            onPressed: () {
+                              changeTextFieldToSuggestion(google.listOfPredictions[2] );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    verticalSpaceSmall,
+                  ],
+                ),
+              ),
+
+
+
               verticalSpaceLarge,
               const Text(
                 addressCondition,
@@ -81,7 +185,7 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                           title: condition1,
                           onPressed: () {
                             // FILL SELLING FORM
-                            sellFormProvider.condition = condition1;
+                            widget.sellFormProvider.condition = condition1;
                           },
                         ),
                       ),
@@ -91,7 +195,7 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                           title: condition2,
                           onPressed: () {
                             // FILL SELLING FORM
-                            sellFormProvider.condition = condition2;
+                            widget.sellFormProvider.condition = condition2;
                           },
                         ),
                       ),
@@ -105,7 +209,7 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                           title: condition3,
                           onPressed: () {
                             // FILL SELLING FORM
-                            sellFormProvider.condition = condition3;
+                            widget.sellFormProvider.condition = condition3;
                           },
                         ),
                       ),
@@ -115,7 +219,7 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                           title: condition4,
                           onPressed: () {
                             // FILL SELLING FORM
-                            sellFormProvider.condition = condition4;
+                            widget.sellFormProvider.condition = condition4;
                           },
                         ),
                       ),
@@ -145,7 +249,7 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                           title: type1,
                           onPressed: () {
                             // FIll SELLING FORM
-                            sellFormProvider.type = type1;
+                            widget.sellFormProvider.type = type1;
                           },
                         ),
                       ),
@@ -155,7 +259,7 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                           title: type2,
                           onPressed: () {
                             // FIll SELLING FORM
-                            sellFormProvider.type = type2;
+                            widget.sellFormProvider.type = type2;
                           },
                         ),
                       ),
@@ -170,7 +274,7 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                           title: type3,
                           onPressed: () {
                             //FILL SELLING FORM
-                            sellFormProvider.type = type3;
+                            widget.sellFormProvider.type = type3;
                           },
                         ),
                       ),
@@ -213,11 +317,11 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
     );
   }
 
-
-
   Widget _buildMaterialButton({
     required String title,
     required VoidCallback onPressed,
+    Color? buttonColor,
+    double? textSize
   }) {
     return MaterialButton(
       //round the corners of the button
@@ -226,22 +330,18 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
       ),
       elevation: 5.0,
       onPressed: onPressed,
-      color: primaryButtonColor,
+      color:  buttonColor ?? (buttonColor = primaryButtonColor),
       textColor: Colors.white,
       child: Text(
         title,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontFamily: fontOutfitBold,
-          fontSize: 50,
+          fontSize: textSize ?? (textSize = 50),
         ),
       ),
     );
   }
-
-
-
-
 }
 
 

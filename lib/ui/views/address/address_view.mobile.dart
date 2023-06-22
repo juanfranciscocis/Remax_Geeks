@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
@@ -6,12 +7,13 @@ import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../providers/sellFormProvider.dart';
+import '../../../services/GooglePlacesService.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../common/app_strings.dart';
 import '../chooseServiceType/chooseServiceType_view.dart';
 import 'address_viewmodel.dart';
 
-class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
+class AddressViewMobile extends StatefulWidget {
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
@@ -19,7 +21,28 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
   AddressViewMobile({super.key, required this.dbProvider, required this.sellFormProvider});
 
   @override
-  Widget build(BuildContext context, AddressViewModel viewModel) {
+  State<AddressViewMobile> createState() => _AddressViewMobileState(sellFormProvider: sellFormProvider);
+}
+
+class _AddressViewMobileState extends State<AddressViewMobile> {
+
+  late GooglePlacesService google;
+  TextEditingController addressController = TextEditingController();
+  SellFormProvider sellFormProvider;
+
+  _AddressViewMobileState({required this.sellFormProvider});
+
+  void changeTextFieldToSuggestion(String suggestion){
+    setState(() {
+      addressController.text = suggestion;
+      sellFormProvider.address = suggestion;
+      google.listOfPredictions = ['','',''];
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    google = Provider.of<GooglePlacesService>(context);
     return  Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
@@ -39,7 +62,8 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                   ),
                 ),
                 verticalSpaceMedium,
-                const TextField(
+                TextField(
+                  controller: addressController,
                   decoration: InputDecoration(
                     labelText: addressBox,
                     labelStyle: TextStyle(
@@ -55,6 +79,83 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                     ),
                     filled: true,
                     fillColor: inputColor,
+                  ),
+                  style: TextStyle(
+                    color: fontMainColor,
+                    fontFamily: fontOutfitRegular,
+                    fontSize: 20,
+                  ),
+                  onChanged: (value) {
+                    google.getMax3PredictionsGoogle(value);
+                  },
+
+                ),
+                verticalSpaceTiny,
+                //LIST OF SUGGESTIONS
+                Visibility(
+                  visible: google.listOfPredictions[0] != '',
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildMaterialButton(
+                              buttonColor: inputColor,
+                              textSize: 30,
+                              title: google.listOfPredictions[0],
+                              onPressed: () {
+                                changeTextFieldToSuggestion(google.listOfPredictions[0]);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      verticalSpaceSmall,
+                    ],
+                  ),
+                ),
+                Visibility(
+                  visible: google.listOfPredictions[1] != '',
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildMaterialButton(
+                              buttonColor: inputColor,
+                              textSize: 30,
+                              title: google.listOfPredictions[1],
+                              onPressed: () {
+                                changeTextFieldToSuggestion(google.listOfPredictions[1] );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      verticalSpaceSmall,
+                    ],
+                  ),
+                ),
+                Visibility(
+                  visible: google.listOfPredictions[2] != '',
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildMaterialButton(
+                              buttonColor: inputColor,
+                              textSize: 30,
+                              title: google.listOfPredictions[2],
+                              onPressed: () {
+                                changeTextFieldToSuggestion(google.listOfPredictions[2] );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      verticalSpaceSmall,
+                    ],
                   ),
                 ),
                 verticalSpaceLarge,
@@ -77,7 +178,7 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                             title: condition1,
                             onPressed: () {
                               // FILL SELLING FORM
-                              sellFormProvider.condition = condition1;
+                              widget.sellFormProvider.condition = condition1;
                             },
                           ),
                         ),
@@ -87,7 +188,7 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                             title: condition2,
                             onPressed: () {
                               // FILL SELLING FORM
-                              sellFormProvider.condition = condition2;
+                              widget.sellFormProvider.condition = condition2;
                             },
                           ),
                         ),
@@ -101,7 +202,7 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                             title: condition3,
                             onPressed: () {
                               // FILL SELLING FORM
-                              sellFormProvider.condition = condition3;
+                              widget.sellFormProvider.condition = condition3;
                             },
                           ),
                         ),
@@ -111,7 +212,7 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                             title: condition4,
                             onPressed: () {
                               // FILL SELLING FORM
-                              sellFormProvider.condition = condition4;
+                              widget.sellFormProvider.condition = condition4;
                             },
                           ),
                         ),
@@ -141,7 +242,7 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                             title: type1,
                             onPressed: () {
                               // FILL SELLING FORM
-                              sellFormProvider.type = type1;
+                              widget.sellFormProvider.type = type1;
                             }
                           ),
                         ),
@@ -151,7 +252,7 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                             title: type2,
                             onPressed: () {
                               // FILL SELLING FORM
-                              sellFormProvider.type = type2;
+                              widget.sellFormProvider.type = type2;
                             },
                           ),
                         ),
@@ -166,7 +267,7 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
                             title: type3,
                             onPressed: () {
                               // FILL SELLING FORM
-                              sellFormProvider.type = type3;
+                              widget.sellFormProvider.type = type3;
                             },
                           ),
                         ),
@@ -209,9 +310,12 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
       ),
     );
   }
+
   Widget _buildMaterialButton({
     required String title,
     required VoidCallback onPressed,
+    Color? buttonColor,
+    double? textSize,
   }) {
     return MaterialButton(
       //round the corners of the button
@@ -220,7 +324,7 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
       ),
       elevation: 5.0,
       onPressed: onPressed,
-      color: primaryButtonColor,
+      color: buttonColor ?? (buttonColor = primaryButtonColor),
       textColor: Colors.white,
       child: Text(
         title,
@@ -228,7 +332,7 @@ class AddressViewMobile extends ViewModelWidget<AddressViewModel> {
         textAlign: TextAlign.center,
         style: TextStyle(
           fontFamily: fontOutfitBold,
-          fontSize: 29,
+          fontSize: textSize ?? ( textSize = 29),
         ),
       ),
     );

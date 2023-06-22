@@ -5,6 +5,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
+import '../../../services/GooglePlacesService.dart';
 import 'address_view.desktop.dart';
 import 'address_view.tablet.dart';
 import 'address_view.mobile.dart';
