@@ -147,37 +147,19 @@ class CustomServiceDesktop extends StatelessWidget {
               ),
               verticalSpaceMedium,
               //MAKE IT DYNAMIC, READ FROM DB, 3 CARDS IN A ROW
-            Container(
-              height: MediaQuery.of(context).size.height, // Set a specific height or use MediaQuery to get the available height
-              child: ListView.builder(
-                itemCount: (customTitles.length / 3).ceil(),
-                itemBuilder: (context, index) {
-                  final startIndex = index * 3;
-                  final endIndex = startIndex + 3;
 
-                  return Row(
-                    children: [
-                      for (var i = startIndex; i < endIndex && i < customTitles.length; i++)
-                        Expanded(
-                          child: CardServices(
-                            color: primaryCardColor,
-                            title: customTitles[i],
-                            description: customDescriptions[i],
-                          ),
-                        ),
-                    ],
-                  );
-                },
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 16.0, // Adjust the spacing between cards as needed
+                children: [
+                  // Dynamically create the CardServices based on the titles and descriptions from the API
+                  ...customTitles.map((e) => CardServices(
+                    color: goldCardColor,
+                    title: e,
+                    description: customDescriptions[customTitles.indexOf(e)],
+                  )).toList(),
+                ],
               ),
-            ),
-
-
-
-
-
-
-
-
 
 
               verticalSpaceLarge,

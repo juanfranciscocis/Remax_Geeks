@@ -3,110 +3,61 @@ import 'package:flutter/material.dart';
 import '../../ui/common/app_colors.dart';
 import '../../ui/common/app_strings.dart';
 class CardServices extends StatelessWidget {
-  Color color;
-  String title;
-  String description;
-  CardServices({
-    super.key, required this.color, required this.title, required this.description,
-  });
+  final Color color;
+  final String title;
+  final String description;
+
+  const CardServices({
+    Key? key,
+    required this.color,
+    required this.title,
+    required this.description,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 20.0),
+    return Container(
+      width: 350.0, // Adjust the width as needed
       child: Card(
-
-        //add a title, a description and a checkbox
         color: color,
         elevation: 10.0,
-        //ROUND CORNERS
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
-        child: Container(
-          height: 400.0,
-          width: 300.0,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: fontWhiteColor,
-                    fontFamily: fontOutfitMedium,
-                    fontSize: 40,
-                  ),
+              Text(
+                title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: fontOutfitBold,
+                  fontSize: 35,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Text(
-                  description,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: fontWhiteColor,
-                    fontFamily: fontOutfitRegular,
-                    fontSize: 25,
-                  ),
+              SizedBox(height: 8.0),
+              Text(
+                description,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: fontOutfitRegular,
+                  fontSize: 20,
                 ),
               ),
-              //Container for the checkbox
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 50.0,
-                  //full width of the card
-                  width: 1000.0,
-                  //round corners of the container
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    color: thirdCardColor,
-                    //shadow
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  //shadow
-
-                  child: ChooseServiceBox(),
+              SizedBox(height: 8.0),
+              Center(
+                child: Checkbox(
+                  // Add your checkbox logic here
+                  value: false,
+                  onChanged: (value) {},
                 ),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-
-//TODO: add a checkbox
-class ChooseServiceBox extends StatefulWidget {
-  const ChooseServiceBox({
-    super.key,
-  });
-
-  @override
-  State<ChooseServiceBox> createState() => _ChooseServiceBoxState();
-}
-
-class _ChooseServiceBoxState extends State<ChooseServiceBox> {
-  @override
-  Widget build(BuildContext context) {
-    return Checkbox(
-      value: false,
-      onChanged: (value) {
-        print(value);
-      },
-      activeColor: confirmButtonColor,
     );
   }
 }

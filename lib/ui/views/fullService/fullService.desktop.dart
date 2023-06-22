@@ -203,14 +203,19 @@ class FullServiceDesktop extends StatelessWidget {
 
 
 
-              //A row of three cards, color will be gold, with a title a description and a checkbox centered
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 16.0, // Adjust the spacing between cards as needed
                 children: [
-                  //dynamicly create tje CardServices based on the titles and descriptions from the API
-                  ...premiumTitles.map((e) => Expanded(child: CardServices(color: goldCardColor, title: e, description: premiumDescriptions[premiumTitles.indexOf(e)],))).toList(),
+                  // Dynamically create the CardServices based on the titles and descriptions from the API
+                  ...premiumTitles.map((e) => CardServices(
+                    color: goldCardColor,
+                    title: e,
+                    description: premiumDescriptions[premiumTitles.indexOf(e)],
+                  )).toList(),
                 ],
               ),
+
               verticalSpaceLarge,
               MaterialButton(
                 //make it round, and color confirmation

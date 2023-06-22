@@ -33,7 +33,7 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              verticalSpaceLarge,
+              verticalSpaceMedium,
               const Text(
                 addressLocationOfProperty,
                 style: TextStyle(
@@ -80,7 +80,8 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                         child: _buildMaterialButton(
                           title: condition1,
                           onPressed: () {
-                            // Handle button 1 press
+                            // FILL SELLING FORM
+                            sellFormProvider.condition = condition1;
                           },
                         ),
                       ),
@@ -89,7 +90,8 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                         child: _buildMaterialButton(
                           title: condition2,
                           onPressed: () {
-                            // Handle button 2 press
+                            // FILL SELLING FORM
+                            sellFormProvider.condition = condition2;
                           },
                         ),
                       ),
@@ -102,7 +104,8 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                         child: _buildMaterialButton(
                           title: condition3,
                           onPressed: () {
-                            // Handle button 3 press
+                            // FILL SELLING FORM
+                            sellFormProvider.condition = condition3;
                           },
                         ),
                       ),
@@ -111,7 +114,8 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                         child: _buildMaterialButton(
                           title: condition4,
                           onPressed: () {
-                            // Handle button 4 press
+                            // FILL SELLING FORM
+                            sellFormProvider.condition = condition4;
                           },
                         ),
                       ),
@@ -140,7 +144,8 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                         child: _buildMaterialButton(
                           title: type1,
                           onPressed: () {
-                            // Handle button 1 press
+                            // FIll SELLING FORM
+                            sellFormProvider.type = type1;
                           },
                         ),
                       ),
@@ -149,7 +154,8 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                         child: _buildMaterialButton(
                           title: type2,
                           onPressed: () {
-                            // Handle button 2 press
+                            // FIll SELLING FORM
+                            sellFormProvider.type = type2;
                           },
                         ),
                       ),
@@ -163,7 +169,8 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
                         child: _buildMaterialButton(
                           title: type3,
                           onPressed: () {
-                            // Handle button 3 press
+                            //FILL SELLING FORM
+                            sellFormProvider.type = type3;
                           },
                         ),
                       ),
@@ -223,6 +230,7 @@ class AddressViewDesktop extends ViewModelWidget<AddressViewModel> {
       textColor: Colors.white,
       child: Text(
         title,
+        textAlign: TextAlign.center,
         style: TextStyle(
           fontFamily: fontOutfitBold,
           fontSize: 50,
