@@ -1,6 +1,7 @@
 
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/services/realtyMoleService.dart';
+import 'package:remax_geeks/services/zillowService.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
@@ -292,7 +293,10 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                     if (sellFormProvider.address != '' && sellFormProvider.condition != '' && sellFormProvider.type != '') {
                       RealtyMoleService realty = RealtyMoleService();
                       await realty.getPrice(sellFormProvider.address);
+                      ZillowService zillow = ZillowService();
+                      await zillow.getPrice(sellFormProvider.address);
                       List<double> prices = [0,0,0];
+                      prices[0] = zillow.price;
                       prices[1] = realty.price;
                       sellFormProvider.apiPrices = prices;
                       // GO TO NEXT PAGE

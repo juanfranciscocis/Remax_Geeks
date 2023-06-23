@@ -160,6 +160,7 @@ class CustomServiceTablet extends ViewModelWidget<CustomServiceViewModel> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ...customTitles.map((e) => CardServices(
+                        sellformProvider: sellFormProvider,
                         title: e,
                         description: customDescriptions[customTitles.indexOf(e)], color: primaryCardColor,
                       )),

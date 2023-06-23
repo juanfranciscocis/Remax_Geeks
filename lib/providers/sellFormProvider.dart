@@ -40,8 +40,13 @@ class SellFormProvider extends ChangeNotifier{
     _sellingFormModel.sendAgent = sendAgent;
     notifyListeners();
   }
-  set servicesChosen (List<String> servicesChosen){
-    _sellingFormModel.servicesChosen = servicesChosen;
+  set servicesChosen (String servicesChosen){
+    _sellingFormModel.addService(servicesChosen);
+    notifyListeners();
+  }
+
+  set deleteService (String service){
+    _sellingFormModel.servicesChosen.remove(service);
     notifyListeners();
   }
 
@@ -53,7 +58,6 @@ class SellFormProvider extends ChangeNotifier{
   List<double> get apiPrices => _sellingFormModel.apiPrices ?? [0,0,0];
   int get costumerPrice => _sellingFormModel.costumerPrice ?? 0;
   bool get sendAgent => _sellingFormModel.sendAgent ?? false;
-  List<String> get servicesChosen => _sellingFormModel.servicesChosen ?? [];
 
   double getAverage(){
     double sum = 0;

@@ -212,7 +212,7 @@ class FullServiceTablet extends ViewModelWidget<FullServiceViewModel> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ...premiumTitles.map((e) => CardServices(color: goldCardColor, title: e, description: premiumDescriptions[premiumTitles.indexOf(e)],)).toList(),
+                      ...premiumTitles.map((e) => CardServices(sellformProvider: sellFormProvider, color: goldCardColor, title: e, description: premiumDescriptions[premiumTitles.indexOf(e)],)).toList(),
                     ],
                   ),
                   verticalSpaceLarge,

@@ -5,6 +5,7 @@ import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/providers/sellFormProvider.dart';
 import 'package:remax_geeks/services/GooglePlacesService.dart';
 import 'package:remax_geeks/services/realtyMoleService.dart';
+import 'package:remax_geeks/services/zillowService.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:remax_geeks/app/app.bottomsheets.dart';
 import 'package:remax_geeks/app/app.dialogs.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SellFormProvider()),
         ChangeNotifierProvider(create: (_) => GooglePlacesService()),
         ChangeNotifierProvider(create: (_) => RealtyMoleService()),
+        ChangeNotifierProvider(create: (_) => ZillowService()),
       ],
       child: ResponsiveApp(
           preferDesktop: true,

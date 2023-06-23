@@ -1,6 +1,7 @@
 //import material
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:remax_geeks/services/zillowService.dart';
 
 import '../../providers/dbProvider.dart';
 import '../../services/realtyMoleService.dart';

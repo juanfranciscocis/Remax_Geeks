@@ -17,24 +17,30 @@ import '../../../widgets/services/CardServices.dart';
 import '../../../widgets/services/forDesktop/CardSendAgentDesktop.dart';
 import 'fullService_viewmodel.dart';
 
-class FullServiceDesktop extends StatelessWidget {
+class FullServiceDesktop extends StatefulWidget {
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
   List<String> premiumTitles;
   List<String> premiumDescriptions;
   String fullServiceIncludes;
-  List<double> apiPrices = [];
-  String averageApiPrice = '';
+  List<String> premiumServices = [];
 
   FullServiceDesktop({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions, required this.fullServiceIncludes});
 
   @override
+  State<FullServiceDesktop> createState() => _FullServiceDesktopState();
+}
+
+class _FullServiceDesktopState extends State<FullServiceDesktop> {
+  List<double> apiPrices = [];
+
+  String averageApiPrice = '';
+
+  @override
   Widget build(BuildContext context) {
-    apiPrices = sellFormProvider.apiPrices;
-    averageApiPrice = formatCurrency(sellFormProvider.getAverage());
-
-
+    apiPrices = widget.sellFormProvider.apiPrices;
+    averageApiPrice = formatCurrency(widget.sellFormProvider.getAverage());
     return  Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -60,7 +66,7 @@ class FullServiceDesktop extends StatelessWidget {
               verticalSpaceLarge,
 
               //TODO: API CALL AS A LIST
-              CardApiInformationDesktop(imagePath:imageZillow,estimatedPriceApi: formatCurrency(apiPrices[0]) ,),
+              CardApiInformationDesktop(imagePath:imageZillow,estimatedPriceApi: formatCurrency(apiPrices[0]),),
               verticalSpaceTiny,
               CardApiInformationDesktop(imagePath: imageRM,estimatedPriceApi: formatCurrency(apiPrices[1])),
               verticalSpaceTiny,
@@ -103,8 +109,8 @@ class FullServiceDesktop extends StatelessWidget {
                           child: TextField(
                             //get the value from the textfield
                             onChanged: (value) {
-                              sellFormProvider.costumerPrice = value as int;
-                              print(sellFormProvider.costumerPrice);
+                              widget.sellFormProvider.costumerPrice = value as int;
+                              print(widget.sellFormProvider.costumerPrice);
                             },
                             decoration: InputDecoration(
                               labelText: enterYourDesiredPriceBox,
@@ -135,7 +141,7 @@ class FullServiceDesktop extends StatelessWidget {
                           ),
                         ),
                         //checkbox, when checked color confirmation, else main color
-                        CheckBoxAgent(sellFormProvider: sellFormProvider),
+                        CheckBoxAgent(sellFormProvider: widget.sellFormProvider),
                       ],
                     ),
                   ),
@@ -177,7 +183,7 @@ class FullServiceDesktop extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 0.0),
                             child: Text(
-                              fullServiceIncludes,
+                              widget.fullServiceIncludes,
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 color: fontWhiteColor,
@@ -215,10 +221,11 @@ class FullServiceDesktop extends StatelessWidget {
                 spacing: 16.0, // Adjust the spacing between cards as needed
                 children: [
                   // Dynamically create the CardServices based on the titles and descriptions from the API
-                  ...premiumTitles.map((e) => CardServices(
+                  ...widget.premiumTitles.map((e) => CardServices(
                     color: goldCardColor,
                     title: e,
-                    description: premiumDescriptions[premiumTitles.indexOf(e)],
+                    description: widget.premiumDescriptions[widget.premiumTitles.indexOf(e)],
+                    sellformProvider: widget.sellFormProvider,
                   )).toList(),
                 ],
               ),
@@ -276,7 +283,6 @@ class FullServiceDesktop extends StatelessWidget {
       ),
     );
   }
-
 }
 
 

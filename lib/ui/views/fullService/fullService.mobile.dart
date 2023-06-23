@@ -212,7 +212,7 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ...premiumTitles.map((e) => CardServices(title: e, description: premiumDescriptions[premiumTitles.indexOf(e)], color: goldCardColor,)).toList(),
+                    ...premiumTitles.map((e) => CardServices(sellformProvider: sellFormProvider,title: e, description: premiumDescriptions[premiumTitles.indexOf(e)], color: goldCardColor,)).toList(),
                   ],
                 ),
                 verticalSpaceLarge,

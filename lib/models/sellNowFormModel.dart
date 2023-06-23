@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final sellingForm = sellingFormFromJson(jsonString);
-
 import 'dart:convert';
 
 class SellingForm {
@@ -13,7 +9,7 @@ class SellingForm {
   double? averageApiPrice = 0;
   int? costumerPrice = 0;
   bool? sendAgent = false;
-  List<String>? servicesChosen = [];
+  List<String> servicesChosen = [];
 
   SellingForm({
     this.address = '',
@@ -24,24 +20,9 @@ class SellingForm {
     this.averageApiPrice = 0,
     this.costumerPrice = 0,
     this.sendAgent  = false,
-    this.servicesChosen = const [],
   });
 
-  factory SellingForm.fromRawJson(String str) => SellingForm.fromJson(json.decode(str));
-
   String toRawJson() => json.encode(toJson());
-
-  factory SellingForm.fromJson(Map<String, dynamic> json) => SellingForm(
-    address: json["ADDRESS"],
-    condition: json["CONDITION"],
-    typeProperty: json["TYPE_PROPERTY"],
-    serviceType: json["SERVICE_TYPE"],
-    apiPrices: List<double>.from(json["API_PRICES"].map((x) => x)),
-    averageApiPrice: json["AVERAGE_API_PRICE"],
-    costumerPrice: json["COSTUMER_PRICE"],
-    sendAgent: json["SEND_AGENT"],
-    servicesChosen: List<String>.from(json["SERVICES_CHOSEN"].map((x) => x)),
-  );
 
   Map<String, dynamic> toJson() => {
     "ADDRESS": address,
@@ -55,6 +36,7 @@ class SellingForm {
     "SERVICES_CHOSEN": List<dynamic>.from(servicesChosen!.map((x) => x)),
   };
 
-
-
+  void addService(String service) {
+    servicesChosen?.add(service);
+  }
 }
