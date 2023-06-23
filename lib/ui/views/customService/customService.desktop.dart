@@ -154,7 +154,7 @@ class CustomServiceDesktop extends StatelessWidget {
                 children: [
                   // Dynamically create the CardServices based on the titles and descriptions from the API
                   ...customTitles.map((e) => CardServices(
-                    color: goldCardColor,
+                    color: primaryCardColor,
                     title: e,
                     description: customDescriptions[customTitles.indexOf(e)],
                   )).toList(),
