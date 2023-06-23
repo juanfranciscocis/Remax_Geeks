@@ -48,7 +48,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -58,7 +58,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                   style: TextStyle(
                     color: fontMainColor,
                     fontFamily: fontOutfitBold,
-                    fontSize: 60,
+                    fontSize: 40,
                   ),
                 ),
                 verticalSpaceMedium,
@@ -69,7 +69,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                     labelStyle: TextStyle(
                       color: fontSecondColor,
                       fontFamily: fontOutfitRegular,
-                      fontSize: 20,
+                      fontSize: 10,
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -83,7 +83,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                   style: TextStyle(
                     color: fontMainColor,
                     fontFamily: fontOutfitRegular,
-                    fontSize: 20,
+                    fontSize: 15,
                   ),
                   onChanged: (value) {
                     google.getMax3PredictionsGoogle(value);
@@ -100,8 +100,8 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                         children: [
                           Expanded(
                             child: _buildMaterialButton(
-                              buttonColor: inputColor,
-                              textSize: 30,
+                              buttonColor: fontMainColor,
+                              textSize: 15,
                               title: google.listOfPredictions[0],
                               onPressed: () {
                                 changeTextFieldToSuggestion(google.listOfPredictions[0]);
@@ -122,8 +122,8 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                         children: [
                           Expanded(
                             child: _buildMaterialButton(
-                              buttonColor: inputColor,
-                              textSize: 30,
+                              buttonColor: fontMainColor,
+                              textSize: 15,
                               title: google.listOfPredictions[1],
                               onPressed: () {
                                 changeTextFieldToSuggestion(google.listOfPredictions[1] );
@@ -144,8 +144,8 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                         children: [
                           Expanded(
                             child: _buildMaterialButton(
-                              buttonColor: inputColor,
-                              textSize: 30,
+                              buttonColor: fontMainColor,
+                              textSize: 15,
                               title: google.listOfPredictions[2],
                               onPressed: () {
                                 changeTextFieldToSuggestion(google.listOfPredictions[2] );
@@ -164,7 +164,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                   style: TextStyle(
                     color: fontMainColor,
                     fontFamily: fontOutfitBold,
-                    fontSize: 60,
+                    fontSize: 40,
                   ),
                 ),
                 verticalSpaceMedium,
@@ -228,7 +228,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                   style: TextStyle(
                     color: fontMainColor,
                     fontFamily: fontOutfitBold,
-                    fontSize: 60,
+                    fontSize: 40,
                   ),
                 ),
                 verticalSpaceMedium,
@@ -279,29 +279,28 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                 verticalSpaceLarge,
                 Align(
                   alignment: Alignment.centerRight,
-                  child: FractionallySizedBox(
-                    widthFactor: 0.2, // Adjust the width as needed
-                    child: MaterialButton(
-                      onPressed: () async {
-                        // Navigate to the ChooseServiceTypeView
+                    child: _buildMaterialButton(title: 'NEXT', onPressed: (){
+                      // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
+                      if (sellFormProvider.address != '' && sellFormProvider.condition != '' && sellFormProvider.type != '') {
+                        // GO TO NEXT PAGE
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseServiceTypeView()));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset(
-                          addressContinueButton,
-                          height: 50,
-                          width: 100,
-                        ),
-                      ),
-                      color: confirmButtonColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      elevation: 5.0,
-                    ),
-                  ),
-                ),
+
+                      } else {
+                        // SHOW ERROR MESSAGE
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Please fill all the fields',
+                              style: TextStyle(
+                                fontFamily: fontOutfitRegular,
+                                fontSize: 15,
+                              ),
+                            ),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    }, buttonColor: confirmButtonColor)),
                 verticalSpaceLarge,
               ],
             ),
@@ -318,6 +317,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
     double? textSize,
   }) {
     return MaterialButton(
+      height: 50,
       //round the corners of the button
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
@@ -328,11 +328,12 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
       textColor: Colors.white,
       child: Text(
         title,
-        //center
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontFamily: fontOutfitBold,
-          fontSize: textSize ?? ( textSize = 29),
+          fontSize: textSize ?? ( textSize = 15),
         ),
       ),
     );

@@ -104,7 +104,7 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                       children: [
                         Expanded(
                           child: _buildMaterialButton(
-                            buttonColor: inputColor,
+                            buttonColor: fontMainColor,
                             textSize: 30,
                             title: google.listOfPredictions[0],
                             onPressed: () {
@@ -126,7 +126,7 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                       children: [
                         Expanded(
                           child: _buildMaterialButton(
-                            buttonColor: inputColor,
+                            buttonColor: fontMainColor,
                             textSize: 30,
                             title: google.listOfPredictions[1],
                             onPressed: () {
@@ -148,7 +148,7 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                       children: [
                         Expanded(
                           child: _buildMaterialButton(
-                            buttonColor: inputColor,
+                            buttonColor: fontMainColor,
                             textSize: 30,
                             title: google.listOfPredictions[2],
                             onPressed: () {
@@ -285,30 +285,29 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
 
               verticalSpaceLarge,
               Align(
-                alignment: Alignment.centerRight,
-                child: FractionallySizedBox(
-                  widthFactor: 0.2, // Adjust the width as needed
-                  child: MaterialButton(
-                    onPressed: () async {
-                      // Navigate to the ChooseServiceTypeView
+                  alignment: Alignment.centerRight,
+                  child: _buildMaterialButton(title: 'NEXT', onPressed: (){
+                    // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
+                    if (sellFormProvider.address != '' && sellFormProvider.condition != '' && sellFormProvider.type != '') {
+                      // GO TO NEXT PAGE
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseServiceTypeView()));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        addressContinueButton,
-                        height: 50,
-                        width: 100,
-                      ),
-                    ),
-                    color: confirmButtonColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    elevation: 5.0,
-                  ),
-                ),
-              ),
+
+                    } else {
+                      // SHOW ERROR MESSAGE
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Please fill all the fields',
+                            style: TextStyle(
+                              fontFamily: fontOutfitRegular,
+                              fontSize: 15,
+                            ),
+                          ),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  }, buttonColor: confirmButtonColor)),
               verticalSpaceLarge,
             ],
           ),
@@ -321,27 +320,31 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
     required String title,
     required VoidCallback onPressed,
     Color? buttonColor,
-    double? textSize
+    double? textSize,
   }) {
     return MaterialButton(
-      //round the corners of the button
+      height: 80,
+      // round the corners of the button
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
       elevation: 5.0,
       onPressed: onPressed,
-      color:  buttonColor ?? (buttonColor = primaryButtonColor),
+      color: buttonColor ?? (buttonColor = primaryButtonColor),
       textColor: Colors.white,
       child: Text(
         title,
+        maxLines: 1, // Set maxLines to 1
+        overflow: TextOverflow.ellipsis, // Set overflow to TextOverflow.ellipsis
         textAlign: TextAlign.center,
         style: TextStyle(
           fontFamily: fontOutfitBold,
-          fontSize: textSize ?? (textSize = 50),
+          fontSize: textSize ?? (textSize = 30),
         ),
       ),
     );
   }
+
 }
 
 

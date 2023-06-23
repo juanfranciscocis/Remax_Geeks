@@ -64,58 +64,52 @@ class LandingPageMobileSite extends StatelessWidget {
         //Buttons
         Row(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             //SELL NOW
-            Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: MaterialButton(
-                onPressed: () {
-                  print('SELL NOW PRESSED');
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AddressView()));
-                },
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    landingPageSellNowButton,
-                    style: TextStyle(
-                      color: fontWhiteColor,
-                      fontFamily: fontOutfitMedium,
-                      fontSize: 30,
-                    ),
+            MaterialButton(
+              onPressed: () {
+                print('SELL NOW PRESSED');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const AddressView()));
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(4.0),
+                child: Text(
+                  landingPageSellNowButton,
+                  style: TextStyle(
+                    color: fontWhiteColor,
+                    fontFamily: fontOutfitMedium,
+                    fontSize: 30,
                   ),
                 ),
-                color:primaryButtonColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                elevation: 5.0,
               ),
+              color:primaryButtonColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              elevation: 5.0,
             ),
             //BUY NOW
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0),
-              child: MaterialButton(
-                onPressed: () {
-                  print('BUY NOW PRESSED');
-                },
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    landingPageBuyNowButton,
-                    style: TextStyle(
-                      color: fontWhiteColor,
-                      fontFamily: fontOutfitMedium,
-                      fontSize: 30,
-                    ),
+            MaterialButton(
+              onPressed: () {
+                print('BUY NOW PRESSED');
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(4.0),
+                child: Text(
+                  landingPageBuyNowButton,
+                  style: TextStyle(
+                    color: fontWhiteColor,
+                    fontFamily: fontOutfitMedium,
+                    fontSize: 30,
                   ),
                 ),
-                color: primaryButtonColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                elevation: 5.0,
               ),
+              color: primaryButtonColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              elevation: 5.0,
             ),
           ],
         ),

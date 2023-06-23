@@ -103,7 +103,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                         children: [
                           Expanded(
                             child: _buildMaterialButton(
-                              buttonColor: inputColor,
+                              buttonColor: fontMainColor,
                               textSize: 30,
                               title: google.listOfPredictions[0],
                               onPressed: () {
@@ -125,7 +125,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                         children: [
                           Expanded(
                             child: _buildMaterialButton(
-                              buttonColor: inputColor,
+                              buttonColor: fontMainColor,
                               textSize: 30,
                               title: google.listOfPredictions[1],
                               onPressed: () {
@@ -147,7 +147,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                         children: [
                           Expanded(
                             child: _buildMaterialButton(
-                              buttonColor: inputColor,
+                              buttonColor: fontMainColor,
                               textSize: 30,
                               title: google.listOfPredictions[2],
                               onPressed: () {
@@ -279,30 +279,30 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
 
                 verticalSpaceLarge,
                 Align(
-                  alignment: Alignment.centerRight,
-                  child: FractionallySizedBox(
-                    widthFactor: 0.2, // Adjust the width as needed
-                    child: MaterialButton(
-                      onPressed: () async {
-                        // Navigate to the ChooseServiceTypeView
+                    alignment: Alignment.centerRight,
+                    child: _buildMaterialButton(title: 'NEXT', onPressed: (){
+                      // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
+                      if (sellFormProvider.address != '' && sellFormProvider.condition != '' && sellFormProvider.type != '') {
+                        // GO TO NEXT PAGE
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseServiceTypeView()));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset(
-                          addressContinueButton,
-                          height: 50,
-                          width: 100,
-                        ),
-                      ),
-                      color: confirmButtonColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      elevation: 5.0,
-                    ),
-                  ),
-                ),
+
+                      } else {
+                        // SHOW ERROR MESSAGE
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Please fill all the fields',
+                              style: TextStyle(
+                                fontFamily: fontOutfitRegular,
+                                fontSize: 15,
+                              ),
+                            ),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    }, buttonColor: confirmButtonColor)),
+
                 verticalSpaceLarge,
               ],
             ),
@@ -319,6 +319,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
     double? textSize,
   }) {
     return MaterialButton(
+      height: 80,
       //round the corners of the button
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
@@ -329,11 +330,12 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
       textColor: Colors.white,
       child: Text(
         title,
-        //center
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontFamily: fontOutfitBold,
-          fontSize: textSize ?? (textSize = 40),
+          fontSize: textSize ?? (textSize = 25),
         ),
       ),
     );

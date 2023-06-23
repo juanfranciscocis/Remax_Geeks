@@ -5,25 +5,25 @@
 import 'dart:convert';
 
 class SellingForm {
-  String? address;
-  String? condition;
-  String? typeProperty;
-  String? serviceType;
-  List<int>? apiPrices;
-  int? averageApiPrice;
-  int? costumerPrice;
+  String? address = '';
+  String? condition = '';
+  String? typeProperty = '';
+  String? serviceType = '';
+  List<int>? apiPrices = [];
+  int? averageApiPrice = 0;
+  int? costumerPrice = 0;
   bool? sendAgent = false;
   List<String>? servicesChosen = [];
 
   SellingForm({
-    this.address,
-    this.condition,
-    this.typeProperty,
-    this.serviceType,
+    this.address = '',
+    this.condition  = '',
+    this.typeProperty = '',
+    this.serviceType = '',
     this.apiPrices = const [0, 0, 0],
-    this.averageApiPrice,
-    this.costumerPrice,
-    this.sendAgent,
+    this.averageApiPrice = 0,
+    this.costumerPrice = 0,
+    this.sendAgent  = false,
     this.servicesChosen = const [],
   });
 
