@@ -7,6 +7,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../providers/sellFormProvider.dart';
 import '../../../services/GooglePlacesService.dart';
+import '../../../services/realtyMoleService.dart';
 import '../../../widgets/landingPage/LandingPageTabletSite.dart';
 import '../../../widgets/landingPage/MainTabletNavBar.dart';
 import '../../common/app_strings.dart';
@@ -186,6 +187,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                             title: condition1,
                             onPressed: () {
                               // Handle button 1 press
+                              widget.sellFormProvider.condition = condition1;
                             },
                           ),
                         ),
@@ -195,6 +197,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                             title: condition2,
                             onPressed: () {
                               // Handle button 2 press
+                              widget.sellFormProvider.condition = condition2;
                             },
                           ),
                         ),
@@ -208,6 +211,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                             title: condition3,
                             onPressed: () {
                               // Handle button 3 press
+                              widget.sellFormProvider.condition = condition3;
                             },
                           ),
                         ),
@@ -217,6 +221,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                             title: condition4,
                             onPressed: () {
                               // Handle button 4 press
+                              widget.sellFormProvider.condition = condition4;
                             },
                           ),
                         ),
@@ -246,6 +251,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                             title: type1,
                             onPressed: () {
                               // Handle button 1 press
+                              widget.sellFormProvider.type = type1;
                             },
                           ),
                         ),
@@ -255,6 +261,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                             title: type2,
                             onPressed: () {
                               // Handle button 2 press
+                              widget.sellFormProvider.type = type2;
                             },
                           ),
                         ),
@@ -269,6 +276,8 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                             title: type3,
                             onPressed: () {
                               // Handle button 3 press
+                              widget.sellFormProvider.type = type3;
+
                             },
                           ),
                         ),
@@ -280,9 +289,14 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                 verticalSpaceLarge,
                 Align(
                     alignment: Alignment.centerRight,
-                    child: _buildMaterialButton(title: 'NEXT', onPressed: (){
+                    child: _buildMaterialButton(title: 'NEXT', onPressed: () async {
                       // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
                       if (sellFormProvider.address != '' && sellFormProvider.condition != '' && sellFormProvider.type != '') {
+                        RealtyMoleService realty = RealtyMoleService();
+                        await realty.getPrice(sellFormProvider.address);
+                        List<double> prices = [0,0,0];
+                        prices[1] = realty.price;
+                        sellFormProvider.apiPrices = prices;
                         // GO TO NEXT PAGE
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseServiceTypeView()));
 

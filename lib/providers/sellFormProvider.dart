@@ -24,11 +24,11 @@ class SellFormProvider extends ChangeNotifier{
     _sellingFormModel.serviceType = serviceType;
     notifyListeners();
   }
-  set apiPrices (List<int> apiPrices){
+  set apiPrices (List<double> apiPrices){
     _sellingFormModel.apiPrices = apiPrices;
     notifyListeners();
   }
-  set averageApiPrice (int averageApiPrice){
+  set averageApiPrice (double averageApiPrice){
     _sellingFormModel.averageApiPrice = averageApiPrice;
     notifyListeners();
   }
@@ -50,10 +50,18 @@ class SellFormProvider extends ChangeNotifier{
   String get address => _sellingFormModel.address ?? 'NO ADDRESS';
   String get type => _sellingFormModel.typeProperty ?? 'NO TYPE';
   String get serviceType => _sellingFormModel.serviceType ?? 'NO SERVICE TYPE';
-  List<int> get apiPrices => _sellingFormModel.apiPrices ?? [0,0,0];
-  int get averageApiPrice => _sellingFormModel.averageApiPrice ?? 0;
+  List<double> get apiPrices => _sellingFormModel.apiPrices ?? [0,0,0];
   int get costumerPrice => _sellingFormModel.costumerPrice ?? 0;
   bool get sendAgent => _sellingFormModel.sendAgent ?? false;
   List<String> get servicesChosen => _sellingFormModel.servicesChosen ?? [];
+
+  double getAverage(){
+    double sum = 0;
+    for (var i = 0; i < apiPrices.length; i++) {
+      sum += apiPrices[i];
+    }
+    return sum / apiPrices.length;
+  }
+
 
 }

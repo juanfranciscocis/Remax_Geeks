@@ -1,5 +1,6 @@
 
 import 'package:provider/provider.dart';
+import 'package:remax_geeks/services/realtyMoleService.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
@@ -286,9 +287,14 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
               verticalSpaceLarge,
               Align(
                   alignment: Alignment.centerRight,
-                  child: _buildMaterialButton(title: 'NEXT', onPressed: (){
+                  child: _buildMaterialButton(title: 'NEXT', onPressed: () async {
                     // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
                     if (sellFormProvider.address != '' && sellFormProvider.condition != '' && sellFormProvider.type != '') {
+                      RealtyMoleService realty = RealtyMoleService();
+                      await realty.getPrice(sellFormProvider.address);
+                      List<double> prices = [0,0,0];
+                      prices[1] = realty.price;
+                      sellFormProvider.apiPrices = prices;
                       // GO TO NEXT PAGE
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseServiceTypeView()));
 

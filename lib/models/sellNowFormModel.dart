@@ -9,8 +9,8 @@ class SellingForm {
   String? condition = '';
   String? typeProperty = '';
   String? serviceType = '';
-  List<int>? apiPrices = [];
-  int? averageApiPrice = 0;
+  List<double>? apiPrices = [];
+  double? averageApiPrice = 0;
   int? costumerPrice = 0;
   bool? sendAgent = false;
   List<String>? servicesChosen = [];
@@ -36,7 +36,7 @@ class SellingForm {
     condition: json["CONDITION"],
     typeProperty: json["TYPE_PROPERTY"],
     serviceType: json["SERVICE_TYPE"],
-    apiPrices: List<int>.from(json["API_PRICES"].map((x) => x)),
+    apiPrices: List<double>.from(json["API_PRICES"].map((x) => x)),
     averageApiPrice: json["AVERAGE_API_PRICE"],
     costumerPrice: json["COSTUMER_PRICE"],
     sendAgent: json["SEND_AGENT"],

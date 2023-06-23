@@ -8,6 +8,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../providers/sellFormProvider.dart';
 import '../../../services/GooglePlacesService.dart';
+import '../../../services/realtyMoleService.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../common/app_strings.dart';
 import '../chooseServiceType/chooseServiceType_view.dart';
@@ -279,9 +280,14 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                 verticalSpaceLarge,
                 Align(
                   alignment: Alignment.centerRight,
-                    child: _buildMaterialButton(title: 'NEXT', onPressed: (){
+                    child: _buildMaterialButton(title: 'NEXT', onPressed: () async {
                       // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
                       if (sellFormProvider.address != '' && sellFormProvider.condition != '' && sellFormProvider.type != '') {
+                        RealtyMoleService realty = RealtyMoleService();
+                        await realty.getPrice(sellFormProvider.address);
+                        List<double> prices = [0,0,0];
+                        prices[1] = realty.price;
+                        sellFormProvider.apiPrices = prices;
                         // GO TO NEXT PAGE
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseServiceTypeView()));
 

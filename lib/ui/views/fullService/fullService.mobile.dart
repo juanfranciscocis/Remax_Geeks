@@ -6,6 +6,7 @@ import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:remax_geeks/widgets/services/forMobile/CardAverageApiMobile.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../helpers/currencyFormater.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../../widgets/services/CardServices.dart';
@@ -20,15 +21,19 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
-  String averageApiPrice = '\$100,000.00'; //TODO: API CALL AVERAGE PRICE
   List<String> premiumTitles;
   List<String> premiumDescriptions;
   String fullServiceIncludes;
+  List<double> apiPrices = [];
+  String averageApiPrice = '';
+
 
   FullServiceMobile({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions, required this.fullServiceIncludes});
 
   @override
   Widget build(BuildContext context, FullServiceViewModel viewModel) {
+    apiPrices = sellFormProvider.apiPrices;
+    averageApiPrice = formatCurrency(sellFormProvider.getAverage());
     return  Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
@@ -56,11 +61,11 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
 
                 verticalSpaceLarge,
                 //TODO: API CALL AS A LIST
-                CardApiInformationMobile(imagePath:imageZillow,estimatedPriceApi: '\$100,000.00' ,),
+                CardApiInformationMobile(imagePath:imageZillow,estimatedPriceApi: formatCurrency(apiPrices[0]) ,),
                 verticalSpaceTiny,
-                CardApiInformationMobile(imagePath: imageRM,estimatedPriceApi: '\$100,000.00',),
+                CardApiInformationMobile(imagePath: imageRM,estimatedPriceApi: formatCurrency(apiPrices[1]),),
                 verticalSpaceTiny,
-                CardApiInformationMobile(imagePath: imageAmericanRealState, estimatedPriceApi: '\$100,000.00',),
+                CardApiInformationMobile(imagePath: imageAmericanRealState, estimatedPriceApi: formatCurrency(apiPrices[2]),),
                 verticalSpaceTiny,
                 CardAverageApiMobile(averageApiPrice: averageApiPrice),
                 verticalSpaceTiny,

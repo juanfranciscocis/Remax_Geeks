@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:stacked/stacked.dart';
 
+import '../../../helpers/currencyFormater.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../widgets/landingPage/LandingPageTabletSite.dart';
 import '../../../widgets/landingPage/MainTabletNavBar.dart';
@@ -21,14 +22,18 @@ class CustomServiceTablet extends ViewModelWidget<CustomServiceViewModel> {
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
-  String averageApiPrice = '\$100,000.00'; //TODO: API CALL AVERAGE PRICE
   List<String> customTitles;
   List<String> customDescriptions;
+  List<double> apiPrices = [];
+  String averageApiPrice = '';
 
   CustomServiceTablet({super.key, required this.dbProvider, required this.sellFormProvider, required this.customTitles, required this.customDescriptions});
 
   @override
   Widget build(BuildContext context, CustomServiceViewModel viewModel) {
+    apiPrices = sellFormProvider.apiPrices;
+    averageApiPrice = formatCurrency(sellFormProvider.getAverage());
+
     return  Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
@@ -55,11 +60,11 @@ class CustomServiceTablet extends ViewModelWidget<CustomServiceViewModel> {
 
                   verticalSpaceLarge,
                   //TODO: API CALL AS A LIST
-                  CardApiInformationTablet(imagePath:imageZillow,estimatedPriceApi: '\$100,000.00' ,),
+                  CardApiInformationTablet(imagePath:imageZillow,estimatedPriceApi: formatCurrency(apiPrices[0]) ,),
                   verticalSpaceTiny,
-                  CardApiInformationTablet(imagePath: imageRM,estimatedPriceApi: '\$100,000.00',),
+                  CardApiInformationTablet(imagePath: imageRM,estimatedPriceApi: formatCurrency(apiPrices[1]),),
                   verticalSpaceTiny,
-                  CardApiInformationTablet(imagePath: imageAmericanRealState, estimatedPriceApi: '\$100,000.00',),
+                  CardApiInformationTablet(imagePath: imageAmericanRealState, estimatedPriceApi: formatCurrency(apiPrices[2]),),
                   verticalSpaceTiny,
                   CardAverageApiTablet(averageApiPrice: averageApiPrice),
                   verticalSpaceTiny,

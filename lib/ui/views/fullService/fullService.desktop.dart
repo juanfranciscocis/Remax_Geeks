@@ -6,6 +6,7 @@ import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../helpers/currencyFormater.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
@@ -23,11 +24,17 @@ class FullServiceDesktop extends StatelessWidget {
   List<String> premiumTitles;
   List<String> premiumDescriptions;
   String fullServiceIncludes;
-  String averageApiPrice = '\$100,000.00'; //TODO: API CALL AVERAGE PRICE
+  List<double> apiPrices = [];
+  String averageApiPrice = '';
+
   FullServiceDesktop({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions, required this.fullServiceIncludes});
 
   @override
   Widget build(BuildContext context) {
+    apiPrices = sellFormProvider.apiPrices;
+    averageApiPrice = formatCurrency(sellFormProvider.getAverage());
+
+
     return  Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -53,11 +60,11 @@ class FullServiceDesktop extends StatelessWidget {
               verticalSpaceLarge,
 
               //TODO: API CALL AS A LIST
-              CardApiInformationDesktop(imagePath:imageZillow,estimatedPriceApi: '\$100,000.00' ,),
+              CardApiInformationDesktop(imagePath:imageZillow,estimatedPriceApi: formatCurrency(apiPrices[0]) ,),
               verticalSpaceTiny,
-              CardApiInformationDesktop(imagePath: imageRM,estimatedPriceApi: '\$100,000.00',),
+              CardApiInformationDesktop(imagePath: imageRM,estimatedPriceApi: formatCurrency(apiPrices[1])),
               verticalSpaceTiny,
-              CardApiInformationDesktop(imagePath: imageAmericanRealState, estimatedPriceApi: '\$100,000.00',),
+              CardApiInformationDesktop(imagePath: imageAmericanRealState, estimatedPriceApi: formatCurrency(apiPrices[2]),),
               verticalSpaceTiny,
               CardAverageApiDesktop(averageApiPrice: averageApiPrice),
               verticalSpaceTiny,
