@@ -32,7 +32,7 @@ class SellFormProvider extends ChangeNotifier{
     _sellingFormModel.averageApiPrice = averageApiPrice;
     notifyListeners();
   }
-  set costumerPrice (int costumerPrice){
+  set costumerPrice (String costumerPrice){
     _sellingFormModel.costumerPrice = costumerPrice;
     notifyListeners();
   }
@@ -56,8 +56,9 @@ class SellFormProvider extends ChangeNotifier{
   String get type => _sellingFormModel.typeProperty ?? 'NO TYPE';
   String get serviceType => _sellingFormModel.serviceType ?? 'NO SERVICE TYPE';
   List<double> get apiPrices => _sellingFormModel.apiPrices ?? [0,0,0];
-  int get costumerPrice => _sellingFormModel.costumerPrice ?? 0;
+  String get costumerPrice => _sellingFormModel.costumerPrice ?? "0";
   bool get sendAgent => _sellingFormModel.sendAgent ?? false;
+  List<String>  getServicesChosen() => _sellingFormModel.servicesChosen ?? [];
 
   double getAverage(){
     double sum = 0;
@@ -66,6 +67,5 @@ class SellFormProvider extends ChangeNotifier{
     }
     return sum / apiPrices.length;
   }
-
 
 }

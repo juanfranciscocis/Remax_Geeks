@@ -7,7 +7,7 @@ class SellingForm {
   String? serviceType = '';
   List<double>? apiPrices = [];
   double? averageApiPrice = 0;
-  int? costumerPrice = 0;
+  String? costumerPrice = "0";
   bool? sendAgent = false;
   List<String> servicesChosen = [];
 
@@ -18,7 +18,7 @@ class SellingForm {
     this.serviceType = '',
     this.apiPrices = const [0, 0, 0],
     this.averageApiPrice = 0,
-    this.costumerPrice = 0,
+    this.costumerPrice = "0",
     this.sendAgent  = false,
   });
 

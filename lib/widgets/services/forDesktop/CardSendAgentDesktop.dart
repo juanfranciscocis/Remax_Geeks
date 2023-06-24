@@ -7,9 +7,11 @@ import '../../../ui/common/app_strings.dart';
 
 //AGENT CHECKBOX
 class CheckBoxAgent extends StatefulWidget {
-  const CheckBoxAgent({
+  bool isButtonDisabled;
+  CheckBoxAgent({
     super.key,
     required this.sellFormProvider,
+    required this.isButtonDisabled,
   });
 
   final SellFormProvider sellFormProvider;
@@ -19,7 +21,6 @@ class CheckBoxAgent extends StatefulWidget {
 }
 
 class _CheckBoxAgentState extends State<CheckBoxAgent> {
-  bool isButtonDisabled = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,11 +35,11 @@ class _CheckBoxAgentState extends State<CheckBoxAgent> {
           ),
         ),
         activeColor: confirmButtonColor,
-        value: isButtonDisabled,
+        value: widget.isButtonDisabled,
         onChanged: (bool? value) {
           //Checkbox
           setState(() {
-            isButtonDisabled = value!;
+            widget.isButtonDisabled = value!;
           });
           widget.sellFormProvider.sendAgent = value!;
           print(widget.sellFormProvider.sendAgent);

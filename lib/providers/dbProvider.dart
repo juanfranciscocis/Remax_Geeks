@@ -36,7 +36,8 @@ class DBProvider extends ChangeNotifier{
   Future<void> setSellingFormData( Map<String, dynamic> sellingFormData) async{
     //ADD THE NUMBER OF COSTUMERS TO THE KEY
     String costumer = _numberOfCostumers.toString();
-    await _databaseReference!.child('SELLING_FORM' + costumer).set(sellingFormData);
+    await _databaseReference!.child('SELLING_FORM_' + costumer).set(sellingFormData);
+    incrementNumberOfCostumers();
     notifyListeners();
   }
   //NUMBER OF COSTUMERS, GET THE NUMBER OF COSTUMERS FROM THE DATABASE AS INT

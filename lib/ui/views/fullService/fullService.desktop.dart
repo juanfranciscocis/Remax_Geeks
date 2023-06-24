@@ -4,6 +4,7 @@ import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:remax_geeks/ui/views/home/home_view.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../helpers/currencyFormater.dart';
@@ -17,7 +18,7 @@ import '../../../widgets/services/CardServices.dart';
 import '../../../widgets/services/forDesktop/CardSendAgentDesktop.dart';
 import 'fullService_viewmodel.dart';
 
-class FullServiceDesktop extends StatefulWidget {
+class FullServiceDesktop extends StatelessWidget {
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
@@ -25,22 +26,20 @@ class FullServiceDesktop extends StatefulWidget {
   List<String> premiumDescriptions;
   String fullServiceIncludes;
   List<String> premiumServices = [];
+  bool needAgent = false;
+  TextEditingController customPrice = TextEditingController();
 
   FullServiceDesktop({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions, required this.fullServiceIncludes});
 
-  @override
-  State<FullServiceDesktop> createState() => _FullServiceDesktopState();
-}
-
-class _FullServiceDesktopState extends State<FullServiceDesktop> {
   List<double> apiPrices = [];
 
+  //CONTROLLER FOR THE TEXTFIELD
   String averageApiPrice = '';
 
   @override
   Widget build(BuildContext context) {
-    apiPrices = widget.sellFormProvider.apiPrices;
-    averageApiPrice = formatCurrency(widget.sellFormProvider.getAverage());
+    apiPrices = sellFormProvider.apiPrices;
+    averageApiPrice = formatCurrency(sellFormProvider.getAverage());
     return  Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -106,26 +105,11 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
                         //Textfield
                         Padding(
                           padding: EdgeInsets.only(left: 200.0, right: 200.0),
-                          child: TextField(
-                            //get the value from the textfield
-                            onChanged: (value) {
-                              widget.sellFormProvider.costumerPrice = value as int;
-                              print(widget.sellFormProvider.costumerPrice);
-                            },
-                            decoration: InputDecoration(
-                              labelText: enterYourDesiredPriceBox,
-                              //label text style
-                              labelStyle: TextStyle(
-                                color: fontSecondColor,
-                                fontFamily: fontOutfitRegular,
-                                fontSize: 20,
-                              ),
-                              filled: true,
-                              //fill color red
-                              fillColor: inputColor2,
-                            ),
-                          ),
+                          child: CustomerPrice(sellFormProvider: sellFormProvider,onTextChanged: (text){
+                            sellFormProvider.costumerPrice = text;
+                          },),
                         ),
+
                         Center(
                           child: Padding(
                             padding: EdgeInsets.all(20.0),
@@ -141,7 +125,7 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
                           ),
                         ),
                         //checkbox, when checked color confirmation, else main color
-                        CheckBoxAgent(sellFormProvider: widget.sellFormProvider),
+                        CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent, ),
                       ],
                     ),
                   ),
@@ -183,7 +167,7 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
                           child: Padding(
                             padding: EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 0.0),
                             child: Text(
-                              widget.fullServiceIncludes,
+                              fullServiceIncludes,
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 color: fontWhiteColor,
@@ -221,54 +205,54 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
                 spacing: 16.0, // Adjust the spacing between cards as needed
                 children: [
                   // Dynamically create the CardServices based on the titles and descriptions from the API
-                  ...widget.premiumTitles.map((e) => CardServices(
+                  ...premiumTitles.map((e) => CardServices(
                     color: goldCardColor,
                     title: e,
-                    description: widget.premiumDescriptions[widget.premiumTitles.indexOf(e)],
-                    sellformProvider: widget.sellFormProvider,
+                    description: premiumDescriptions[premiumTitles.indexOf(e)],
+                    sellformProvider: sellFormProvider,
                   )).toList(),
                 ],
               ),
 
               verticalSpaceLarge,
-              MaterialButton(
-                //make it round, and color confirmation
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                color: confirmButtonColor,
-                //MAKE THE CONFIRMATION BUTTON USIGN THE CONFIRM IAMGE ASSET
-                  child: Container(
-                    width: 350,
-                    child: Row(
-                      children: [
-                        //Text outfit medium, font main color, size 30
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            sendInformation,
-                            textAlign: TextAlign.center,
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: _buildMaterialButton(title: 'SEND INFORMATION', onPressed: () async {
+                    String enteredText = customPrice.text;
+                    print('Entered text: $enteredText');
+
+                    // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
+                    if (sellFormProvider.costumerPrice != "0") {
+                      DBProvider db = Provider.of<DBProvider>(context, listen: false);
+                      Map<String,dynamic> data = {
+                        'ADDRESS': sellFormProvider.address,
+                        'HOUSE_CONDITION': sellFormProvider.condition,
+                        'HOUSE_TYPE': sellFormProvider.type,
+                        'SERVICE_TYPE': sellFormProvider.serviceType,
+                        'API_PRICES': sellFormProvider.apiPrices,
+                        'API_AVERAGE_PRICE': averageApiPrice,
+                        'CUSTOMER_PRICE': sellFormProvider.costumerPrice,
+                        'NEED_AGENT': sellFormProvider.sendAgent,
+                        'PREMIUM_SERVICES': sellFormProvider.getServicesChosen(),
+                      };
+                      await db.setSellingFormData(data);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
+                    } else {
+                      // SHOW ERROR MESSAGE
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Please fill Custom Price',
                             style: TextStyle(
-                              color: fontMainColor,
-                              fontFamily: fontOutfitMedium,
-                              fontSize: 30,
+                              fontFamily: fontOutfitRegular,
+                              fontSize: 15,
                             ),
                           ),
+                          backgroundColor: Colors.red,
                         ),
-                        Image.asset(
-                          confirmForm,
-                          height: 100.0,
-                          width: 100.0,
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  onPressed: () {
-                    print('SUBMIT FORM');
-                    //TODO: VALIDATE FORM
-                  }
-              ),
+                      );
+                    }
+                  }, buttonColor: confirmButtonColor)),
               verticalSpaceLarge,
 
 
@@ -280,6 +264,76 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildMaterialButton({
+    required String title,
+    required VoidCallback onPressed,
+    Color? buttonColor,
+    double? textSize,
+  }) {
+    return MaterialButton(
+      height: 80,
+      // round the corners of the button
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      elevation: 5.0,
+      onPressed: onPressed,
+      color: buttonColor ?? (buttonColor = primaryButtonColor),
+      textColor: Colors.white,
+      child: Text(
+        title,
+        maxLines: 1, // Set maxLines to 1
+        overflow: TextOverflow.ellipsis, // Set overflow to TextOverflow.ellipsis
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: fontOutfitBold,
+          fontSize: textSize ?? (textSize = 30),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomerPrice extends StatefulWidget {
+
+  SellFormProvider sellFormProvider;
+  final ValueChanged<String> onTextChanged;
+
+  CustomerPrice({
+    super.key,
+    required this.sellFormProvider,
+    required this.onTextChanged,
+  });
+
+
+
+  @override
+  State<CustomerPrice> createState() => _CustomerPriceState();
+}
+
+class _CustomerPriceState extends State<CustomerPrice> {
+
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      //onChanged: (value) => setCustomPrice(),
+      onChanged: widget.onTextChanged,
+      decoration: InputDecoration(
+        labelText: enterYourDesiredPriceBox,
+        labelStyle: TextStyle(
+          color: fontSecondColor,
+          fontFamily: fontOutfitRegular,
+          fontSize: 20,
+        ),
+        filled: true,
+        fillColor: inputColor2,
       ),
     );
   }

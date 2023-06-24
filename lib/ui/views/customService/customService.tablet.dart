@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
@@ -16,6 +17,7 @@ import '../../../widgets/services/forDesktop/CardSendAgentDesktop.dart';
 import '../../../widgets/services/forTabletView/CardApiInformationTablet.dart';
 import '../../../widgets/services/forTabletView/CardAverageApiTablet.dart';
 import '../../common/app_strings.dart';
+import '../home/home_view.dart';
 import 'customService_viewmodel.dart';
 
 class CustomServiceTablet extends ViewModelWidget<CustomServiceViewModel> {
@@ -26,6 +28,8 @@ class CustomServiceTablet extends ViewModelWidget<CustomServiceViewModel> {
   List<String> customDescriptions;
   List<double> apiPrices = [];
   String averageApiPrice = '';
+  bool needAgent = false;
+  TextEditingController customPrice = TextEditingController();
 
   CustomServiceTablet({super.key, required this.dbProvider, required this.sellFormProvider, required this.customTitles, required this.customDescriptions});
 
@@ -100,25 +104,9 @@ class CustomServiceTablet extends ViewModelWidget<CustomServiceViewModel> {
                             //Textfield
                             Padding(
                               padding: EdgeInsets.only(left: 100.0, right: 100.0),
-                              child: TextField(
-                                //get the value from the textfield
-                                onChanged: (value) {
-                                  sellFormProvider.costumerPrice = value as int;
-                                  print(sellFormProvider.costumerPrice);
-                                },
-                                decoration: InputDecoration(
-                                  labelText: enterYourDesiredPriceBox,
-                                  //label text style
-                                  labelStyle: TextStyle(
-                                    color: fontSecondColor,
-                                    fontFamily: fontOutfitRegular,
-                                    fontSize: 15,
-                                  ),
-                                  filled: true,
-                                  //fill color red
-                                  fillColor: inputColor2,
-                                ),
-                              ),
+                              child: CustomerPrice(sellFormProvider: sellFormProvider,onTextChanged: (text){
+                                sellFormProvider.costumerPrice = text;
+                              }),
                             ),
                             Center(
                               child: Padding(
@@ -135,7 +123,7 @@ class CustomServiceTablet extends ViewModelWidget<CustomServiceViewModel> {
                               ),
                             ),
                             //checkbox, when checked color confirmation, else main color
-                            CheckBoxAgent(sellFormProvider: sellFormProvider),
+                            CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent,),
                           ],
                         ),
                       ),
@@ -167,44 +155,44 @@ class CustomServiceTablet extends ViewModelWidget<CustomServiceViewModel> {
                     ],
                   ),
                   verticalSpaceLarge,
-                  MaterialButton(
-                    //make it round, and color confirmation
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      color: confirmButtonColor,
-                      //MAKE THE CONFIRMATION BUTTON USIGN THE CONFIRM IAMGE ASSET
-                      child: Container(
-                        width: 350,
-                        child: Row(
-                          children: [
-                            //Text outfit medium, font main color, size 30
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15.0),
-                              child: Text(
-                                sendInformation,
-                                textAlign: TextAlign.center,
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: _buildMaterialButton(title: 'SEND INFORMATION', onPressed: () async {
+                        String enteredText = customPrice.text;
+                        print('Entered text: $enteredText');
+
+                        // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
+                        if (sellFormProvider.costumerPrice != "0") {
+                          DBProvider db = Provider.of<DBProvider>(context, listen: false);
+                          Map<String,dynamic> data = {
+                            'ADDRESS': sellFormProvider.address,
+                            'HOUSE_CONDITION': sellFormProvider.condition,
+                            'HOUSE_TYPE': sellFormProvider.type,
+                            'SERVICE_TYPE': sellFormProvider.serviceType,
+                            'API_PRICES': sellFormProvider.apiPrices,
+                            'API_AVERAGE_PRICE': averageApiPrice,
+                            'CUSTOMER_PRICE': sellFormProvider.costumerPrice,
+                            'NEED_AGENT': sellFormProvider.sendAgent,
+                            'CUSTOM_SERVICES': sellFormProvider.getServicesChosen(),
+                          };
+                          await db.setSellingFormData(data);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
+                        } else {
+                          // SHOW ERROR MESSAGE
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Please fill Custom Price',
                                 style: TextStyle(
-                                  color: fontMainColor,
-                                  fontFamily: fontOutfitMedium,
-                                  fontSize: 30,
+                                  fontFamily: fontOutfitRegular,
+                                  fontSize: 15,
                                 ),
                               ),
+                              backgroundColor: Colors.red,
                             ),
-                            Image.asset(
-                              confirmForm,
-                              height: 100.0,
-                              width: 100.0,
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      onPressed: () {
-                        print('SUBMIT FORM');
-                        //TODO: VALIDATE FORM
-                      }
-                  ),
+                          );
+                        }
+                      }, buttonColor: confirmButtonColor)),
                   verticalSpaceLarge,
 
 
@@ -222,5 +210,72 @@ class CustomServiceTablet extends ViewModelWidget<CustomServiceViewModel> {
           ),
         ),
       );
+  }
+
+  Widget _buildMaterialButton({
+    required String title,
+    required VoidCallback onPressed,
+    Color? buttonColor,
+    double? textSize,
+  }) {
+    return MaterialButton(
+      height: 80,
+      //round the corners of the button
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      elevation: 5.0,
+      onPressed: onPressed,
+      color: buttonColor ?? (buttonColor = primaryButtonColor),
+      textColor: Colors.white,
+      child: Text(
+        title,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: fontOutfitBold,
+          fontSize: textSize ?? (textSize = 25),
+        ),
+      ),
+    );
+  }
+
+
+
+}
+
+class CustomerPrice extends StatelessWidget {
+
+  final SellFormProvider sellFormProvider;
+  final ValueChanged<String> onTextChanged;
+
+
+  CustomerPrice({
+    super.key,
+    required this.onTextChanged,
+    required this.sellFormProvider,
+  });
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      //get the value from the textfield
+      onChanged: onTextChanged,
+      decoration: InputDecoration(
+        labelText: enterYourDesiredPriceBox,
+        //label text style
+        labelStyle: TextStyle(
+          color: fontSecondColor,
+          fontFamily: fontOutfitRegular,
+          fontSize: 15,
+        ),
+        filled: true,
+        //fill color red
+        fillColor: inputColor2,
+      ),
+    );
   }
 }
