@@ -4,45 +4,53 @@ import '../../../providers/sellFormProvider.dart';
 import '../../../ui/common/app_colors.dart';
 import '../../../ui/common/app_strings.dart';
 
-
-//AGENT CHECKBOX
 class CheckBoxAgent extends StatefulWidget {
-  bool isButtonDisabled;
+  final SellFormProvider sellFormProvider;
+  final bool isButtonDisabled;
+  double? textSize = 20;
+  String text = "Send Agent";
+
   CheckBoxAgent({
-    super.key,
+    Key? key,
     required this.sellFormProvider,
     required this.isButtonDisabled,
-  });
-
-  final SellFormProvider sellFormProvider;
+    this.textSize,
+    this.text = "Send Agent",
+  }) : super(key: key);
 
   @override
-  State<CheckBoxAgent> createState() => _CheckBoxAgentState();
+  _CheckBoxAgentState createState() => _CheckBoxAgentState();
 }
 
 class _CheckBoxAgentState extends State<CheckBoxAgent> {
+  bool isChecked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isChecked = widget.isButtonDisabled;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 150.0, right: 150.0),
+      padding: EdgeInsets.symmetric(horizontal: 150.0),
       child: CheckboxListTile(
         title: Text(
-          "Send Agent",
+          widget.text,
           style: TextStyle(
             color: fontSecondColor,
             fontFamily: fontOutfitRegular,
-            fontSize: 20,
+            fontSize: widget.textSize ?? 20.0,
           ),
         ),
         activeColor: confirmButtonColor,
-        value: widget.isButtonDisabled,
+        value: isChecked,
         onChanged: (bool? value) {
-          //Checkbox
           setState(() {
-            widget.isButtonDisabled = value!;
+            isChecked = value ?? false;
           });
-          widget.sellFormProvider.sendAgent = value!;
-          print(widget.sellFormProvider.sendAgent);
+          widget.sellFormProvider.sendAgent = isChecked;
         },
       ),
     );

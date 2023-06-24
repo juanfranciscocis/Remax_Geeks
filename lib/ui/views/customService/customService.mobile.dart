@@ -83,7 +83,7 @@ class CustomServiceMobile extends ViewModelWidget<CustomServiceViewModel> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Container(
-                      height: 360.0,
+                      height: 500.0,
                       width: 1000.0,
                       child:  Column(
                         children: [
@@ -123,7 +123,7 @@ class CustomServiceMobile extends ViewModelWidget<CustomServiceViewModel> {
                             ),
                           ),
                           //checkbox, when checked color confirmation, else main color
-                          CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent,),
+                          CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent,textSize: 60,text: '          '),
                         ],
                       ),
                     ),

@@ -47,6 +47,7 @@ class SellFormProvider extends ChangeNotifier{
 
   set deleteService (String service){
     _sellingFormModel.servicesChosen.remove(service);
+    print(_sellingFormModel.servicesChosen);
     notifyListeners();
   }
 

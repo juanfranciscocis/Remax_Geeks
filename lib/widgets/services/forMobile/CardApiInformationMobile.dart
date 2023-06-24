@@ -22,7 +22,7 @@ class CardApiInformationMobile extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Container(
-          height: 350.0,
+          height: 500.0,
           width: 1000.0,
           child: Column(
             children: [

@@ -51,7 +51,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                 Center(
                   child: Container(
                     width: 500,
-                    height: 1000,
+                    height: 1300,
                     decoration: BoxDecoration(
                       color: primaryCardColor,
                       borderRadius: BorderRadius.circular(8),
@@ -120,7 +120,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                 //CARD 2
                 Container(
                   width: 500,
-                  height: 1000,
+                  height: 1300,
                   decoration: BoxDecoration(
                     color: primaryCardColor,
                     borderRadius: BorderRadius.circular(8),

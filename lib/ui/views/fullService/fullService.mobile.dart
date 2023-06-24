@@ -85,7 +85,7 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Container(
-                      height: 360.0,
+                      height: 500.0,
                       width: 1000.0,
                       child:  Column(
                         children: [
@@ -125,7 +125,7 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
                             ),
                           ),
                           //checkbox, when checked color confirmation, else main color
-                          CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent,),
+                          CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent, textSize: 60,text: '          ',),
                         ],
                       ),
                     ),
@@ -144,7 +144,7 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Container(
-                      height: 600.0,
+                      height: 800.0,
                       width: 1000.0,
                       child:  Column(
                         children: [
