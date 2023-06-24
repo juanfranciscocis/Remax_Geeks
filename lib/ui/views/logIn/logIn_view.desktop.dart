@@ -5,17 +5,18 @@ import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
+import 'package:remax_geeks/ui/views/signIn/singIn_view.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
-import 'signIn_viewmodel.dart';
+import 'logIn_viewmodel.dart';
 
-class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
-  const SignInViewDesktop({Key? key}) : super(key: key);
+class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
+  const LogInViewDesktop({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, SignInViewModel viewModel) {
+  Widget build(BuildContext context, LogInViewModel viewModel) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -44,34 +45,34 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "Welcome... Sign In",
+                              "Welcome back... Log In",
                               style: TextStyle(
                                 color: fontMainColor,
                                 fontFamily: fontOutfitBold,
-                                fontSize: 50,
+                                fontSize: 55,
                               ),
                               textAlign: TextAlign.center,
                             ),
                           ),
                           verticalSpaceMedium,
                           TextWidget(
-                            text: "Enter your Email:",
+                            text: "Enter your email:",
                             color: fontMainColor,
                             fontFamily: fontOutfitMedium,
-                            fontSize: 35,
+                            fontSize: 40,
                           ),
                           verticalSpaceSmall,
                           TextFieldWidget(
                             labelText: "Email...",
                             labelColor: fontMainColor,
                             labelFontFamily: fontOutfitRegular,
-                            labelFontSize: 15,
+                            labelFontSize: 20,
                             enabledBorderColor: fontMainColor,
                             filled: true,
                             fillColor: inputColor,
                             textColor: fontMainColor,
                             textFontFamily: fontOutfitRegular,
-                            textFontSize: 15,
+                            textFontSize: 20,
                             onChanged: (value) {
                               // Update email value in the view model
                               //viewModel.updateEmail(value);
@@ -79,76 +80,28 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
                           ),
                           verticalSpaceMedium,
                           TextWidget(
-                            text: "Enter a new Password:",
+                            text: "Enter your password:",
                             color: fontMainColor,
                             fontFamily: fontOutfitMedium,
-                            fontSize: 35,
+                            fontSize: 40,
                           ),
                           verticalSpaceSmall,
                           TextFieldWidget(
-                            labelText: "New Password...",
+                            labelText: "Password...",
                             labelColor: fontMainColor,
                             labelFontFamily: fontOutfitRegular,
-                            labelFontSize: 15,
+                            labelFontSize: 20,
                             enabledBorderColor: fontMainColor,
                             filled: true,
                             fillColor: inputColor,
                             textColor: fontMainColor,
                             textFontFamily: fontOutfitRegular,
-                            textFontSize: 15,
+                            textFontSize: 20,
                             onChanged: (value) {
-                              // Update new password value in the view model
-                              //viewModel.updateNewPassword(value);
+                              // Update password value in the view model
+                              //viewModel.updatePassword(value);
                             },
                             obscureText: true, // Password field should be obscured
-                          ),
-                          verticalSpaceMedium,
-                          TextWidget(
-                            text: "Enter your Full Name:",
-                            color: fontMainColor,
-                            fontFamily: fontOutfitMedium,
-                            fontSize: 35,
-                          ),
-                          verticalSpaceSmall,
-                          TextFieldWidget(
-                            labelText: "Full Name...",
-                            labelColor: fontMainColor,
-                            labelFontFamily: fontOutfitRegular,
-                            labelFontSize: 15,
-                            enabledBorderColor: fontMainColor,
-                            filled: true,
-                            fillColor: inputColor,
-                            textColor: fontMainColor,
-                            textFontFamily: fontOutfitRegular,
-                            textFontSize: 15,
-                            onChanged: (value) {
-                              // Update full name value in the view model
-                              //viewModel.updateFullName(value);
-                            },
-                          ),
-                          verticalSpaceMedium,
-                          TextWidget(
-                            text: "Enter your Phone Number:",
-                            color: fontMainColor,
-                            fontFamily: fontOutfitMedium,
-                            fontSize: 35,
-                          ),
-                          verticalSpaceSmall,
-                          TextFieldWidget(
-                            labelText: "Phone Number...",
-                            labelColor: fontMainColor,
-                            labelFontFamily: fontOutfitRegular,
-                            labelFontSize: 15,
-                            enabledBorderColor: fontMainColor,
-                            filled: true,
-                            fillColor: inputColor,
-                            textColor: fontMainColor,
-                            textFontFamily: fontOutfitRegular,
-                            textFontSize: 15,
-                            onChanged: (value) {
-                              // Update phone number value in the view model
-                              //viewModel.updatePhoneNumber(value);
-                            },
                           ),
                           verticalSpaceMedium,
                           Align(
@@ -168,10 +121,42 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
+                                  "Log In",
+                                  style: TextStyle(
+                                    fontFamily: fontOutfitBold,
+                                    fontSize: 40,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          verticalSpaceSmall,
+                          Align(
+                            alignment: Alignment.center,
+                            child: MaterialButton(
+                              height: 50,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              elevation: 5.0,
+                              onPressed: () {
+                                //NAVIGATE TO SIGN UP PAGE
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SignInView(),
+                                  ),
+                                );
+                              },
+                              color: inputColor,
+                              textColor: fontWhiteColor,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
                                   "Sign In",
                                   style: TextStyle(
                                     fontFamily: fontOutfitBold,
-                                    fontSize: 35,
+                                    fontSize: 20,
                                   ),
                                 ),
                               ),
@@ -181,7 +166,7 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "Or Sign In With",
+                              "Or Login With",
                               style: TextStyle(
                                 color: inputColor,
                                 fontFamily: fontOutfitBold,
@@ -201,11 +186,12 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
                               },
                               child: Image.asset(
                                 googleIcon, // Replace with the path to your Google icon
-                                width: 90,
-                                height: 90,
+                                width: 100,
+                                height: 100,
                               ),
                             ),
                           ),
+
                         ],
                       ),
                     ),
@@ -221,6 +207,7 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
 }
 
 // Rest of the code...
+
 
 
 class TextWidget extends StatelessWidget {
@@ -308,19 +295,24 @@ class TextFieldWidget extends StatelessWidget {
   }
 }
 
+
 class CirclesBackground extends StatelessWidget {
-  final int circleCount;
+
+   int circleCount;
 
   CirclesBackground({
     Key? key,
     this.circleCount = 15,
   }) : super(key: key);
 
+
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final random = Random();
+
 
         return Container(
           height: constraints.maxHeight,
@@ -349,3 +341,5 @@ class CirclesBackground extends StatelessWidget {
     );
   }
 }
+
+
