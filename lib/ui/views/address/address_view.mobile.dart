@@ -30,6 +30,8 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
   late GooglePlacesService google;
   TextEditingController addressController = TextEditingController();
   SellFormProvider sellFormProvider;
+  int pressedCondition = -1;
+  int pressedPropertyType = -1;
 
   _AddressViewMobileState({required this.sellFormProvider});
 
@@ -106,7 +108,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                               title: google.listOfPredictions[0],
                               onPressed: () {
                                 changeTextFieldToSuggestion(google.listOfPredictions[0]);
-                              },
+                              }, isPressed: false,
                             ),
                           ),
                         ],
@@ -128,7 +130,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                               title: google.listOfPredictions[1],
                               onPressed: () {
                                 changeTextFieldToSuggestion(google.listOfPredictions[1] );
-                              },
+                              }, isPressed: false,
                             ),
                           ),
                         ],
@@ -150,7 +152,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                               title: google.listOfPredictions[2],
                               onPressed: () {
                                 changeTextFieldToSuggestion(google.listOfPredictions[2] );
-                              },
+                              }, isPressed: false,
                             ),
                           ),
                         ],
@@ -178,9 +180,12 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                           child: _buildMaterialButton(
                             title: condition1,
                             onPressed: () {
-                              // FILL SELLING FORM
-                              widget.sellFormProvider.condition = condition1;
-                            },
+                              setState(() {
+                                pressedCondition = 0; // Update with the corresponding button index
+                                // FILL SELLING FORM
+                                widget.sellFormProvider.condition = condition1;
+                              });
+                            }, isPressed: pressedCondition == 0,
                           ),
                         ),
                         SizedBox(width: 16.0), // Adjust the spacing between buttons
@@ -188,9 +193,12 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                           child: _buildMaterialButton(
                             title: condition2,
                             onPressed: () {
+                              setState(() {
+                                pressedCondition = 1; // Update with the corresponding button index
+                              });
                               // FILL SELLING FORM
                               widget.sellFormProvider.condition = condition2;
-                            },
+                            }, isPressed: pressedCondition == 1,
                           ),
                         ),
                       ],
@@ -202,9 +210,12 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                           child: _buildMaterialButton(
                             title: condition3,
                             onPressed: () {
+                              setState(() {
+                                pressedCondition = 2; // Update with the corresponding button index
+                              });
                               // FILL SELLING FORM
                               widget.sellFormProvider.condition = condition3;
-                            },
+                            }, isPressed: pressedCondition == 2,
                           ),
                         ),
                         SizedBox(width: 16.0), // Adjust the spacing between buttons
@@ -212,9 +223,12 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                           child: _buildMaterialButton(
                             title: condition4,
                             onPressed: () {
+                              setState(() {
+                                pressedCondition = 3; // Update with the corresponding button index
+                              });
                               // FILL SELLING FORM
                               widget.sellFormProvider.condition = condition4;
-                            },
+                            }, isPressed: pressedCondition == 3,
                           ),
                         ),
                       ],
@@ -242,9 +256,12 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                           child: _buildMaterialButton(
                             title: type1,
                             onPressed: () {
+                              setState(() {
+                                pressedPropertyType = 0; // Update with the corresponding button index
+                              });
                               // FILL SELLING FORM
                               widget.sellFormProvider.type = type1;
-                            }
+                            }, isPressed: pressedPropertyType == 0,
                           ),
                         ),
                         SizedBox(width: 16.0), // Adjust the spacing between buttons
@@ -252,9 +269,12 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                           child: _buildMaterialButton(
                             title: type2,
                             onPressed: () {
+                              setState(() {
+                                pressedPropertyType = 1; // Update with the corresponding button index
+                              });
                               // FILL SELLING FORM
                               widget.sellFormProvider.type = type2;
-                            },
+                            }, isPressed: pressedPropertyType == 1,
                           ),
                         ),
                       ],
@@ -267,9 +287,12 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                           child: _buildMaterialButton(
                             title: type3,
                             onPressed: () {
+                              setState(() {
+                                pressedPropertyType = 2; // Update with the corresponding button index
+                              });
                               // FILL SELLING FORM
                               widget.sellFormProvider.type = type3;
-                            },
+                            }, isPressed: pressedPropertyType == 2,
                           ),
                         ),
                       ],
@@ -306,7 +329,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                           ),
                         );
                       }
-                    }, buttonColor: confirmButtonColor)),
+                    }, buttonColor: confirmButtonColor, isPressed: false)),
                 verticalSpaceLarge,
               ],
             ),
@@ -319,9 +342,11 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
   Widget _buildMaterialButton({
     required String title,
     required VoidCallback onPressed,
+    required bool isPressed,
     Color? buttonColor,
     double? textSize,
   }) {
+    final Color? pressedColor =pressedButtonColor;
     return MaterialButton(
       height: 50,
       //round the corners of the button
@@ -330,8 +355,8 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
       ),
       elevation: 5.0,
       onPressed: onPressed,
-      color: buttonColor ?? (buttonColor = primaryButtonColor),
-      textColor: Colors.white,
+      color: isPressed ? pressedColor : buttonColor ?? primaryButtonColor,
+      textColor: fontWhiteColor,
       child: Text(
         title,
         maxLines: 1,

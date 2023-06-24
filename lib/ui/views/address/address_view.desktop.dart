@@ -32,6 +32,8 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
   late GooglePlacesService google;
   TextEditingController addressController = TextEditingController();
   SellFormProvider sellFormProvider;
+  int pressedCondition = -1;
+  int pressedPropertyType = -1;
 
   _AddressViewDesktopState({required this.sellFormProvider});
 
@@ -98,6 +100,7 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
 
 
               //GOOGLE SUGGESTION
+              
               Visibility(
                 visible: google.listOfPredictions[0] != '',
                 child: Column(
@@ -111,7 +114,7 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                             title: google.listOfPredictions[0],
                             onPressed: () {
                               changeTextFieldToSuggestion(google.listOfPredictions[0]);
-                            },
+                            }, isPressed: false,
                           ),
                         ),
                       ],
@@ -133,7 +136,7 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                             title: google.listOfPredictions[1],
                             onPressed: () {
                               changeTextFieldToSuggestion(google.listOfPredictions[1] );
-                            },
+                            }, isPressed: false,
                           ),
                         ),
                       ],
@@ -155,7 +158,7 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                             title: google.listOfPredictions[2],
                             onPressed: () {
                               changeTextFieldToSuggestion(google.listOfPredictions[2] );
-                            },
+                            }, isPressed: false,
                           ),
                         ),
                       ],
@@ -164,6 +167,7 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                   ],
                 ),
               ),
+              
 
 
 
@@ -184,11 +188,16 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                     children: [
                       Expanded(
                         child: _buildMaterialButton(
+                          
                           title: condition1,
                           onPressed: () {
+                            setState(() {
+                              pressedCondition = 0; // Update with the corresponding button index
+                              // FILL SELLING FORM
+                              widget.sellFormProvider.condition = condition1;
+                            });
                             // FILL SELLING FORM
-                            widget.sellFormProvider.condition = condition1;
-                          },
+                          }, isPressed: pressedCondition == 0,
                         ),
                       ),
                       SizedBox(width: 16.0), // Adjust the spacing between buttons
@@ -196,9 +205,12 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                         child: _buildMaterialButton(
                           title: condition2,
                           onPressed: () {
+                            setState(() {
+                              pressedCondition = 1; // Update with the corresponding button index
+                            });
                             // FILL SELLING FORM
                             widget.sellFormProvider.condition = condition2;
-                          },
+                          }, isPressed: pressedCondition == 1,
                         ),
                       ),
                     ],
@@ -210,9 +222,12 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                         child: _buildMaterialButton(
                           title: condition3,
                           onPressed: () {
+                            setState(() {
+                              pressedCondition = 2; // Update with the corresponding button index
+                            });
                             // FILL SELLING FORM
                             widget.sellFormProvider.condition = condition3;
-                          },
+                          }, isPressed: pressedCondition == 2,
                         ),
                       ),
                       SizedBox(width: 16.0), // Adjust the spacing between buttons
@@ -220,9 +235,12 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                         child: _buildMaterialButton(
                           title: condition4,
                           onPressed: () {
+                            setState(() {
+                              pressedCondition = 3; // Update with the corresponding button index
+                            });
                             // FILL SELLING FORM
                             widget.sellFormProvider.condition = condition4;
-                          },
+                          }, isPressed: pressedCondition == 3,
                         ),
                       ),
                     ],
@@ -250,9 +268,12 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                         child: _buildMaterialButton(
                           title: type1,
                           onPressed: () {
+                            setState(() {
+                              pressedPropertyType = 0; // Update with the corresponding button index
+                            });
                             // FIll SELLING FORM
                             widget.sellFormProvider.type = type1;
-                          },
+                          }, isPressed: pressedPropertyType == 0,
                         ),
                       ),
                       SizedBox(width: 16.0), // Adjust the spacing between buttons
@@ -260,9 +281,12 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                         child: _buildMaterialButton(
                           title: type2,
                           onPressed: () {
+                            setState(() {
+                              pressedPropertyType = 1; // Update with the corresponding button index
+                            });
                             // FIll SELLING FORM
                             widget.sellFormProvider.type = type2;
-                          },
+                          }, isPressed: pressedPropertyType == 1,
                         ),
                       ),
                     ],
@@ -275,15 +299,19 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                         child: _buildMaterialButton(
                           title: type3,
                           onPressed: () {
+                            setState(() {
+                              pressedPropertyType = 2; // Update with the corresponding button index
+                            });
                             //FILL SELLING FORM
                             widget.sellFormProvider.type = type3;
-                          },
+                          }, isPressed: pressedPropertyType == 2,
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
+
 
               verticalSpaceLarge,
               Align(
@@ -317,7 +345,7 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                         ),
                       );
                     }
-                  }, buttonColor: confirmButtonColor)),
+                  }, buttonColor: confirmButtonColor, isPressed: false)),
               verticalSpaceLarge,
             ],
           ),
@@ -329,31 +357,34 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
   Widget _buildMaterialButton({
     required String title,
     required VoidCallback onPressed,
+    required bool isPressed,
     Color? buttonColor,
     double? textSize,
   }) {
+    const Color? pressedColor =pressedButtonColor; // Change to the desired pressed color
+
     return MaterialButton(
       height: 80,
-      // round the corners of the button
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
       elevation: 5.0,
       onPressed: onPressed,
-      color: buttonColor ?? (buttonColor = primaryButtonColor),
-      textColor: Colors.white,
+      color: isPressed ? pressedColor : buttonColor ?? primaryButtonColor,
+      textColor: fontWhiteColor,
       child: Text(
         title,
-        maxLines: 1, // Set maxLines to 1
-        overflow: TextOverflow.ellipsis, // Set overflow to TextOverflow.ellipsis
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontFamily: fontOutfitBold,
-          fontSize: textSize ?? (textSize = 30),
+          fontSize: textSize ?? 30,
         ),
       ),
     );
   }
+
 
 }
 

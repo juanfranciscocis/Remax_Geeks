@@ -29,6 +29,8 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
   late GooglePlacesService google;
   TextEditingController addressController = TextEditingController();
   SellFormProvider sellFormProvider;
+  int pressedCondition = -1;
+  int pressedPropertyType = -1;
 
   _AddressViewTabletState({required this.sellFormProvider});
 
@@ -109,7 +111,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                               title: google.listOfPredictions[0],
                               onPressed: () {
                                 changeTextFieldToSuggestion(google.listOfPredictions[0]);
-                              },
+                              }, isPressed: false,
                             ),
                           ),
                         ],
@@ -131,7 +133,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                               title: google.listOfPredictions[1],
                               onPressed: () {
                                 changeTextFieldToSuggestion(google.listOfPredictions[1] );
-                              },
+                              }, isPressed: false,
                             ),
                           ),
                         ],
@@ -153,7 +155,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                               title: google.listOfPredictions[2],
                               onPressed: () {
                                 changeTextFieldToSuggestion(google.listOfPredictions[2] );
-                              },
+                              }, isPressed: false,
                             ),
                           ),
                         ],
@@ -186,9 +188,12 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                           child: _buildMaterialButton(
                             title: condition1,
                             onPressed: () {
+                              setState(() {
+                                pressedCondition = 1;
+                              });
                               // Handle button 1 press
                               widget.sellFormProvider.condition = condition1;
-                            },
+                            }, isPressed: pressedCondition == 1,
                           ),
                         ),
                         SizedBox(width: 16.0), // Adjust the spacing between buttons
@@ -196,9 +201,12 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                           child: _buildMaterialButton(
                             title: condition2,
                             onPressed: () {
+                              setState(() {
+                                pressedCondition = 2;
+                              });
                               // Handle button 2 press
                               widget.sellFormProvider.condition = condition2;
-                            },
+                            }, isPressed: pressedCondition == 2,
                           ),
                         ),
                       ],
@@ -210,9 +218,12 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                           child: _buildMaterialButton(
                             title: condition3,
                             onPressed: () {
+                              setState(() {
+                                pressedCondition = 3;
+                              });
                               // Handle button 3 press
                               widget.sellFormProvider.condition = condition3;
-                            },
+                            }, isPressed: pressedCondition == 3,
                           ),
                         ),
                         SizedBox(width: 16.0), // Adjust the spacing between buttons
@@ -220,9 +231,12 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                           child: _buildMaterialButton(
                             title: condition4,
                             onPressed: () {
+                              setState(() {
+                                pressedCondition = 4;
+                              });
                               // Handle button 4 press
                               widget.sellFormProvider.condition = condition4;
-                            },
+                            }, isPressed: pressedCondition == 4,
                           ),
                         ),
                       ],
@@ -250,9 +264,12 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                           child: _buildMaterialButton(
                             title: type1,
                             onPressed: () {
+                              setState(() {
+                                pressedPropertyType = 1;
+                              });
                               // Handle button 1 press
                               widget.sellFormProvider.type = type1;
-                            },
+                            }, isPressed: pressedPropertyType == 1,
                           ),
                         ),
                         SizedBox(width: 16.0), // Adjust the spacing between buttons
@@ -260,9 +277,12 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                           child: _buildMaterialButton(
                             title: type2,
                             onPressed: () {
+                              setState(() {
+                                pressedPropertyType = 2;
+                              });
                               // Handle button 2 press
                               widget.sellFormProvider.type = type2;
-                            },
+                            }, isPressed: pressedPropertyType == 2,
                           ),
                         ),
                       ],
@@ -275,10 +295,13 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                           child: _buildMaterialButton(
                             title: type3,
                             onPressed: () {
+                              setState(() {
+                                pressedPropertyType = 3;
+                              });
                               // Handle button 3 press
                               widget.sellFormProvider.type = type3;
 
-                            },
+                            }, isPressed: pressedPropertyType == 3,
                           ),
                         ),
                       ],
@@ -315,7 +338,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                           ),
                         );
                       }
-                    }, buttonColor: confirmButtonColor)),
+                    }, buttonColor: confirmButtonColor, isPressed: false)),
 
                 verticalSpaceLarge,
               ],
@@ -329,9 +352,11 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
   Widget _buildMaterialButton({
     required String title,
     required VoidCallback onPressed,
+    required bool isPressed,
     Color? buttonColor,
     double? textSize,
   }) {
+    final Color? pressedColor =pressedButtonColor;
     return MaterialButton(
       height: 80,
       //round the corners of the button
@@ -340,7 +365,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
       ),
       elevation: 5.0,
       onPressed: onPressed,
-      color: buttonColor ?? (buttonColor = primaryButtonColor),
+      color: isPressed ? pressedColor : buttonColor ?? primaryButtonColor,
       textColor: Colors.white,
       child: Text(
         title,
