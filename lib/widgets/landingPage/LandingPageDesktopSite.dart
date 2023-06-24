@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/services/zillowService.dart';
+import 'package:remax_geeks/ui/views/signIn/singIn_view.dart';
 
 import '../../providers/dbProvider.dart';
 import '../../services/realtyMoleService.dart';
@@ -64,7 +65,7 @@ class LandingPageDesktopSite extends StatelessWidget {
                     child: MaterialButton(
                       onPressed: () async {
                         print('SELL NOW PRESSED');
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AddressView()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInView()));
                       }, //TODO: CHANGE TO START SELLING PAGE
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),

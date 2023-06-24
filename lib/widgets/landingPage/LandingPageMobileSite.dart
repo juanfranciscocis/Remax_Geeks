@@ -6,6 +6,7 @@ import '../../ui/common/app_strings.dart';
 import '../../ui/common/ui_helpers.dart';
 import '../../ui/views/address/address_view.dart';
 import '../../ui/views/home/home_view.dart';
+import '../../ui/views/signIn/singIn_view.dart';
 
 class LandingPageMobileSite extends StatelessWidget {
   const LandingPageMobileSite({
@@ -70,7 +71,7 @@ class LandingPageMobileSite extends StatelessWidget {
             MaterialButton(
               onPressed: () {
                 print('SELL NOW PRESSED');
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const AddressView()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInView()));
               },
               child: const Padding(
                 padding: EdgeInsets.all(4.0),

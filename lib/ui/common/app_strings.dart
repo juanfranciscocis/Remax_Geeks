@@ -63,3 +63,4 @@ const String addPremiumServices = 'Add Premium Services...';
 
 //CUSTOM SERVICES
 const String addCustomServices = 'Choose Services...';
+const String googleIcon = 'assets/signIn/google.png';

@@ -29,5 +29,6 @@ const Color fontSecondColor = Color(0xff9e9e9f);
 const Color fontThirdColor = Color(0xffee8f23);
 const Color fontWhiteColor = Color(0xfff5f5f6);
 
-
+//SIGN IN COLORS
+const Color bubbleColor = Color(0xcbf2bc39);
 

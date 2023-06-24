@@ -5,9 +5,9 @@ import 'package:remax_geeks/services/googlePlacesService.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
-import 'home_view.desktop.dart';
+import 'signIn_view.desktop.dart';
 import 'signIn_view.tablet.dart';
-import 'home_view.mobile.dart';
+import 'signIn_view.mobile.dart';
 import 'signIn_viewmodel.dart';
 
 class SignInView extends StackedView<SignInViewModel> {
@@ -21,7 +21,7 @@ class SignInView extends StackedView<SignInViewModel> {
   ) {
     return ScreenTypeLayout.builder(
       mobile: (_) => const SignInViewMobile(),
-      tablet: (_) => const SignInViewTablet(), //ADD TABLET VIEW IF NEEDED
+      //tablet: (_) => const SignInViewTablet(), //ADD TABLET VIEW IF NEEDED
       desktop: (_) => const SignInViewDesktop(),
     );
   }
