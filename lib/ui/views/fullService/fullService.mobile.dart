@@ -125,7 +125,7 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
                             ),
                           ),
                           //checkbox, when checked color confirmation, else main color
-                          CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent, textSize: 60,text: '          ',),
+                          CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent, textSize: 60,text: '           ',),
                         ],
                       ),
                     ),
