@@ -21,7 +21,6 @@ class SignUpView extends StackedView<SignUpViewModel> {
   ) {
     return ScreenTypeLayout.builder(
       mobile: (_) => const SignUpViewMobile(),
-      //tablet: (_) => const SignInViewTablet(), //ADD TABLET VIEW IF NEEDED
       desktop: (_) => const SignUpViewDesktop(),
     );
   }

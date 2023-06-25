@@ -5,6 +5,7 @@ import 'package:remax_geeks/services/zillowService.dart';
 import 'package:remax_geeks/ui/views/logIn/logIn_view.dart';
 
 import '../../providers/dbProvider.dart';
+import '../../services/authEmailPassword.dart';
 import '../../services/realtyMoleService.dart';
 import '../../ui/common/app_colors.dart';
 import '../../ui/common/app_strings.dart';

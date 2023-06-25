@@ -180,6 +180,7 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
                                       'EMAIL': costumer.email,
                                       'FULL_NAME': costumer.fullName,
                                       'PHONE_NUMBER': costumer.phoneNumber,
+                                      'UID': auth.user?.uid,
                                     };
                                     db.setNewCostumer(newCostumer);
                                     if (serviceChoose ==

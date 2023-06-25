@@ -1,14 +1,21 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../providers/costumerProvider.dart';
+import '../../../providers/dbProvider.dart';
+import '../../../providers/sellFormProvider.dart';
+import '../../../services/authEmailPassword.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
+import '../customService/customService_view.dart';
+import '../fullService/fullService_view.dart';
 import '../signUp/singUp_view.dart';
 import 'logIn_viewmodel.dart';
 
@@ -17,6 +24,10 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
 
   @override
   Widget build(BuildContext context, LogInViewModel viewModel) {
+    CostumerProvider costumer = Provider.of<CostumerProvider>(context);
+    AuthManager auth = Provider.of<AuthManager>(context);
+    SellFormProvider sellForm = Provider.of<SellFormProvider>(context);
+    DBProvider db = Provider.of<DBProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -74,8 +85,7 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                             textFontFamily: fontOutfitRegular,
                             textFontSize: 20,
                             onChanged: (value) {
-                              // Update email value in the view model
-                              //viewModel.updateEmail(value);
+                              costumer.email = value;
                             },
                           ),
                           verticalSpaceMedium,
@@ -98,8 +108,7 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                             textFontFamily: fontOutfitRegular,
                             textFontSize: 20,
                             onChanged: (value) {
-                              // Update password value in the view model
-                              //viewModel.updatePassword(value);
+                              costumer.password = value;
                             },
                             obscureText: true, // Password field should be obscured
                           ),
@@ -112,9 +121,58 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               elevation: 5.0,
-                              onPressed: () {
-                                // Perform login action using the view model
-                                //viewModel.login();
+                              onPressed: () async {
+                                if(costumer.email != '' && costumer.password != '') {
+                                  await auth.signInWithEmailAndPassword(
+                                      email: costumer.email,
+                                      password: costumer.password);
+                                  if(auth.errorMessage == '') {
+                                    String serviceChoose = sellForm.serviceType;
+                                    costumer.fullName = auth.user!.displayName!;
+                                    String authUID = auth.user!.uid.toString();
+                                    await db.getPhoneNumberByUID(authUID);
+                                    costumer.phoneNumber = db.phoneNumber;
+                                    sellForm.costumer = costumer.costumer;
+                                    if (serviceChoose ==
+                                        chooseServiceTypeCard1Title) {
+                                      Navigator.push(context, MaterialPageRoute(
+                                          builder: (context) =>
+                                              FullServiceView()));
+                                    } else {
+                                      Navigator.push(context, MaterialPageRoute(
+                                          builder: (context) =>
+                                              CustomServiceView()));
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          auth.errorMessage,
+                                          style: TextStyle(
+                                            fontFamily: fontOutfitRegular,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                    auth.errorMessage = '';
+                                  }
+                                }else{
+                                  // SHOW ERROR MESSAGE
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Please fill all the fields',
+                                        style: TextStyle(
+                                          fontFamily: fontOutfitRegular,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
                               },
                               color: primaryButtonColor,
                               textColor: fontWhiteColor,

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class AuthManager extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  User? user;
   String errorMessage = '';
 
   Future<User?> signUpWithEmailAndPassword({required String email, required String password, required String fullName, required String phoneNumber}) async {
@@ -15,9 +16,9 @@ class AuthManager extends ChangeNotifier {
       User? user = userCredential.user;
       if (user != null) {
         await user.updateProfile(displayName: fullName);
+        this.user = user;
         // You can also save the phone number to a user document in Firestore or any other database
       }
-
       return user;
     } catch (e) {
       // Handle any errors
@@ -27,14 +28,14 @@ class AuthManager extends ChangeNotifier {
     }
   }
 
-  Future<User?> signInWithEmailAndPassword(String email, String password) async {
+  Future<User?> signInWithEmailAndPassword({required String email, required String password}) async {
     try {
       UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-
-      return userCredential.user;
+      user = userCredential.user;
+      return user;
     } catch (e) {
       // Handle any errors
       print(e);
