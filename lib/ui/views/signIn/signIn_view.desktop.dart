@@ -1,10 +1,16 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:remax_geeks/providers/costumerProvider.dart';
+import 'package:remax_geeks/providers/sellFormProvider.dart';
+import 'package:remax_geeks/services/authEmailPassword.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
+import 'package:remax_geeks/ui/views/customService/customService_view.dart';
+import 'package:remax_geeks/ui/views/fullService/fullService_view.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
@@ -16,6 +22,9 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
 
   @override
   Widget build(BuildContext context, SignInViewModel viewModel) {
+    CostumerProvider costumer = Provider.of<CostumerProvider>(context);
+    AuthManager auth = Provider.of<AuthManager>(context);
+    SellFormProvider sellForm = Provider.of<SellFormProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -73,8 +82,7 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
                             textFontFamily: fontOutfitRegular,
                             textFontSize: 15,
                             onChanged: (value) {
-                              // Update email value in the view model
-                              //viewModel.updateEmail(value);
+                              costumer.email = value;
                             },
                           ),
                           verticalSpaceMedium,
@@ -97,8 +105,7 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
                             textFontFamily: fontOutfitRegular,
                             textFontSize: 15,
                             onChanged: (value) {
-                              // Update new password value in the view model
-                              //viewModel.updateNewPassword(value);
+                              costumer.password = value;
                             },
                             obscureText: true, // Password field should be obscured
                           ),
@@ -122,8 +129,7 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
                             textFontFamily: fontOutfitRegular,
                             textFontSize: 15,
                             onChanged: (value) {
-                              // Update full name value in the view model
-                              //viewModel.updateFullName(value);
+                              costumer.fullName = value;
                             },
                           ),
                           verticalSpaceMedium,
@@ -146,8 +152,7 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
                             textFontFamily: fontOutfitRegular,
                             textFontSize: 15,
                             onChanged: (value) {
-                              // Update phone number value in the view model
-                              //viewModel.updatePhoneNumber(value);
+                              costumer.phoneNumber = value;
                             },
                           ),
                           verticalSpaceMedium,
@@ -159,16 +164,21 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               elevation: 5.0,
-                              onPressed: () {
-                                // Perform login action using the view model
-                                //viewModel.login();
+                              onPressed: () async {
+                                await auth.signUpWithEmailAndPassword(email:costumer.email, password: costumer.password, fullName: costumer.fullName,phoneNumber: costumer.phoneNumber);
+                                String serviceChoose = sellForm.serviceType;
+                                if(serviceChoose == chooseServiceTypeCard1Title ){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => FullServiceView()));
+                                }else{
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => CustomServiceView()));
+                                }
                               },
                               color: primaryButtonColor,
                               textColor: fontWhiteColor,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  "Sign In",
+                                  "Sign Up",
                                   style: TextStyle(
                                     fontFamily: fontOutfitBold,
                                     fontSize: 35,
@@ -181,7 +191,7 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "Or Sign In With",
+                              "Or Sign Up With",
                               style: TextStyle(
                                 color: inputColor,
                                 fontFamily: fontOutfitBold,

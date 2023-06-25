@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'costumer.dart';
+
 class SellingForm {
   String? address = '';
   String? condition = '';
@@ -10,6 +12,7 @@ class SellingForm {
   String? costumerPrice = "0";
   bool? sendAgent = false;
   List<String> servicesChosen = [];
+  Costumer? costumer;
 
   SellingForm({
     this.address = '',
@@ -20,6 +23,7 @@ class SellingForm {
     this.averageApiPrice = 0,
     this.costumerPrice = "0",
     this.sendAgent  = false,
+    this.costumer,
   });
 
   String toRawJson() => json.encode(toJson());
@@ -34,6 +38,7 @@ class SellingForm {
     "COSTUMER_PRICE": costumerPrice,
     "SEND_AGENT": sendAgent,
     "SERVICES_CHOSEN": List<dynamic>.from(servicesChosen!.map((x) => x)),
+    "COSTUMER": costumer!.toJson(),
   };
 
   void addService(String service) {

@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +6,14 @@ import 'package:remax_geeks/ui/views/signIn/signIn_view.desktop.dart';
 import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../providers/costumerProvider.dart';
+import '../../../providers/sellFormProvider.dart';
+import '../../../services/authEmailPassword.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../common/app_constants.dart';
 import '../../common/app_strings.dart';
+import '../customService/customService_view.dart';
+import '../fullService/fullService_view.dart';
 import 'signIn_viewmodel.dart';
 
 class SignInViewMobile extends ViewModelWidget<SignInViewModel> {
@@ -15,6 +21,9 @@ class SignInViewMobile extends ViewModelWidget<SignInViewModel> {
 
   @override
   Widget build(BuildContext context, SignInViewModel viewModel) {
+    CostumerProvider costumer = Provider.of<CostumerProvider>(context);
+    AuthManager auth = Provider.of<AuthManager>(context);
+    SellFormProvider sellForm = Provider.of<SellFormProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -72,6 +81,7 @@ class SignInViewMobile extends ViewModelWidget<SignInViewModel> {
                             textFontFamily: fontOutfitRegular,
                             textFontSize: 15,
                             onChanged: (value) {
+                              costumer.email = value;
                               // Update email value in the view model
                               //viewModel.updateEmail(value);
                             },
@@ -96,6 +106,7 @@ class SignInViewMobile extends ViewModelWidget<SignInViewModel> {
                             textFontFamily: fontOutfitRegular,
                             textFontSize: 15,
                             onChanged: (value) {
+                              costumer.password = value;
                               // Update new password value in the view model
                               //viewModel.updateNewPassword(value);
                             },
@@ -121,6 +132,7 @@ class SignInViewMobile extends ViewModelWidget<SignInViewModel> {
                             textFontFamily: fontOutfitRegular,
                             textFontSize: 15,
                             onChanged: (value) {
+                              costumer.fullName = value;
                               // Update full name value in the view model
                               //viewModel.updateFullName(value);
                             },
@@ -145,6 +157,7 @@ class SignInViewMobile extends ViewModelWidget<SignInViewModel> {
                             textFontFamily: fontOutfitRegular,
                             textFontSize: 15,
                             onChanged: (value) {
+                              costumer.phoneNumber = value;
                               // Update phone number value in the view model
                               //viewModel.updatePhoneNumber(value);
                             },
@@ -159,9 +172,14 @@ class SignInViewMobile extends ViewModelWidget<SignInViewModel> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               elevation: 5.0,
-                              onPressed: () {
-                                // Perform login action using the view model
-                                //viewModel.login();
+                              onPressed: () async {
+                                await auth.signUpWithEmailAndPassword(email:costumer.email, password: costumer.password, fullName: costumer.fullName,phoneNumber: costumer.phoneNumber);
+                                String serviceChoose = sellForm.serviceType;
+                                if(serviceChoose == chooseServiceTypeCard1Title ){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => FullServiceView()));
+                                }else{
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => CustomServiceView()));
+                                }
                               },
                               color: primaryButtonColor,
                               textColor: fontWhiteColor,

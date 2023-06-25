@@ -234,6 +234,7 @@ class FullServiceDesktop extends StatelessWidget {
                         'CUSTOMER_PRICE': sellFormProvider.costumerPrice,
                         'NEED_AGENT': sellFormProvider.sendAgent,
                         'PREMIUM_SERVICES': sellFormProvider.getServicesChosen(),
+                        'COSTUMER': sellFormProvider.costumer,
                       };
                       await db.setSellingFormData(data);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));

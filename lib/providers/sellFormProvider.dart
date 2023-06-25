@@ -3,9 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:remax_geeks/models/sellNowFormModel.dart';
 
+import '../models/costumer.dart';
+
 class SellFormProvider extends ChangeNotifier{
   //PROPERTIES
   late final SellingForm _sellingFormModel = SellingForm();
+
 
   //SETTERS
   set address (String address){
@@ -60,6 +63,7 @@ class SellFormProvider extends ChangeNotifier{
   String get costumerPrice => _sellingFormModel.costumerPrice ?? "0";
   bool get sendAgent => _sellingFormModel.sendAgent ?? false;
   List<String>  getServicesChosen() => _sellingFormModel.servicesChosen ?? [];
+  Costumer get costumer => _sellingFormModel.costumer ?? Costumer();
 
   double getAverage(){
     double sum = 0;

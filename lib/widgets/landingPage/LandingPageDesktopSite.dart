@@ -66,7 +66,7 @@ class LandingPageDesktopSite extends StatelessWidget {
                     child: MaterialButton(
                       onPressed: () async {
                         print('SELL NOW PRESSED');
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const LogInView()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AddressView()));
                       }, //TODO: CHANGE TO START SELLING PAGE
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),

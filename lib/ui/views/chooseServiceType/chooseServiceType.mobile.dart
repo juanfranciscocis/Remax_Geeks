@@ -10,6 +10,7 @@ import '../../../providers/sellFormProvider.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../common/app_strings.dart';
 import '../fullService/fullService_view.dart';
+import '../logIn/logIn_view.dart';
 import 'chooseServiceType_viewmodel.dart';
 
 class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel> {
@@ -99,7 +100,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                               sellFormProvider.serviceType = chooseServiceTypeCard1Title;
                               print(sellFormProvider.serviceType);
                               //NAVIGATE TO NEXT PAGE
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const FullServiceView()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const LogInView()));
                             },
                             color: confirmButtonColor,
                             shape: RoundedRectangleBorder(
@@ -168,7 +169,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                             sellFormProvider.serviceType = chooseServiceTypeCard2Title;
                             print(sellFormProvider.serviceType);
                             //NAVIGATE TO NEXT PAGE
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const CustomServiceView()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const LogInView()));
                           },
                           color: confirmButtonColor,
                           shape: RoundedRectangleBorder(

@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:remax_geeks/providers/costumerProvider.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/providers/sellFormProvider.dart';
 import 'package:remax_geeks/services/GooglePlacesService.dart';
+import 'package:remax_geeks/services/authEmailPassword.dart';
 import 'package:remax_geeks/services/realtyMoleService.dart';
 import 'package:remax_geeks/services/zillowService.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -48,6 +51,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => GooglePlacesService()),
         ChangeNotifierProvider(create: (_) => RealtyMoleService()),
         ChangeNotifierProvider(create: (_) => ZillowService()),
+        ChangeNotifierProvider(create: (_) => AuthManager()),
+        ChangeNotifierProvider(create: (_) => CostumerProvider()),
       ],
       child: ResponsiveApp(
           preferDesktop: true,

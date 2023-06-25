@@ -3,6 +3,7 @@ import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:remax_geeks/ui/views/customService/customService_view.dart';
+import 'package:remax_geeks/ui/views/logIn/logIn_view.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../providers/sellFormProvider.dart';
@@ -99,7 +100,7 @@ class ChooseServiceTypeTablet extends ViewModelWidget<ChooseServiceTypeViewModel
                                 sellFormProvider.serviceType = chooseServiceTypeCard1Title;
                                 print(sellFormProvider.serviceType);
                                 // NAVIGATE TO NEXT PAGE
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const FullServiceView()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const LogInView()));
                               },
                               color: confirmButtonColor,
                               shape: RoundedRectangleBorder(
@@ -168,7 +169,7 @@ class ChooseServiceTypeTablet extends ViewModelWidget<ChooseServiceTypeViewModel
                               sellFormProvider.serviceType = chooseServiceTypeCard2Title;
                               print(sellFormProvider.serviceType);
                               //NAVIGATE TO NEXT PAGE
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const CustomServiceView()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const LogInView()));
                             },
                             color: confirmButtonColor,
                             shape: RoundedRectangleBorder(

@@ -12,6 +12,7 @@ import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
+import '../logIn/logIn_view.dart';
 import 'chooseServiceType_viewmodel.dart';
 
 import 'package:provider/provider.dart';
@@ -128,7 +129,7 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const FullServiceView(),
+                                      builder: (context) => const LogInView(),
                                     ),
                                   );
                                 },
@@ -207,7 +208,7 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const CustomServiceView(),
+                                    builder: (context) => const LogInView(),
                                   ),
                                 );
                               },

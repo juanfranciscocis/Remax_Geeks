@@ -46,6 +46,7 @@ dependencies:
   http: ^1.0.0
   flutter_google_places_sdk: ^0.3.2+5
   intl: ^0.18.1
+  firebase_auth: ^4.6.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
