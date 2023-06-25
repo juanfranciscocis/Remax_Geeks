@@ -5,7 +5,7 @@ import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class SignInViewModel extends BaseViewModel {
+class SignUpViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
 

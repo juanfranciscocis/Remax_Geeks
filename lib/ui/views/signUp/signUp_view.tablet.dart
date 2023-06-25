@@ -6,13 +6,13 @@ import 'package:stacked/stacked.dart';
 import '../../../widgets/landingPage/LandingPageTabletSite.dart';
 import '../../../widgets/landingPage/MainTabletNavBar.dart';
 import '../../common/app_strings.dart';
-import 'signIn_viewmodel.dart';
+import 'signUp_viewmodel.dart';
 
-class SignInViewTablet extends ViewModelWidget<SignInViewModel> {
+class SignInViewTablet extends ViewModelWidget<SignUpViewModel> {
   const SignInViewTablet({super.key});
 
   @override
-  Widget build(BuildContext context, SignInViewModel viewModel) {
+  Widget build(BuildContext context, SignUpViewModel viewModel) {
     return const Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(

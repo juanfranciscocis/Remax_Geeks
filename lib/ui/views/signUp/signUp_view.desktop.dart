@@ -16,13 +16,13 @@ import 'package:stacked/stacked.dart';
 
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
-import 'signIn_viewmodel.dart';
+import 'signUp_viewmodel.dart';
 
-class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
-  const SignInViewDesktop({Key? key}) : super(key: key);
+class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
+  const SignUpViewDesktop({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, SignInViewModel viewModel) {
+  Widget build(BuildContext context, SignUpViewModel viewModel) {
     CostumerProvider costumer = Provider.of<CostumerProvider>(context);
     AuthManager auth = Provider.of<AuthManager>(context);
     SellFormProvider sellForm = Provider.of<SellFormProvider>(context);

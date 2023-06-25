@@ -5,11 +5,11 @@ import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
-import 'package:remax_geeks/ui/views/signIn/singIn_view.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
+import '../signUp/singUp_view.dart';
 import 'logIn_viewmodel.dart';
 
 class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
@@ -144,7 +144,7 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => SignInView(),
+                                    builder: (context) => SignUpView(),
                                   ),
                                 );
                               },

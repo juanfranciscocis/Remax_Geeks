@@ -3,7 +3,6 @@ import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
-import 'package:remax_geeks/ui/views/signIn/signIn_view.desktop.dart';
 import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
 
@@ -15,13 +14,14 @@ import '../../common/app_constants.dart';
 import '../../common/app_strings.dart';
 import '../customService/customService_view.dart';
 import '../fullService/fullService_view.dart';
-import 'signIn_viewmodel.dart';
+import '../logIn/logIn_view.desktop.dart';
+import 'signUp_viewmodel.dart';
 
-class SignInViewMobile extends ViewModelWidget<SignInViewModel> {
-  const SignInViewMobile({super.key});
+class SignUpViewMobile extends ViewModelWidget<SignUpViewModel> {
+  const SignUpViewMobile({super.key});
 
   @override
-  Widget build(BuildContext context, SignInViewModel viewModel) {
+  Widget build(BuildContext context, SignUpViewModel viewModel) {
     CostumerProvider costumer = Provider.of<CostumerProvider>(context);
     AuthManager auth = Provider.of<AuthManager>(context);
     SellFormProvider sellForm = Provider.of<SellFormProvider>(context);

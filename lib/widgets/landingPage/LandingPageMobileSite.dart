@@ -6,7 +6,6 @@ import '../../ui/common/app_strings.dart';
 import '../../ui/common/ui_helpers.dart';
 import '../../ui/views/address/address_view.dart';
 import '../../ui/views/home/home_view.dart';
-import '../../ui/views/signIn/singIn_view.dart';
 
 class LandingPageMobileSite extends StatelessWidget {
   const LandingPageMobileSite({

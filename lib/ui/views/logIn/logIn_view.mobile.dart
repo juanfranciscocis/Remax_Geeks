@@ -1,14 +1,14 @@
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
-import 'package:remax_geeks/ui/views/signIn/signIn_view.desktop.dart';
 import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../common/app_constants.dart';
 import '../../common/app_strings.dart';
-import '../signIn/singIn_view.dart';
+import '../signUp/signUp_view.desktop.dart';
+import '../signUp/singUp_view.dart';
 import 'logIn_viewmodel.dart';
 
 class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
@@ -141,7 +141,7 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => SignInView(),
+                                  builder: (context) => SignUpView(),
                                 ),
                               );
                             },

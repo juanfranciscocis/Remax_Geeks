@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/services/zillowService.dart';
 import 'package:remax_geeks/ui/views/logIn/logIn_view.dart';
-import 'package:remax_geeks/ui/views/signIn/singIn_view.dart';
 
 import '../../providers/dbProvider.dart';
 import '../../services/realtyMoleService.dart';
