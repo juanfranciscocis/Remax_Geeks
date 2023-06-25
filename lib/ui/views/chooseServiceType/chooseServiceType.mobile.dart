@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
@@ -6,6 +7,7 @@ import 'package:remax_geeks/ui/views/customService/customService_view.dart';
 import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../providers/costumerProvider.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../common/app_strings.dart';
@@ -24,6 +26,8 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
 
   @override
   Widget build(BuildContext context, ChooseServiceTypeViewModel viewModel) {
+    CostumerProvider costumerProvider =
+    Provider.of<CostumerProvider>(context, listen: false);
     return  Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
@@ -100,7 +104,21 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                               sellFormProvider.serviceType = chooseServiceTypeCard1Title;
                               print(sellFormProvider.serviceType);
                               //NAVIGATE TO NEXT PAGE
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const LogInView()));
+                              if(costumerProvider.email != '' || costumerProvider.fullName != '' || costumerProvider.phoneNumber != ''){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const FullServiceView()),
+                                );
+                              }else{
+                                //NAVIGATE TO NEXT PAGE
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LogInView(),
+                                  ),
+                                );
+                              }
                             },
                             color: confirmButtonColor,
                             shape: RoundedRectangleBorder(
@@ -169,7 +187,21 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                             sellFormProvider.serviceType = chooseServiceTypeCard2Title;
                             print(sellFormProvider.serviceType);
                             //NAVIGATE TO NEXT PAGE
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const LogInView()));
+                            if(costumerProvider.email != '' || costumerProvider.fullName != '' || costumerProvider.phoneNumber != ''){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const CustomServiceView()),
+                              );
+                            }else{
+                              //NAVIGATE TO NEXT PAGE
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LogInView(),
+                                ),
+                              );
+                            }
                           },
                           color: confirmButtonColor,
                           shape: RoundedRectangleBorder(

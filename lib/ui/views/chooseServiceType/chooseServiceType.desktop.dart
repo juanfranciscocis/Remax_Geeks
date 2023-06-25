@@ -1,4 +1,5 @@
 import 'package:provider/provider.dart';
+import 'package:remax_geeks/providers/costumerProvider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
@@ -47,6 +48,8 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CostumerProvider costumerProvider =
+        Provider.of<CostumerProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
@@ -121,17 +124,24 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                               //BUTTON
                               MaterialButton(
                                 onPressed: () {
-                                  //SELL FORM PROVIDER => 'Full Service'
                                   sellFormProvider.serviceType =
                                       chooseServiceTypeCard1Title;
                                   print(sellFormProvider.serviceType);
                                   // NAVIGATE TO NEXT PAGE
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const LogInView(),
-                                    ),
-                                  );
+                                  if(costumerProvider.email != '' || costumerProvider.fullName != '' || costumerProvider.phoneNumber != ''){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const FullServiceView()),
+                                      );
+                                  }else {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const LogInView(),
+                                      ),
+                                    );
+                                  }
                                 },
                                 color: confirmButtonColor,
                                 shape: RoundedRectangleBorder(
@@ -204,6 +214,13 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                 sellFormProvider.serviceType =
                                     chooseServiceTypeCard2Title;
                                 print(sellFormProvider.serviceType);
+                                if(costumerProvider.email != '' || costumerProvider.fullName != '' || costumerProvider.phoneNumber != ''){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const CustomServiceView()),
+                                  );
+                                }else{
                                 //NAVIGATE TO NEXT PAGE
                                 Navigator.push(
                                   context,
@@ -211,6 +228,7 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                     builder: (context) => const LogInView(),
                                   ),
                                 );
+                                }
                               },
                               color: confirmButtonColor,
                               shape: RoundedRectangleBorder(
