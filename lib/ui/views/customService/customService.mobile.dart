@@ -170,7 +170,7 @@ class CustomServiceMobile extends ViewModelWidget<CustomServiceViewModel> {
                           'CUSTOMER_PRICE': sellFormProvider.costumerPrice,
                           'NEED_AGENT': sellFormProvider.sendAgent,
                           'CUSTOM_SERVICES': sellFormProvider.getServicesChosen(),
-                          'COSTUMER': sellFormProvider.costumer,
+                          'COSTUMER': sellFormProvider.getCostumerInformation(),
                         };
                         await db.setSellingFormData(data);
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));

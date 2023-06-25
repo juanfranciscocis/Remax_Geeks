@@ -22,6 +22,7 @@ class HomeView extends StackedView<HomeViewModel> {
   ) {
     DBProvider db = Provider.of<DBProvider>(context);
     db.getNumberOfCostumers();
+    db.getNumberOfSellingForms();
     return ScreenTypeLayout.builder(
       mobile: (_) => const HomeViewMobile(),
       tablet: (_) => const HomeViewTablet(), //ADD TABLET VIEW IF NEEDED

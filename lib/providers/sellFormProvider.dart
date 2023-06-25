@@ -54,6 +54,11 @@ class SellFormProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  set costumer(Costumer costumer){
+    _sellingFormModel.costumer = costumer;
+    notifyListeners();
+  }
+
   //GETTERS
   String get condition => _sellingFormModel.condition ?? 'NO CONDITION';
   String get address => _sellingFormModel.address ?? 'NO ADDRESS';
@@ -71,6 +76,14 @@ class SellFormProvider extends ChangeNotifier{
       sum += apiPrices[i];
     }
     return sum / apiPrices.length;
+  }
+
+  List<String> getCostumerInformation(){
+    List<String> costumerInformation = [];
+    costumerInformation.add(costumer.fullName!);
+    costumerInformation.add(costumer.email!);
+    costumerInformation.add(costumer.phoneNumber!);
+    return costumerInformation;
   }
 
 }

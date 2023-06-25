@@ -12,6 +12,7 @@ class DBProvider extends ChangeNotifier{
   DatabaseReference? _databaseReference;
   //GETTING THE NUMBER OF COSTUMERS
   late int _numberOfCostumers;
+  late int _numberOfSellForms;
   //GETTING PREMIUM SERVICES TITLES AND DESCRIPTIONS
   late List<String> pTitles;
   late List<String> pDescriptions;
@@ -35,14 +36,31 @@ class DBProvider extends ChangeNotifier{
   //SET THE SELLING FORM DATA, AS A JSON OBJECT, TO THE DATABASE
   Future<void> setSellingFormData( Map<String, dynamic> sellingFormData) async{
     //ADD THE NUMBER OF COSTUMERS TO THE KEY
-    String costumer = _numberOfCostumers.toString();
-    await _databaseReference!.child('SELLING_FORM_' + costumer).set(sellingFormData);
-    incrementNumberOfCostumers();
+    String sellForm = _numberOfSellForms.toString();
+    await _databaseReference!.child('SELLING_FORMS').child('SELLING_FORM_' + sellForm).set(sellingFormData);
+    incrementNumberOfSellForms();
     notifyListeners();
   }
+
+  //NUMBER OF SELL FORMS, GET THE NUMBER OF COSTUMERS FROM THE DATABASE AS INT
+  Future<void> getNumberOfSellingForms() async{
+    final snapshot = await _databaseReference!.child('SELLING_FORMS_COUNT').get();
+    final numberOfSellForms = snapshot.value as int;
+    _numberOfSellForms = numberOfSellForms;
+    notifyListeners();
+  }
+
+  //NUMBER OF COSTUMERS, INCREMENT THE NUMBER OF COSTUMERS IN THE DATABASE
+  Future<void> incrementNumberOfSellForms() async{
+    _numberOfSellForms++;
+    await _databaseReference!.child('SELLING_FORMS_COUNT').set(_numberOfSellForms);
+    notifyListeners();
+  }
+
+
   //NUMBER OF COSTUMERS, GET THE NUMBER OF COSTUMERS FROM THE DATABASE AS INT
   Future<void> getNumberOfCostumers() async{
-    final snapshot = await _databaseReference!.child('COSTUMERS').get();
+    final snapshot = await _databaseReference!.child('COSTUMERS_COUNT').get();
     final numberOfCostumers = snapshot.value as int;
     _numberOfCostumers = numberOfCostumers;
     notifyListeners();
@@ -51,9 +69,17 @@ class DBProvider extends ChangeNotifier{
   //NUMBER OF COSTUMERS, INCREMENT THE NUMBER OF COSTUMERS IN THE DATABASE
   Future<void> incrementNumberOfCostumers() async{
     _numberOfCostumers++;
-    await _databaseReference!.child('COSTUMERS').set(_numberOfCostumers);
+    await _databaseReference!.child('COSTUMERS_COUNT').set(_numberOfCostumers);
     notifyListeners();
   }
+
+  //SET NEW COSTUMER TO THE DATABASE
+  Future<void> setNewCostumer(Map<String, dynamic> costumer) async{
+    await _databaseReference!.child('ALL_COSTUMERS').child('COSTUMER_' + _numberOfCostumers.toString()).set(costumer);
+    incrementNumberOfCostumers();
+    notifyListeners();
+  }
+
 
   //GET PREMIUM SERVICES TITLES
   Future<List<String>> getPremiumServicesTitles() async{

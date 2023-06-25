@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class AuthManager extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  String errorMessage = '';
 
   Future<User?> signUpWithEmailAndPassword({required String email, required String password, required String fullName, required String phoneNumber}) async {
     try {
@@ -21,6 +22,7 @@ class AuthManager extends ChangeNotifier {
     } catch (e) {
       // Handle any errors
       print(e);
+      errorMessage = e.toString();
       return null;
     }
   }
@@ -36,6 +38,7 @@ class AuthManager extends ChangeNotifier {
     } catch (e) {
       // Handle any errors
       print(e);
+      errorMessage = e.toString();
       return null;
     }
   }

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/providers/costumerProvider.dart';
+import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/providers/sellFormProvider.dart';
 import 'package:remax_geeks/services/authEmailPassword.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
@@ -25,6 +26,7 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
     CostumerProvider costumer = Provider.of<CostumerProvider>(context);
     AuthManager auth = Provider.of<AuthManager>(context);
     SellFormProvider sellForm = Provider.of<SellFormProvider>(context);
+    DBProvider db = Provider.of<DBProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -165,14 +167,63 @@ class SignInViewDesktop extends ViewModelWidget<SignInViewModel> {
                               ),
                               elevation: 5.0,
                               onPressed: () async {
-                                await auth.signUpWithEmailAndPassword(email:costumer.email, password: costumer.password, fullName: costumer.fullName,phoneNumber: costumer.phoneNumber);
-                                String serviceChoose = sellForm.serviceType;
-                                if(serviceChoose == chooseServiceTypeCard1Title ){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => FullServiceView()));
+                                if(costumer.email != '' && costumer.password != '' && costumer.fullName != '' && costumer.phoneNumber != '') {
+                                  await auth.signUpWithEmailAndPassword(
+                                      email: costumer.email,
+                                      password: costumer.password,
+                                      fullName: costumer.fullName,
+                                      phoneNumber: costumer.phoneNumber);
+                                  if(auth.errorMessage == '') {
+                                    String serviceChoose = sellForm.serviceType;
+                                    sellForm.costumer = costumer.costumer;
+                                    Map<String, dynamic> newCostumer = {
+                                      'EMAIL': costumer.email,
+                                      'FULL_NAME': costumer.fullName,
+                                      'PHONE_NUMBER': costumer.phoneNumber,
+                                    };
+                                    db.setNewCostumer(newCostumer);
+                                    if (serviceChoose ==
+                                        chooseServiceTypeCard1Title) {
+                                      Navigator.push(context, MaterialPageRoute(
+                                          builder: (context) =>
+                                              FullServiceView()));
+                                    } else {
+                                      Navigator.push(context, MaterialPageRoute(
+                                          builder: (context) =>
+                                              CustomServiceView()));
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          auth.errorMessage,
+                                          style: TextStyle(
+                                            fontFamily: fontOutfitRegular,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                    auth.errorMessage = '';
+                                  }
                                 }else{
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => CustomServiceView()));
+                                  // SHOW ERROR MESSAGE
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Please fill all the fields',
+                                        style: TextStyle(
+                                          fontFamily: fontOutfitRegular,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
                                 }
                               },
+
                               color: primaryButtonColor,
                               textColor: fontWhiteColor,
                               child: Padding(
