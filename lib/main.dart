@@ -7,6 +7,7 @@ import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/providers/sellFormProvider.dart';
 import 'package:remax_geeks/services/GooglePlacesService.dart';
 import 'package:remax_geeks/services/authEmailPassword.dart';
+import 'package:remax_geeks/services/authGoogle.dart';
 import 'package:remax_geeks/services/realtyMoleService.dart';
 import 'package:remax_geeks/services/zillowService.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ZillowService()),
         ChangeNotifierProvider(create: (_) => AuthManager()),
         ChangeNotifierProvider(create: (_) => CostumerProvider()),
+        ChangeNotifierProvider(create: (_) => AuthGoogle()),
       ],
       child: ResponsiveApp(
           preferDesktop: true,

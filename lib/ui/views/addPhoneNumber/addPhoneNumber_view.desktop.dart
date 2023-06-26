@@ -6,6 +6,7 @@ import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
+import 'package:remax_geeks/ui/views/addPhoneNumber/addPhoneNumber_view.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../providers/costumerProvider.dart';
@@ -15,17 +16,16 @@ import '../../../services/authEmailPassword.dart';
 import '../../../services/authGoogle.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
-import '../addPhoneNumber/addPhoneNumber_view.dart';
 import '../customService/customService_view.dart';
 import '../fullService/fullService_view.dart';
 import '../signUp/singUp_view.dart';
-import 'logIn_viewmodel.dart';
+import 'addPhoneNumber_viewmodel.dart';
 
-class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
-  const LogInViewDesktop({Key? key}) : super(key: key);
+class AddPhoneNumberDesktop extends ViewModelWidget<AddPhoneNumberViewModel> {
+  const AddPhoneNumberDesktop({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, LogInViewModel viewModel) {
+  Widget build(BuildContext context, AddPhoneNumberViewModel viewModel) {
     CostumerProvider costumer = Provider.of<CostumerProvider>(context);
     AuthManager auth = Provider.of<AuthManager>(context);
     AuthGoogle authGoogle = Provider.of<AuthGoogle>(context);
@@ -59,7 +59,7 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "Welcome back... Log In",
+                              "One More Thing...",
                               style: TextStyle(
                                 color: fontMainColor,
                                 fontFamily: fontOutfitBold,
@@ -70,14 +70,14 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                           ),
                           verticalSpaceMedium,
                           TextWidget(
-                            text: "Enter your email:",
+                            text: "Please enter your phone so that we can contact you:",
                             color: fontMainColor,
                             fontFamily: fontOutfitMedium,
                             fontSize: 40,
                           ),
                           verticalSpaceSmall,
                           TextFieldWidget(
-                            labelText: "Email...",
+                            labelText: "Phone Number...",
                             labelColor: fontMainColor,
                             labelFontFamily: fontOutfitRegular,
                             labelFontSize: 20,
@@ -88,32 +88,8 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                             textFontFamily: fontOutfitRegular,
                             textFontSize: 20,
                             onChanged: (value) {
-                              costumer.email = value;
+                              costumer.phoneNumber = value;
                             },
-                          ),
-                          verticalSpaceMedium,
-                          TextWidget(
-                            text: "Enter your password:",
-                            color: fontMainColor,
-                            fontFamily: fontOutfitMedium,
-                            fontSize: 40,
-                          ),
-                          verticalSpaceSmall,
-                          TextFieldWidget(
-                            labelText: "Password...",
-                            labelColor: fontMainColor,
-                            labelFontFamily: fontOutfitRegular,
-                            labelFontSize: 20,
-                            enabledBorderColor: fontMainColor,
-                            filled: true,
-                            fillColor: inputColor,
-                            textColor: fontMainColor,
-                            textFontFamily: fontOutfitRegular,
-                            textFontSize: 20,
-                            onChanged: (value) {
-                              costumer.password = value;
-                            },
-                            obscureText: true, // Password field should be obscured
                           ),
                           verticalSpaceMedium,
                           Align(
@@ -125,16 +101,15 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                               ),
                               elevation: 5.0,
                               onPressed: () async {
-                                if(costumer.email != '' && costumer.password != '') {
-                                  await auth.signInWithEmailAndPassword(
-                                      email: costumer.email,
-                                      password: costumer.password);
-                                  if(auth.errorMessage == '') {
+                                if(costumer.phoneNumber != '') {
                                     String serviceChoose = sellForm.serviceType;
-                                    costumer.fullName = auth.user!.displayName!;
-                                    String authUID = auth.user!.uid.toString();
-                                    await db.getPhoneNumberByUID(authUID);
-                                    costumer.phoneNumber = db.phoneNumber;
+                                    Map<String, dynamic> newCostumer = {
+                                      'EMAIL': costumer.email,
+                                      'FULL_NAME': costumer.fullName,
+                                      'PHONE_NUMBER': costumer.phoneNumber,
+                                      'UID': authGoogle.user?.uid.toString(),
+                                    };
+                                    db.setNewCostumer(newCostumer);
                                     sellForm.costumer = costumer.costumer;
                                     if (serviceChoose ==
                                         chooseServiceTypeCard1Title) {
@@ -150,7 +125,7 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          auth.errorMessage,
+                                          'Please fill all the fields',
                                           style: TextStyle(
                                             fontFamily: fontOutfitRegular,
                                             fontSize: 15,
@@ -159,30 +134,14 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                                         backgroundColor: Colors.red,
                                       ),
                                     );
-                                    auth.errorMessage = '';
                                   }
-                                }else{
-                                  // SHOW ERROR MESSAGE
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Please fill all the fields',
-                                        style: TextStyle(
-                                          fontFamily: fontOutfitRegular,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
-                                }
-                              },
+                                },
                               color: primaryButtonColor,
                               textColor: fontWhiteColor,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  "Log In",
+                                  "Next",
                                   style: TextStyle(
                                     fontFamily: fontOutfitBold,
                                     fontSize: 40,
@@ -192,67 +151,6 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                             ),
                           ),
                           verticalSpaceSmall,
-                          Align(
-                            alignment: Alignment.center,
-                            child: MaterialButton(
-                              height: 50,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              elevation: 5.0,
-                              onPressed: () {
-                                //NAVIGATE TO SIGN UP PAGE
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SignUpView(),
-                                  ),
-                                );
-                              },
-                              color: inputColor,
-                              textColor: fontWhiteColor,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Sign In",
-                                  style: TextStyle(
-                                    fontFamily: fontOutfitBold,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          verticalSpaceMedium,
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Or Login With",
-                              style: TextStyle(
-                                color: inputColor,
-                                fontFamily: fontOutfitBold,
-                                fontSize: 20,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          verticalSpaceMedium,
-                          // Google sign-in button
-                          Align(
-                            alignment: Alignment.center,
-                            child: InkWell(
-                              onTap: () async {
-                                await authGoogle.signInWithGoogle();
-                                checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
-                              },
-                              child: Image.asset(
-                                googleIcon, // Replace with the path to your Google icon
-                                width: 100,
-                                height: 100,
-                              ),
-                            ),
-                          ),
-
                         ],
                       ),
                     ),
@@ -265,55 +163,6 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
       ),
     );
   }
-
-  void checkForGoogleSignIn(AuthGoogle authGoogle, DBProvider db, SellFormProvider sellForm,CostumerProvider costumer, BuildContext context) async{
-    if(authGoogle.errorMessage == ''){
-      String serviceChoose = sellForm.serviceType;
-      costumer.fullName = authGoogle.user!.displayName!;
-      costumer.email = authGoogle.user!.email!;
-      String authUID = authGoogle.user!.uid.toString();
-      await db.getPhoneNumberByUID(authUID);
-      if(db.phoneNumber.isEmpty){
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>
-            const AddPhoneNumberView()));
-        return;
-      }
-      costumer.phoneNumber = db.phoneNumber;
-      sellForm.costumer = costumer.costumer;
-      if (serviceChoose ==
-          chooseServiceTypeCard1Title) {
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>
-                FullServiceView()));
-        return;
-      } else {
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>
-                CustomServiceView()));
-        return;
-      }
-    }else{
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Can not Login with Google',
-            style: TextStyle(
-              fontFamily: fontOutfitRegular,
-              fontSize: 15,
-            ),
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
-      authGoogle.errorMessage = '';
-    }
-
-
-  }
-
-
-
 }
 
 // Rest of the code...

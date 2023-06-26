@@ -255,13 +255,6 @@ class FullServiceDesktop extends StatelessWidget {
                     }
                   }, buttonColor: confirmButtonColor)),
               verticalSpaceLarge,
-
-
-
-
-
-
-
             ],
           ),
         ),

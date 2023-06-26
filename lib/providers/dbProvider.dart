@@ -14,7 +14,7 @@ class DBProvider extends ChangeNotifier{
   late int _numberOfCostumers;
   late int _numberOfSellForms;
   //GETTIN THE PHONE NUMBER WHEN LOGGING IN
-  late String phoneNumber = 'NO NUMBER GIVEN';
+  late String phoneNumber = '';
   //GETTING PREMIUM SERVICES TITLES AND DESCRIPTIONS
   late List<String> pTitles;
   late List<String> pDescriptions;
@@ -83,24 +83,23 @@ class DBProvider extends ChangeNotifier{
   }
 
   Future<String?> getPhoneNumberByUID(String uid) async {
+    phoneNumber = '';
     int numberOfCostumers = _numberOfCostumers;
-    for(numberOfCostumers; numberOfCostumers >= 0; numberOfCostumers--){
+    for(int i = 0 ; i <= numberOfCostumers; i++){
       final snapshot = await _databaseReference!
           .child('ALL_COSTUMERS')
-          .child('COSTUMER_' + numberOfCostumers.toString())
+          .child('COSTUMER_' + i.toString())
           .get();
 
       final customer = snapshot.value as Map<dynamic, dynamic>?;
 
       if (customer != null) {
-        this.phoneNumber = (customer['PHONE_NUMBER'] as String?)!;
-        print('Phone number found: $phoneNumber');
-        return this.phoneNumber;
+        String uidFounded = (customer['UID'] as String?)!;
+        if (uidFounded == uid) this.phoneNumber = (customer['PHONE_NUMBER'] as String?)!;
+
       }
     }
-
-    print('Phone not found for UID: $uid');
-    return null;
+    return phoneNumber;
   }
 
 
