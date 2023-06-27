@@ -68,8 +68,8 @@ class CustomServiceTablet extends ViewModelWidget<CustomServiceViewModel> {
                   verticalSpaceTiny,
                   CardApiInformationTablet(imagePath: imageRM,estimatedPriceApi: formatCurrency(apiPrices[1]),),
                   verticalSpaceTiny,
-                  CardApiInformationTablet(imagePath: imageAmericanRealState, estimatedPriceApi: formatCurrency(apiPrices[2]),),
-                  verticalSpaceTiny,
+                  //CardApiInformationTablet(imagePath: imageAmericanRealState, estimatedPriceApi: formatCurrency(apiPrices[2]),),
+                  //verticalSpaceTiny,
                   CardAverageApiTablet(averageApiPrice: averageApiPrice),
                   verticalSpaceTiny,
                   //Card, with a text centered inside the card, a textfield bellow the text

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:remax_geeks/services/authFacebook.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
@@ -22,13 +23,17 @@ import '../signUp/singUp_view.dart';
 import 'addPhoneNumber_viewmodel.dart';
 
 class AddPhoneNumberDesktop extends ViewModelWidget<AddPhoneNumberViewModel> {
-  const AddPhoneNumberDesktop({Key? key}) : super(key: key);
+
+  bool isGoogle = false;
+
+  AddPhoneNumberDesktop({Key? key, required this.isGoogle}) : super(key: key);
 
   @override
   Widget build(BuildContext context, AddPhoneNumberViewModel viewModel) {
     CostumerProvider costumer = Provider.of<CostumerProvider>(context);
     AuthManager auth = Provider.of<AuthManager>(context);
     AuthGoogle authGoogle = Provider.of<AuthGoogle>(context);
+    AuthFacebook authFacebook = Provider.of<AuthFacebook>(context);
     SellFormProvider sellForm = Provider.of<SellFormProvider>(context);
     DBProvider db = Provider.of<DBProvider>(context, listen: false);
     return Scaffold(
@@ -103,13 +108,23 @@ class AddPhoneNumberDesktop extends ViewModelWidget<AddPhoneNumberViewModel> {
                               onPressed: () async {
                                 if(costumer.phoneNumber != '') {
                                     String serviceChoose = sellForm.serviceType;
-                                    Map<String, dynamic> newCostumer = {
-                                      'EMAIL': costumer.email,
-                                      'FULL_NAME': costumer.fullName,
-                                      'PHONE_NUMBER': costumer.phoneNumber,
-                                      'UID': authGoogle.user?.uid.toString(),
-                                    };
-                                    db.setNewCostumer(newCostumer);
+                                    if(this.isGoogle){
+                                      Map<String, dynamic> newCostumer = {
+                                        'EMAIL': costumer.email,
+                                        'FULL_NAME': costumer.fullName,
+                                        'PHONE_NUMBER': costumer.phoneNumber,
+                                        'UID': authGoogle.user?.uid.toString(),
+                                      };
+                                      db.setNewCostumer(newCostumer);
+                                    }else{
+                                      Map<String, dynamic> newCostumer = {
+                                        'EMAIL': costumer.email,
+                                        'FULL_NAME': costumer.fullName,
+                                        'PHONE_NUMBER': costumer.phoneNumber,
+                                        'UID': authFacebook.uid,
+                                      };
+                                      db.setNewCostumer(newCostumer);
+                                    }
                                     sellForm.costumer = costumer.costumer;
                                     if (serviceChoose ==
                                         chooseServiceTypeCard1Title) {

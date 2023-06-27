@@ -69,8 +69,8 @@ class FullServiceDesktop extends StatelessWidget {
               verticalSpaceTiny,
               CardApiInformationDesktop(imagePath: imageRM,estimatedPriceApi: formatCurrency(apiPrices[1])),
               verticalSpaceTiny,
-              CardApiInformationDesktop(imagePath: imageAmericanRealState, estimatedPriceApi: formatCurrency(apiPrices[2]),),
-              verticalSpaceTiny,
+              //CardApiInformationDesktop(imagePath: imageAmericanRealState, estimatedPriceApi: formatCurrency(apiPrices[2]),),
+              //verticalSpaceTiny,
               CardAverageApiDesktop(averageApiPrice: averageApiPrice),
               verticalSpaceTiny,
               //Card, with a text centered inside the card, a textfield bellow the text

@@ -19,7 +19,7 @@ class SellingForm {
     this.condition  = '',
     this.typeProperty = '',
     this.serviceType = '',
-    this.apiPrices = const [0, 0, 0],
+    this.apiPrices = const [0, 0],
     this.averageApiPrice = 0,
     this.costumerPrice = "0",
     this.sendAgent  = false,

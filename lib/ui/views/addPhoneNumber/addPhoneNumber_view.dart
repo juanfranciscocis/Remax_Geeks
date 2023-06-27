@@ -11,7 +11,10 @@ import 'addPhoneNumber_view.mobile.dart';
 import 'addPhoneNumber_viewmodel.dart';
 
 class AddPhoneNumberView extends StackedView<AddPhoneNumberViewModel> {
-  const AddPhoneNumberView({super.key});
+
+  bool isGoogle;
+
+  AddPhoneNumberView({super.key, required this.isGoogle});
 
   @override
   Widget builder(
@@ -22,7 +25,7 @@ class AddPhoneNumberView extends StackedView<AddPhoneNumberViewModel> {
     return ScreenTypeLayout.builder(
       mobile: (_) => const AddPhoneNumberMobile(),
       //tablet: (_) => const LogInViewTablet(), //ADD TABLET VIEW IF NEEDED
-      desktop: (_) => const AddPhoneNumberDesktop(),
+      desktop: (_) => AddPhoneNumberDesktop(isGoogle: this.isGoogle,),
     );
   }
 

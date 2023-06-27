@@ -9,6 +9,7 @@ import '../../../providers/costumerProvider.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../services/authEmailPassword.dart';
+import '../../../services/authGoogle.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../common/app_constants.dart';
 import '../../common/app_strings.dart';
@@ -25,6 +26,7 @@ class AddPhoneNumberMobile extends ViewModelWidget<AddPhoneNumberViewModel> {
   Widget build(BuildContext context, AddPhoneNumberViewModel viewModel) {
     CostumerProvider costumer = Provider.of<CostumerProvider>(context);
     AuthManager auth = Provider.of<AuthManager>(context);
+    AuthGoogle authGoogle = Provider.of<AuthGoogle>(context);
     SellFormProvider sellForm = Provider.of<SellFormProvider>(context);
     DBProvider db = Provider.of<DBProvider>(context, listen: false);
     return Scaffold(
@@ -95,44 +97,26 @@ class AddPhoneNumberMobile extends ViewModelWidget<AddPhoneNumberViewModel> {
                             elevation: 5.0,
                             onPressed: () async {
                               if(costumer.phoneNumber != '') {
-                                //TODO: ADD PHONE TO DB AND GO TO NEXT PAGE
-                                await auth.signInWithEmailAndPassword(
-                                    email: costumer.email,
-                                    password: costumer.password);
-                                if(auth.errorMessage == '') {
-                                  String serviceChoose = sellForm.serviceType;
-                                  costumer.fullName = auth.user!.displayName!;
-                                  String authUID = auth.user!.uid.toString();
-                                  await db.getPhoneNumberByUID(authUID);
-                                  costumer.phoneNumber = db.phoneNumber;
-                                  sellForm.costumer = costumer.costumer;
-                                  if (serviceChoose ==
-                                      chooseServiceTypeCard1Title) {
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) =>
-                                            FullServiceView()));
-                                  } else {
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) =>
-                                            CustomServiceView()));
-                                  }
+                                String serviceChoose = sellForm.serviceType;
+                                Map<String, dynamic> newCostumer = {
+                                  'EMAIL': costumer.email,
+                                  'FULL_NAME': costumer.fullName,
+                                  'PHONE_NUMBER': costumer.phoneNumber,
+                                  'UID': authGoogle.user?.uid.toString(),
+                                };
+                                db.setNewCostumer(newCostumer);
+                                sellForm.costumer = costumer.costumer;
+                                if (serviceChoose ==
+                                    chooseServiceTypeCard1Title) {
+                                  Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) =>
+                                          FullServiceView()));
                                 } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        auth.errorMessage,
-                                        style: TextStyle(
-                                          fontFamily: fontOutfitRegular,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
-                                  auth.errorMessage = '';
+                                  Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) =>
+                                          CustomServiceView()));
                                 }
-                              }else{
-                                // SHOW ERROR MESSAGE
+                              } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(

@@ -64,7 +64,7 @@ class SellFormProvider extends ChangeNotifier{
   String get address => _sellingFormModel.address ?? 'NO ADDRESS';
   String get type => _sellingFormModel.typeProperty ?? 'NO TYPE';
   String get serviceType => _sellingFormModel.serviceType ?? 'NO SERVICE TYPE';
-  List<double> get apiPrices => _sellingFormModel.apiPrices ?? [0,0,0];
+  List<double> get apiPrices => _sellingFormModel.apiPrices ?? [0,0];
   String get costumerPrice => _sellingFormModel.costumerPrice ?? "0";
   bool get sendAgent => _sellingFormModel.sendAgent ?? false;
   List<String>  getServicesChosen() => _sellingFormModel.servicesChosen ?? [];

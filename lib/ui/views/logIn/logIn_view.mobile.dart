@@ -9,9 +9,12 @@ import '../../../providers/costumerProvider.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../services/authEmailPassword.dart';
+import '../../../services/authFacebook.dart';
+import '../../../services/authGoogle.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../common/app_constants.dart';
 import '../../common/app_strings.dart';
+import '../addPhoneNumber/addPhoneNumber_view.dart';
 import '../customService/customService_view.dart';
 import '../fullService/fullService_view.dart';
 import '../signUp/signUp_view.desktop.dart';
@@ -25,6 +28,8 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
   Widget build(BuildContext context, LogInViewModel viewModel) {
     CostumerProvider costumer = Provider.of<CostumerProvider>(context);
     AuthManager auth = Provider.of<AuthManager>(context);
+    AuthGoogle authGoogle = Provider.of<AuthGoogle>(context);
+    AuthFacebook authFacebook = Provider.of<AuthFacebook>(context);
     SellFormProvider sellForm = Provider.of<SellFormProvider>(context);
     DBProvider db = Provider.of<DBProvider>(context, listen: false);
     return Scaffold(
@@ -234,16 +239,34 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                         // Google sign-in button
                         Align(
                           alignment: Alignment.center,
-                          child: InkWell(
-                            onTap: () {
-                              // Perform Google sign-in action using the view model
-                              //viewModel.googleSignIn();
-                            },
-                            child: Image.asset(
-                              googleIcon, // Replace with the path to your Google icon
-                              width: 75,
-                              height: 75,
-                            ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  await authGoogle.signInWithGoogle();
+                                  checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
+                                },
+                                child: Image.asset(
+                                  googleIcon, // Replace with the path to your Google icon
+                                  width: 75,
+                                  height: 75,
+                                ),
+                              ),
+                              horizontalSpaceSmall,
+                              InkWell(
+                                onTap: () async {
+                                  await authFacebook.signIn();
+                                  checkForFacebookSignin(authFacebook, db, sellForm, costumer, context);
+                                  //checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
+                                },
+                                child: Image.asset(
+                                  facebookIcon, // Replace with the path to your Google icon
+                                  width: 75,
+                                  height: 75,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -257,5 +280,105 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
       ),
     );
   }
+
+  void checkForGoogleSignIn(AuthGoogle authGoogle, DBProvider db, SellFormProvider sellForm,CostumerProvider costumer, BuildContext context) async{
+    if(authGoogle.errorMessage == ''){
+      String serviceChoose = sellForm.serviceType;
+      costumer.fullName = authGoogle.user!.displayName!;
+      costumer.email = authGoogle.user!.email!;
+      String authUID = authGoogle.user!.uid.toString();
+      await db.getPhoneNumberByUID(authUID);
+      if(db.phoneNumber.isEmpty){
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) => AddPhoneNumberView(isGoogle: true,)));
+        return;
+      }
+      costumer.phoneNumber = db.phoneNumber;
+      sellForm.costumer = costumer.costumer;
+      if (serviceChoose ==
+          chooseServiceTypeCard1Title) {
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) =>
+                FullServiceView()));
+        return;
+      } else {
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) =>
+                CustomServiceView()));
+        return;
+      }
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Can not Login with Google',
+            style: TextStyle(
+              fontFamily: fontOutfitRegular,
+              fontSize: 15,
+            ),
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
+      authGoogle.errorMessage = '';
+    }
+
+
+  }
+
+  void checkForFacebookSignin(AuthFacebook authFacebook, DBProvider db, SellFormProvider sellForm,CostumerProvider costumer, BuildContext context) async{
+    if(authFacebook.errorMessage == ''){
+      String serviceChoose = sellForm.serviceType;
+      print(serviceChoose);
+      costumer.fullName = authFacebook.userData?['name'];
+      print(costumer.fullName);
+      costumer.email = authFacebook.userData?['email'];
+      print(costumer.email);
+      String authUID = authFacebook.uid;
+      print(authUID);
+      await db.getPhoneNumberByUID(authUID);
+      if(db.phoneNumber.isEmpty){
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) =>
+                AddPhoneNumberView(isGoogle: false,)));
+        return;
+      }
+      costumer.phoneNumber = db.phoneNumber;
+      print(costumer.phoneNumber);
+      sellForm.costumer = costumer.costumer;
+      print(sellForm.costumer);
+      if (serviceChoose ==
+          chooseServiceTypeCard1Title) {
+        print(chooseServiceTypeCard1Title);
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) =>
+                FullServiceView()));
+        return;
+      } else {
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) =>
+                CustomServiceView()));
+        return;
+      }
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Can not Login with Facebook',
+            style: TextStyle(
+              fontFamily: fontOutfitRegular,
+              fontSize: 15,
+            ),
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
+      authFacebook.errorMessage = '';
+    }
+
+
+  }
+
+
 }
 

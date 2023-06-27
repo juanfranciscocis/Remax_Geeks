@@ -68,8 +68,8 @@ class CustomServiceMobile extends ViewModelWidget<CustomServiceViewModel> {
                 verticalSpaceTiny,
                 CardApiInformationMobile(imagePath: imageRM,estimatedPriceApi: formatCurrency(apiPrices[1]),),
                 verticalSpaceTiny,
-                CardApiInformationMobile(imagePath: imageAmericanRealState, estimatedPriceApi: formatCurrency(apiPrices[2]),),
-                verticalSpaceTiny,
+                //CardApiInformationMobile(imagePath: imageAmericanRealState, estimatedPriceApi: formatCurrency(apiPrices[2]),),
+                //verticalSpaceTiny,
                 CardAverageApiMobile(averageApiPrice: averageApiPrice),
                 verticalSpaceTiny,
                 //Card, with a text centered inside the card, a textfield bellow the text

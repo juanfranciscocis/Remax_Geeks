@@ -7,6 +7,7 @@ import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/providers/sellFormProvider.dart';
 import 'package:remax_geeks/services/GooglePlacesService.dart';
 import 'package:remax_geeks/services/authEmailPassword.dart';
+import 'package:remax_geeks/services/authFacebook.dart';
 import 'package:remax_geeks/services/authGoogle.dart';
 import 'package:remax_geeks/services/realtyMoleService.dart';
 import 'package:remax_geeks/services/zillowService.dart';
@@ -20,6 +21,7 @@ import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 Future<void> main() async {
   setPathUrlStrategy();
@@ -34,6 +36,15 @@ Future<void> main() async {
   );
 
   await FirebaseDatabase.instance;
+
+  // initialiaze the facebook javascript SDK
+  await FacebookAuth.i.webAndDesktopInitialize(
+    appId: "793162869008453",
+    cookie: true,
+    xfbml: true,
+    version: "v14.0",
+  );
+
 
   runApp(const MyApp());
 
@@ -55,6 +66,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthManager()),
         ChangeNotifierProvider(create: (_) => CostumerProvider()),
         ChangeNotifierProvider(create: (_) => AuthGoogle()),
+        ChangeNotifierProvider(create: (_) => AuthFacebook()),
       ],
       child: ResponsiveApp(
           preferDesktop: true,

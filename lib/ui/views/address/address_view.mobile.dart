@@ -9,6 +9,7 @@ import 'package:stacked/stacked.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../services/GooglePlacesService.dart';
 import '../../../services/realtyMoleService.dart';
+import '../../../services/zillowService.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../common/app_strings.dart';
 import '../chooseServiceType/chooseServiceType_view.dart';
@@ -308,7 +309,10 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                       if (sellFormProvider.address != '' && sellFormProvider.condition != '' && sellFormProvider.type != '') {
                         RealtyMoleService realty = RealtyMoleService();
                         await realty.getPrice(sellFormProvider.address);
-                        List<double> prices = [0,0,0];
+                        ZillowService zillow = ZillowService();
+                        await zillow.getPrice(sellFormProvider.address);
+                        List<double> prices = [0,0];
+                        prices[0] = zillow.price;
                         prices[1] = realty.price;
                         sellFormProvider.apiPrices = prices;
                         // GO TO NEXT PAGE
