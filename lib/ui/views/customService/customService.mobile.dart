@@ -83,47 +83,72 @@ class CustomServiceMobile extends ViewModelWidget<CustomServiceViewModel> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Container(
-                      height: 500.0,
                       width: 1000.0,
                       child:  Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          verticalSpaceMedium,
                           const Center(
                             child: Padding(
-                              padding: EdgeInsets.all(20.0),
+                              padding: EdgeInsets.only(left: 20.0, right: 20.0),
                               child: Text(
                                 enterYourDesiredPrice,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: fontWhiteColor,
                                   fontFamily: fontOutfitMedium,
-                                  fontSize: 30,
+                                  fontSize: 40,
                                 ),
                               ),
                             ),
                           ),
+                          verticalSpaceMedium,
                           //Textfield
                           Padding(
-                            padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                            padding: EdgeInsets.only(left: 50.0, right: 50.0, bottom: 20.0),
                             child: CustomerPrice(sellFormProvider: sellFormProvider, onTextChanged: (text){
                               sellFormProvider.costumerPrice = text;
                             }),
                           ),
+                          verticalSpaceMedium,
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                Center(
+                  child: Card(
+                    color: secondaryCardColor,
+                    elevation: 10.0,
+                    //ROUND CORNERS
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Container(
+                      width: 1000.0,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
                           Center(
                             child: Padding(
-                              padding: EdgeInsets.all(20.0),
+                              padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
                               child: Text(
                                 sendAgent,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: fontWhiteColor,
                                   fontFamily: fontOutfitMedium,
-                                  fontSize: 30,
+                                  fontSize: 40,
                                 ),
                               ),
                             ),
                           ),
                           //checkbox, when checked color confirmation, else main color
-                          CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent,textSize: 60,text: '          '),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 20.0),
+                            child: CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent,textSize: 60,text: '          '),
+                          ),
                         ],
                       ),
                     ),

@@ -80,13 +80,14 @@ class CustomServiceDesktop extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Container(
-                    height: 350.0,
                     width: 1000.0,
                     child:  Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        verticalSpaceLarge,
                         Center(
                           child: Padding(
-                            padding: EdgeInsets.all(20.0),
+                            padding: EdgeInsets.only(left: 20.0, right: 20.0),
                             child: Text(
                               enterYourDesiredPrice,
                               textAlign: TextAlign.center,
@@ -99,33 +100,59 @@ class CustomServiceDesktop extends StatelessWidget {
                           ),
                         ),
                         //Textfield
+                        verticalSpaceMedium,
                         Padding(
                           padding: EdgeInsets.only(left: 200.0, right: 200.0),
                           child: CustomerPrice(sellFormProvider: sellFormProvider,onTextChanged: (text){
                             sellFormProvider.costumerPrice = text;
                           },),
                         ),
-                        Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              sendAgent,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: fontWhiteColor,
-                                fontFamily: fontOutfitMedium,
-                                fontSize: 40,
-                              ),
-                            ),
-                          ),
-                        ),
-                        //checkbox, when checked color confirmation, else main color
-                        CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent,),
+                        verticalSpaceLarge,
+
+
                       ],
                     ),
                   ),
                 ),
               ),
+              verticalSpaceTiny,
+              Center(
+                child: Card(
+                  color: secondaryCardColor,
+                  elevation: 10.0,
+                  //ROUND CORNERS
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Container(
+                    width: 1000.0,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children:[
+                          verticalSpaceLarge,
+                          Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text(
+                                sendAgent,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: fontWhiteColor,
+                                  fontFamily: fontOutfitMedium,
+                                  fontSize: 40,
+                                ),
+                              ),
+                            ),
+                          ),
+                          verticalSpaceMedium,
+                          //checkbox, when checked color confirmation, else main color
+                          CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent,),
+                          verticalSpaceLarge,
+                        ]),
+                  ),
+                )
+              ),
+
               verticalSpaceMedium,
               //add a text color main, outfit bold
               Text(
