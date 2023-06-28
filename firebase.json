@@ -15,17 +15,7 @@
       "source": "functions",
       "codebase": "default",
       "ignore": [
-        "venv",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log"
-      ]
-    },
-    {
-      "source": "remaxgeeks_func",
-      "codebase": "remaxgeeks_func",
-      "ignore": [
-        "venv",
+        "node_modules",
         ".git",
         "firebase-debug.log",
         "firebase-debug.*.log"

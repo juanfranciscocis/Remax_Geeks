@@ -36,14 +36,6 @@ class _CheckBoxAgentState extends State<CheckBoxAgent> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 150.0),
       child: CheckboxListTile(
-        title: Text(
-          widget.text,
-          style: TextStyle(
-            color: fontSecondColor,
-            fontFamily: fontOutfitRegular,
-            fontSize: widget.textSize ?? 20.0,
-          ),
-        ),
         activeColor: confirmButtonColor,
         value: isChecked,
         onChanged: (bool? value) {

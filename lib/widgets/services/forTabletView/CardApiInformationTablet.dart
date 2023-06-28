@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:remax_geeks/ui/common/ui_helpers.dart';
 
 import '../../../ui/common/app_colors.dart';
 import '../../../ui/common/app_strings.dart';
@@ -22,10 +23,11 @@ class CardApiInformationTablet extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Container(
-          height: 320.0,
           width: 1000.0,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              verticalSpaceMedium,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //cross axis, top left
@@ -75,6 +77,7 @@ class CardApiInformationTablet extends StatelessWidget {
                   ),
                 ),
               ),
+              verticalSpaceMedium,
 
             ],
           ),

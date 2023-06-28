@@ -84,55 +84,37 @@ class FullServiceDesktop extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Container(
-                    height: 350.0,
                     width: 1000.0,
-                    child:  Column(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        verticalSpaceLarge,
                         Center(
                           child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              enterYourDesiredPrice,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: fontWhiteColor,
-                                fontFamily: fontOutfitMedium,
-                                fontSize: 40,
-                              ),
-                            ),
-                          ),
-                        ),
-                        //Textfield
-                        Padding(
-                          padding: EdgeInsets.only(left: 200.0, right: 200.0),
-                          child: CustomerPrice(sellFormProvider: sellFormProvider,onTextChanged: (text){
-                            sellFormProvider.costumerPrice = text;
-                          },),
-                        ),
-
-                        Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.only(left:20, right: 20.0),
                             child: Text(
                               sendAgent,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: fontWhiteColor,
                                 fontFamily: fontOutfitMedium,
-                                fontSize: 40,
+                                fontSize: 50,
                               ),
                             ),
                           ),
                         ),
+                        verticalSpaceMedium,
                         //checkbox, when checked color confirmation, else main color
                         CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent, ),
+                        verticalSpaceLarge,
                       ],
                     ),
                   ),
                 ),
               ),
-              verticalSpaceTiny,
 
+              
+              verticalSpaceTiny,
               //another card, centered, color main card, with a title and a description
               //CARD 3
               Center(
@@ -144,17 +126,17 @@ class FullServiceDesktop extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Container(
-                    height: 350.0,
                     width: 1000.0,
                     child:  Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        verticalSpaceMedium,
                         Center(
                           child: Padding(
                             padding: EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 0.0),
                             child: Text(
                               whatYouGet,
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.start,
                               style: TextStyle(
                                 color: fontWhiteColor,
                                 fontFamily: fontOutfitMedium,
@@ -163,9 +145,10 @@ class FullServiceDesktop extends StatelessWidget {
                             ),
                           ),
                         ),
+                        verticalSpaceSmall,
                         Center(
                           child: Padding(
-                            padding: EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 0.0),
+                            padding: EdgeInsets.only(top: 5.0, left: 40.0, right: 40.0, bottom: 0.0),
                             child: Text(
                               fullServiceIncludes,
                               textAlign: TextAlign.justify,
@@ -177,6 +160,7 @@ class FullServiceDesktop extends StatelessWidget {
                             ),
                           ),
                         ),
+                        verticalSpaceMedium,
                       ],
                     ),
                   ),
@@ -222,7 +206,6 @@ class FullServiceDesktop extends StatelessWidget {
                     print('Entered text: $enteredText');
 
                     // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
-                    if (sellFormProvider.costumerPrice != "0") {
                       DBProvider db = Provider.of<DBProvider>(context, listen: false);
                       Map<String,dynamic> data = {
                         'ADDRESS': sellFormProvider.address,
@@ -231,28 +214,12 @@ class FullServiceDesktop extends StatelessWidget {
                         'SERVICE_TYPE': sellFormProvider.serviceType,
                         'API_PRICES': sellFormProvider.apiPrices,
                         'API_AVERAGE_PRICE': averageApiPrice,
-                        'CUSTOMER_PRICE': sellFormProvider.costumerPrice,
                         'NEED_AGENT': sellFormProvider.sendAgent,
                         'PREMIUM_SERVICES': sellFormProvider.getServicesChosen(),
                         'COSTUMER': sellFormProvider.getCostumerInformation(),
                       };
                       await db.setSellingFormData(data);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
-                    } else {
-                      // SHOW ERROR MESSAGE
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Please fill Custom Price',
-                            style: TextStyle(
-                              fontFamily: fontOutfitRegular,
-                              fontSize: 15,
-                            ),
-                          ),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
                   }, buttonColor: confirmButtonColor)),
               verticalSpaceLarge,
             ],

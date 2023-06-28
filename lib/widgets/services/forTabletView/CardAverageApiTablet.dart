@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:remax_geeks/ui/common/ui_helpers.dart';
 
 import '../../../ui/common/app_colors.dart';
 import '../../../ui/common/app_strings.dart';
@@ -25,13 +26,13 @@ class CardAverageApiTablet extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Container(
-          height: 300.0,
           width: 1000.0,
           child: Column(
             children: [
+              verticalSpaceMedium,
               const Center(
                 child: Padding(
-                  padding: EdgeInsets.all(30.0),
+                  padding: EdgeInsets.only(left: 30, right: 30,bottom: 10.0),
                   child: Text(
                     averagePrice,
                     textAlign: TextAlign.center,
@@ -58,6 +59,7 @@ class CardAverageApiTablet extends StatelessWidget {
                   ),
                 ),
               ),
+              verticalSpaceMedium,
 
             ],
           ),

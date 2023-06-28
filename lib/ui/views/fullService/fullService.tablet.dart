@@ -84,47 +84,29 @@ class FullServiceTablet extends ViewModelWidget<FullServiceViewModel> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Container(
-                        height: 325.0,
                         width: 1000.0,
                         child:  Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(20.0),
-                                child: Text(
-                                  enterYourDesiredPrice,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: fontWhiteColor,
-                                    fontFamily: fontOutfitMedium,
-                                    fontSize: 30,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            //Textfield
-                            Padding(
-                              padding: EdgeInsets.only(left: 100.0, right: 100.0),
-                              child: CustomerPrice(sellFormProvider: sellFormProvider,onTextChanged: (text){
-                                sellFormProvider.costumerPrice = text;
-                              }),
-                            ),
+                            verticalSpaceMedium,
                             Center(
                               child: Padding(
-                                padding: EdgeInsets.all(20.0),
+                                padding: EdgeInsets.only(left: 20, right: 20),
                                 child: Text(
                                   sendAgent,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: fontWhiteColor,
                                     fontFamily: fontOutfitMedium,
-                                    fontSize: 30,
+                                    fontSize: 50,
                                   ),
                                 ),
                               ),
                             ),
+                            verticalSpaceMedium,
                             //checkbox, when checked color confirmation, else main color
                             CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent, ),
+                            verticalSpaceMedium,
                           ],
                         ),
                       ),
@@ -143,16 +125,17 @@ class FullServiceTablet extends ViewModelWidget<FullServiceViewModel> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Container(
-                        height: 400.0,
                         width: 1000.0,
                         child:  Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            verticalSpaceMedium,
                             Center(
                               child: Padding(
-                                padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0, bottom: 0.0),
+                                padding: EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 0.0),
                                 child: Text(
                                   whatYouGet,
-                                  textAlign: TextAlign.center,
+                                  textAlign: TextAlign.start,
                                   style: TextStyle(
                                     color: fontWhiteColor,
                                     fontFamily: fontOutfitMedium,
@@ -161,9 +144,10 @@ class FullServiceTablet extends ViewModelWidget<FullServiceViewModel> {
                                 ),
                               ),
                             ),
+                            verticalSpaceSmall,
                             Center(
                               child: Padding(
-                                padding: EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 0.0),
+                                padding: EdgeInsets.only(top: 5.0, left: 40.0, right: 40.0, bottom: 0.0),
                                 child: Text(
                                   fullServiceIncludes,
                                   textAlign: TextAlign.justify,
@@ -175,6 +159,7 @@ class FullServiceTablet extends ViewModelWidget<FullServiceViewModel> {
                                 ),
                               ),
                             ),
+                            verticalSpaceMedium,
                           ],
                         ),
                       ),
@@ -207,11 +192,6 @@ class FullServiceTablet extends ViewModelWidget<FullServiceViewModel> {
                   Align(
                       alignment: Alignment.centerRight,
                       child: _buildMaterialButton(title: 'SEND INFORMATION', onPressed: () async {
-                        String enteredText = customPrice.text;
-                        print('Entered text: $enteredText');
-
-                        // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
-                        if (sellFormProvider.costumerPrice != "0") {
                           DBProvider db = Provider.of<DBProvider>(context, listen: false);
                           Map<String,dynamic> data = {
                             'ADDRESS': sellFormProvider.address,
@@ -220,28 +200,12 @@ class FullServiceTablet extends ViewModelWidget<FullServiceViewModel> {
                             'SERVICE_TYPE': sellFormProvider.serviceType,
                             'API_PRICES': sellFormProvider.apiPrices,
                             'API_AVERAGE_PRICE': averageApiPrice,
-                            'CUSTOMER_PRICE': sellFormProvider.costumerPrice,
                             'NEED_AGENT': sellFormProvider.sendAgent,
                             'PREMIUM_SERVICES': sellFormProvider.getServicesChosen(),
                             'COSTUMER': sellFormProvider.getCostumerInformation(),
                           };
                           await db.setSellingFormData(data);
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
-                        } else {
-                          // SHOW ERROR MESSAGE
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Please fill Custom Price',
-                                style: TextStyle(
-                                  fontFamily: fontOutfitRegular,
-                                  fontSize: 15,
-                                ),
-                              ),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        }
                       }, buttonColor: confirmButtonColor)),
                   verticalSpaceLarge,
                 ],
