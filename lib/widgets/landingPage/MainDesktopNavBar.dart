@@ -1,6 +1,7 @@
 //Import material
 import 'package:flutter/material.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
+import 'package:remax_geeks/ui/views/learnMore/learnMore_view.dart';
 
 import '../../ui/common/app_colors.dart';
 
@@ -54,7 +55,7 @@ class MainDesktopNavBar extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 20.0),
                 child: MaterialButton(
                   onPressed: () {
-                    print('LEARN MORE PRESSED');
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const LearnMoreView()));
                   }, //TODO: CHANGE TO LEARN MORE SCREEN
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),

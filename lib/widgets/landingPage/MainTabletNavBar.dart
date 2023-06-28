@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../ui/common/app_colors.dart';
 import '../../ui/common/app_strings.dart';
+import '../../ui/views/learnMore/learnMore_view.dart';
 
 class MainTabletNavBar extends StatelessWidget {
   const MainTabletNavBar({
@@ -54,7 +55,7 @@ class MainTabletNavBar extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 20.0),
                   child: MaterialButton(
                     onPressed: () {
-                      print('LEARN MORE PRESSED');
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LearnMoreView()));
                     },
                     child: const Padding(
                       padding: EdgeInsets.only(
