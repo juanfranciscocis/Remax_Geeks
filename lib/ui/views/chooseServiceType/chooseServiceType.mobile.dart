@@ -56,7 +56,6 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                 Center(
                   child: Container(
                     width: 500,
-                    height: 1300,
                     decoration: BoxDecoration(
                       color: primaryCardColor,
                       borderRadius: BorderRadius.circular(8),
@@ -87,6 +86,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                               ),
                             ),
                           ),
+                          verticalSpaceMedium,
                           //SUBTITLE
                           Text(
                             fullServiceDescription,
@@ -97,6 +97,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                               fontSize: 25,
                             ),
                           ),
+                          verticalSpaceLarge,
                           //BUTTON
                           MaterialButton(
                             onPressed: () {
@@ -130,6 +131,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                               height: 70,
                             ),
                           ),
+                          verticalSpaceMedium,
                         ],
                       ),
                     ),
@@ -139,7 +141,6 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                 //CARD 2
                 Container(
                   width: 500,
-                  height: 1300,
                   decoration: BoxDecoration(
                     color: primaryCardColor,
                     borderRadius: BorderRadius.circular(8),
@@ -170,6 +171,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                             ),
                           ),
                         ),
+                        verticalSpaceMedium,
                         //SUBTITLE
                          Text(
                           customServiceDescription,
@@ -180,6 +182,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                             fontSize: 25,
                           ),
                         ),
+                        verticalSpaceLarge,
                         //BUTTON
                         MaterialButton(
                           onPressed: () {
@@ -213,6 +216,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                             height: 70,
                           ),
                         ),
+                        verticalSpaceMedium,
                       ],
                     ),
                   ),

@@ -74,174 +74,187 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                   //TO CARDS IN A ROW, WITH A TITLE, A SUBTITLE AND ONE CENTERED BUTTON, A MATERIAL BUTTON
                   //CARD 1
                   verticalSpaceLarge,
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 100.0, left: 100.0),
-                      child: Container(
-                        width: double.infinity, // Updated
-                        height: 600, // Adjust as needed
-                        decoration: BoxDecoration(
-                          color: primaryCardColor,
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.25),
-                              spreadRadius: 0,
-                              blurRadius: 4,
-                              offset: const Offset(
-                                  0, 4), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              //TITLE
-                              const Padding(
-                                padding: EdgeInsets.only(top: 10.0),
-                                child: Text(
-                                  chooseServiceTypeCard1Title,
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    color: fontWhiteColor,
-                                    fontFamily: fontOutfitBold,
-                                    fontSize: 60,
-                                  ),
-                                ),
-                              ),
-                              //SUBTITLE
-                              Text(
-                                fullServiceDescription,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: fontWhiteColor,
-                                  fontFamily: fontOutfitRegular,
-                                  fontSize: 25,
-                                ),
-                              ),
-                              //BUTTON
-                              MaterialButton(
-                                onPressed: () {
-                                  sellFormProvider.serviceType =
-                                      chooseServiceTypeCard1Title;
-                                  print(sellFormProvider.serviceType);
-                                  // NAVIGATE TO NEXT PAGE
-                                  if(costumerProvider.email != '' || costumerProvider.fullName != '' || costumerProvider.phoneNumber != ''){
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const FullServiceView()),
-                                      );
-                                  }else {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const LogInView(),
-                                      ),
-                                    );
-                                  }
-                                },
-                                color: confirmButtonColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Image.asset(
-                                  chooseServiceTypeCardConfirmButton,
-                                  width: 600,
-                                  height: 70,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  verticalSpaceLarge,
-                  //CARD 2
-                  Padding(
-                    padding: const EdgeInsets.only(right: 100.0, left: 100.0),
-                    child: Container(
-                      width: double.infinity, // Updated
-                      height: 600, // Adjust as needed
-                      decoration: BoxDecoration(
-                        color: primaryCardColor,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(0,
-                                3), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            //TITLE
-                            const Padding(
-                              padding: EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                chooseServiceTypeCard2Title,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: fontWhiteColor,
-                                  fontFamily: fontOutfitBold,
-                                  fontSize: 60,
-                                ),
-                              ),
-                            ),
-                            //SUBTITLE
-                            Text(
-                              customServiceDescription,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: fontWhiteColor,
-                                fontFamily: fontOutfitRegular,
-                                fontSize: 25,
-                              ),
-                            ),
-                            //BUTTON
-                            MaterialButton(
-                              onPressed: () {
-                                //SELL FORM PROVIDER => 'Full Service'
-                                sellFormProvider.serviceType =
-                                    chooseServiceTypeCard2Title;
-                                print(sellFormProvider.serviceType);
-                                if(costumerProvider.email != '' || costumerProvider.fullName != '' || costumerProvider.phoneNumber != ''){
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const CustomServiceView()),
-                                  );
-                                }else{
-                                //NAVIGATE TO NEXT PAGE
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const LogInView(),
-                                  ),
-                                );
-                                }
-                              },
-                              color: confirmButtonColor,
-                              shape: RoundedRectangleBorder(
+                  Align(
+                    alignment: Alignment.center,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: Container(
+                              width: 550, // Updated
+                              decoration: BoxDecoration(
+                                color: primaryCardColor,
                                 borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.25),
+                                    spreadRadius: 0,
+                                    blurRadius: 4,
+                                    offset: const Offset(
+                                        0, 4), // changes position of shadow
+                                  ),
+                                ],
                               ),
-                              child: Image.asset(
-                                chooseServiceTypeCardConfirmButton,
-                                width: 600,
-                                height: 70,
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    verticalSpaceMedium,
+                                    //TITLE
+                                    const Padding(
+                                      padding: EdgeInsets.only(top: 10.0),
+                                      child: Text(
+                                        chooseServiceTypeCard1Title,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: fontWhiteColor,
+                                          fontFamily: fontOutfitBold,
+                                          fontSize: 60,
+                                        ),
+                                      ),
+                                    ),
+                                    verticalSpaceTiny,
+                                    //SUBTITLE
+                                    Text(
+                                      fullServiceDescription,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: fontWhiteColor,
+                                        fontFamily: fontOutfitRegular,
+                                        fontSize: 25,
+                                      ),
+                                    ),
+                                    verticalSpaceLarge,
+                                    //BUTTON
+                                    MaterialButton(
+                                      onPressed: () {
+                                        sellFormProvider.serviceType =
+                                            chooseServiceTypeCard1Title;
+                                        print(sellFormProvider.serviceType);
+                                        // NAVIGATE TO NEXT PAGE
+                                        if(costumerProvider.email != '' || costumerProvider.fullName != '' || costumerProvider.phoneNumber != ''){
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => const FullServiceView()),
+                                            );
+                                        }else {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => const LogInView(),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      color: confirmButtonColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Image.asset(
+                                        chooseServiceTypeCardConfirmButton,
+                                        width: 600,
+                                        height: 70,
+                                      ),
+                                    ),
+                                    verticalSpaceTiny,
+                                  ],
+                                ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          horizontalSpaceLarge,
+                          //CARD 2
+                          Container(
+                            width: 550, // Updated
+                            decoration: BoxDecoration(
+                              color: primaryCardColor,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(0,
+                                      3), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  verticalSpaceMedium,
+                                  //TITLE
+                                  const Padding(
+                                    padding: EdgeInsets.only(top: 10.0),
+                                    child: Text(
+                                      chooseServiceTypeCard2Title,
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        color: fontWhiteColor,
+                                        fontFamily: fontOutfitBold,
+                                        fontSize: 60,
+                                      ),
+                                    ),
+                                  ),
+                                  verticalSpaceTiny,
+                                  //SUBTITLE
+                                  Text(
+                                    customServiceDescription,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: fontWhiteColor,
+                                      fontFamily: fontOutfitRegular,
+                                      fontSize: 25,
+                                    ),
+                                  ),
+                                  verticalSpaceLarge,
+                                  //BUTTON
+                                  MaterialButton(
+                                    onPressed: () {
+                                      //SELL FORM PROVIDER => 'Full Service'
+                                      sellFormProvider.serviceType =
+                                          chooseServiceTypeCard2Title;
+                                      print(sellFormProvider.serviceType);
+                                      if(costumerProvider.email != '' || costumerProvider.fullName != '' || costumerProvider.phoneNumber != ''){
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => const CustomServiceView()),
+                                        );
+                                      }else{
+                                        //NAVIGATE TO NEXT PAGE
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => const LogInView(),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    color: confirmButtonColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Image.asset(
+                                      chooseServiceTypeCardConfirmButton,
+                                      width: 600,
+                                      height: 70,
+                                    ),
+                                  ),
+                                  verticalSpaceTiny,
+                                ],
+                              ),
+                            ),
+                          ),
+                          verticalSpaceLarge,
+                        ],
                       ),
                     ),
                   ),

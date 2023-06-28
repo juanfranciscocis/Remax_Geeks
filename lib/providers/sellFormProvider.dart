@@ -39,7 +39,7 @@ class SellFormProvider extends ChangeNotifier{
     _sellingFormModel.costumerPrice = costumerPrice;
     notifyListeners();
   }
-  set sendAgent (bool sendAgent){
+  set sendAgent (String sendAgent){
     _sellingFormModel.sendAgent = sendAgent;
     notifyListeners();
   }
@@ -66,7 +66,7 @@ class SellFormProvider extends ChangeNotifier{
   String get serviceType => _sellingFormModel.serviceType ?? 'NO SERVICE TYPE';
   List<double> get apiPrices => _sellingFormModel.apiPrices ?? [0,0];
   String get costumerPrice => _sellingFormModel.costumerPrice ?? "0";
-  bool get sendAgent => _sellingFormModel.sendAgent ?? false;
+  String get sendAgent => _sellingFormModel.sendAgent ?? '';
   List<String>  getServicesChosen() => _sellingFormModel.servicesChosen ?? [];
   Costumer get costumer => _sellingFormModel.costumer ?? Costumer();
 

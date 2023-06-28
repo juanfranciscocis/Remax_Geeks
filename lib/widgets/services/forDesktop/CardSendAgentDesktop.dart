@@ -50,7 +50,7 @@ class _CheckBoxAgentState extends State<CheckBoxAgent> {
           setState(() {
             isChecked = value ?? false;
           });
-          widget.sellFormProvider.sendAgent = isChecked;
+          widget.sellFormProvider.sendAgent = 'isChecked';
         },
       ),
     );

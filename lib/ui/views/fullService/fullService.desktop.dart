@@ -18,28 +18,70 @@ import '../../../widgets/services/CardServices.dart';
 import '../../../widgets/services/forDesktop/CardSendAgentDesktop.dart';
 import 'fullService_viewmodel.dart';
 
-class FullServiceDesktop extends StatelessWidget {
+class FullServiceDesktop extends StatefulWidget {
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
   List<String> premiumTitles;
   List<String> premiumDescriptions;
   String fullServiceIncludes;
-  List<String> premiumServices = [];
-  bool needAgent = false;
-  TextEditingController customPrice = TextEditingController();
 
   FullServiceDesktop({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions, required this.fullServiceIncludes});
+
+  @override
+  State<FullServiceDesktop> createState() => _FullServiceDesktopState();
+}
+
+class _FullServiceDesktopState extends State<FullServiceDesktop> {
+  List<String> premiumServices = [];
+
+  bool needAgent = false;
+
+  TextEditingController customPrice = TextEditingController();
 
   List<double> apiPrices = [];
 
   //CONTROLLER FOR THE TEXTFIELD
   String averageApiPrice = '';
 
+  late DateTime selectedDateTime;
+
+  Future<void> _selectDateTime(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDate != null) {
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      if (pickedTime != null) {
+        final DateTime combinedDateTime = DateTime(
+          pickedDate.year,
+          pickedDate.month,
+          pickedDate.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        );
+
+        setState(() {
+          selectedDateTime = combinedDateTime;
+          String formattedDate = selectedDateTime.toString();
+          widget.sellFormProvider.sendAgent = formattedDate;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    apiPrices = sellFormProvider.apiPrices;
-    averageApiPrice = formatCurrency(sellFormProvider.getAverage());
+    apiPrices = widget.sellFormProvider.apiPrices;
+    averageApiPrice = formatCurrency(widget.sellFormProvider.getAverage());
     return  Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -104,8 +146,7 @@ class FullServiceDesktop extends StatelessWidget {
                           ),
                         ),
                         verticalSpaceMedium,
-                        //checkbox, when checked color confirmation, else main color
-                        CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent, ),
+                        _buildMaterialButton(title: 'PICK DATE AND TIME', onPressed: () => _selectDateTime(context),buttonColor: secondaryButtonColor, textSize: 20),
                         verticalSpaceLarge,
                       ],
                     ),
@@ -113,7 +154,7 @@ class FullServiceDesktop extends StatelessWidget {
                 ),
               ),
 
-              
+
               verticalSpaceTiny,
               //another card, centered, color main card, with a title and a description
               //CARD 3
@@ -150,7 +191,7 @@ class FullServiceDesktop extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.only(top: 5.0, left: 40.0, right: 40.0, bottom: 0.0),
                             child: Text(
-                              fullServiceIncludes,
+                              widget.fullServiceIncludes,
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 color: fontWhiteColor,
@@ -189,11 +230,11 @@ class FullServiceDesktop extends StatelessWidget {
                 spacing: 16.0, // Adjust the spacing between cards as needed
                 children: [
                   // Dynamically create the CardServices based on the titles and descriptions from the API
-                  ...premiumTitles.map((e) => CardServices(
+                  ...widget.premiumTitles.map((e) => CardServices(
                     color: goldCardColor,
                     title: e,
-                    description: premiumDescriptions[premiumTitles.indexOf(e)],
-                    sellformProvider: sellFormProvider,
+                    description: widget.premiumDescriptions[widget.premiumTitles.indexOf(e)],
+                    sellformProvider: widget.sellFormProvider,
                   )).toList(),
                 ],
               ),
@@ -208,15 +249,15 @@ class FullServiceDesktop extends StatelessWidget {
                     // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
                       DBProvider db = Provider.of<DBProvider>(context, listen: false);
                       Map<String,dynamic> data = {
-                        'ADDRESS': sellFormProvider.address,
-                        'HOUSE_CONDITION': sellFormProvider.condition,
-                        'HOUSE_TYPE': sellFormProvider.type,
-                        'SERVICE_TYPE': sellFormProvider.serviceType,
-                        'API_PRICES': sellFormProvider.apiPrices,
+                        'ADDRESS': widget.sellFormProvider.address,
+                        'HOUSE_CONDITION': widget.sellFormProvider.condition,
+                        'HOUSE_TYPE': widget.sellFormProvider.type,
+                        'SERVICE_TYPE': widget.sellFormProvider.serviceType,
+                        'API_PRICES': widget.sellFormProvider.apiPrices,
                         'API_AVERAGE_PRICE': averageApiPrice,
-                        'NEED_AGENT': sellFormProvider.sendAgent,
-                        'PREMIUM_SERVICES': sellFormProvider.getServicesChosen(),
-                        'COSTUMER': sellFormProvider.getCostumerInformation(),
+                        'NEED_AGENT': widget.sellFormProvider.sendAgent,
+                        'PREMIUM_SERVICES': widget.sellFormProvider.getServicesChosen(),
+                        'COSTUMER': widget.sellFormProvider.getCostumerInformation(),
                       };
                       await db.setSellingFormData(data);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
@@ -257,6 +298,8 @@ class FullServiceDesktop extends StatelessWidget {
       ),
     );
   }
+
+
 }
 
 class CustomerPrice extends StatefulWidget {

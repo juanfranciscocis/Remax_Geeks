@@ -20,25 +20,69 @@ import '../../common/app_strings.dart';
 import '../home/home_view.dart';
 import 'fullService_viewmodel.dart';
 
-class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
+class FullServiceMobile extends StatefulWidget {
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
   List<String> premiumTitles;
   List<String> premiumDescriptions;
   String fullServiceIncludes;
-  List<double> apiPrices = [];
-  String averageApiPrice = '';
-  bool needAgent = false;
-  TextEditingController customPrice = TextEditingController();
-
 
   FullServiceMobile({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions, required this.fullServiceIncludes});
 
   @override
-  Widget build(BuildContext context, FullServiceViewModel viewModel) {
-    apiPrices = sellFormProvider.apiPrices;
-    averageApiPrice = formatCurrency(sellFormProvider.getAverage());
+  State<FullServiceMobile> createState() => _FullServiceMobileState();
+}
+
+class _FullServiceMobileState extends State<FullServiceMobile> {
+  List<double> apiPrices = [];
+
+  String averageApiPrice = '';
+
+  bool needAgent = false;
+
+  TextEditingController customPrice = TextEditingController();
+
+
+  late DateTime selectedDateTime;
+
+  Future<void> _selectDateTime(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDate != null) {
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      if (pickedTime != null) {
+        final DateTime combinedDateTime = DateTime(
+          pickedDate.year,
+          pickedDate.month,
+          pickedDate.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        );
+
+        setState(() {
+          selectedDateTime = combinedDateTime;
+          String formattedDate = selectedDateTime.toString();
+          widget.sellFormProvider.sendAgent = formattedDate;
+        });
+      }
+    }
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    apiPrices = widget.sellFormProvider.apiPrices;
+    averageApiPrice = formatCurrency(widget.sellFormProvider.getAverage());
     return  Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
@@ -106,7 +150,7 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
                           //checkbox, when checked color confirmation, else main color
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20.0),
-                            child: CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent, textSize: 60,text: '           ',),
+                            child: _buildMaterialButton(title: 'PICK DATE AND TIME', onPressed: () => _selectDateTime(context),buttonColor: secondaryButtonColor, textSize: 20),
                           ),
                         ],
                       ),
@@ -148,7 +192,7 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
                             child: Padding(
                               padding: EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 0.0),
                               child: Text(
-                                fullServiceIncludes,
+                                widget.fullServiceIncludes,
                                 textAlign: TextAlign.justify,
                                 style: TextStyle(
                                   color: fontWhiteColor,
@@ -184,7 +228,7 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ...premiumTitles.map((e) => CardServices(sellformProvider: sellFormProvider,title: e, description: premiumDescriptions[premiumTitles.indexOf(e)], color: goldCardColor,)).toList(),
+                    ...widget.premiumTitles.map((e) => CardServices(sellformProvider: widget.sellFormProvider,title: e, description: widget.premiumDescriptions[widget.premiumTitles.indexOf(e)], color: goldCardColor,)).toList(),
                   ],
                 ),
                 verticalSpaceLarge,
@@ -194,15 +238,15 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
                       // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
                         DBProvider db = Provider.of<DBProvider>(context, listen: false);
                         Map<String,dynamic> data = {
-                          'ADDRESS': sellFormProvider.address,
-                          'HOUSE_CONDITION': sellFormProvider.condition,
-                          'HOUSE_TYPE': sellFormProvider.type,
-                          'SERVICE_TYPE': sellFormProvider.serviceType,
-                          'API_PRICES': sellFormProvider.apiPrices,
+                          'ADDRESS': widget.sellFormProvider.address,
+                          'HOUSE_CONDITION': widget.sellFormProvider.condition,
+                          'HOUSE_TYPE': widget.sellFormProvider.type,
+                          'SERVICE_TYPE': widget.sellFormProvider.serviceType,
+                          'API_PRICES': widget.sellFormProvider.apiPrices,
                           'API_AVERAGE_PRICE': averageApiPrice,
-                          'NEED_AGENT': sellFormProvider.sendAgent,
-                          'PREMIUM_SERVICES': sellFormProvider.getServicesChosen(),
-                          'COSTUMER': sellFormProvider.getCostumerInformation(),
+                          'NEED_AGENT': widget.sellFormProvider.sendAgent,
+                          'PREMIUM_SERVICES': widget.sellFormProvider.getServicesChosen(),
+                          'COSTUMER': widget.sellFormProvider.getCostumerInformation(),
                         };
                         await db.setSellingFormData(data);
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
@@ -226,6 +270,7 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
       ),
     ));
   }
+
   Widget _buildMaterialButton({
     required String title,
     required VoidCallback onPressed,
@@ -254,8 +299,6 @@ class FullServiceMobile extends ViewModelWidget<FullServiceViewModel> {
       ),
     );
   }
-
-
 }
 
 

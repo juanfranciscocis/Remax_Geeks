@@ -41,7 +41,7 @@ class _CheckBoxAgentState extends State<CheckBoxAgent> {
           setState(() {
             isButtonDisabled = value!;
           });
-          widget.sellFormProvider.sendAgent = value!;
+          widget.sellFormProvider.sendAgent = 'value'!;
           print(widget.sellFormProvider.sendAgent);
         },
       ),

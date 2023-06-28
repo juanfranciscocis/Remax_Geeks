@@ -19,23 +19,68 @@ import '../../common/app_strings.dart';
 import '../home/home_view.dart';
 import 'customService_viewmodel.dart';
 
-class CustomServiceMobile extends ViewModelWidget<CustomServiceViewModel> {
+class CustomServiceMobile extends StatefulWidget {
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
   List<String> customTitles;
   List<String> customDescriptions;
-  List<double> apiPrices = [];
-  String averageApiPrice = '';
-  bool needAgent = false;
-  TextEditingController customPrice = TextEditingController();
 
   CustomServiceMobile({super.key, required this.dbProvider, required this.sellFormProvider, required this.customTitles, required this.customDescriptions});
 
   @override
-  Widget build(BuildContext context, CustomServiceViewModel viewModel) {
-    apiPrices = sellFormProvider.apiPrices;
-    averageApiPrice = formatCurrency(sellFormProvider.getAverage());
+  State<CustomServiceMobile> createState() => _CustomServiceMobileState();
+}
+
+class _CustomServiceMobileState extends State<CustomServiceMobile> {
+  List<double> apiPrices = [];
+
+  String averageApiPrice = '';
+
+  bool needAgent = false;
+
+  TextEditingController customPrice = TextEditingController();
+
+
+  late DateTime selectedDateTime;
+
+  Future<void> _selectDateTime(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDate != null) {
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      if (pickedTime != null) {
+        final DateTime combinedDateTime = DateTime(
+          pickedDate.year,
+          pickedDate.month,
+          pickedDate.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        );
+
+        setState(() {
+          selectedDateTime = combinedDateTime;
+          String formattedDate = selectedDateTime.toString();
+          widget.sellFormProvider.sendAgent = formattedDate;
+        });
+      }
+    }
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    apiPrices = widget.sellFormProvider.apiPrices;
+    averageApiPrice = formatCurrency(widget.sellFormProvider.getAverage());
 
     return  Scaffold(
       backgroundColor: backgroundColor,
@@ -106,8 +151,8 @@ class CustomServiceMobile extends ViewModelWidget<CustomServiceViewModel> {
                           //Textfield
                           Padding(
                             padding: EdgeInsets.only(left: 50.0, right: 50.0, bottom: 20.0),
-                            child: CustomerPrice(sellFormProvider: sellFormProvider, onTextChanged: (text){
-                              sellFormProvider.costumerPrice = text;
+                            child: CustomerPrice(sellFormProvider: widget.sellFormProvider, onTextChanged: (text){
+                              widget.sellFormProvider.costumerPrice = text;
                             }),
                           ),
                           verticalSpaceMedium,
@@ -147,7 +192,7 @@ class CustomServiceMobile extends ViewModelWidget<CustomServiceViewModel> {
                           //checkbox, when checked color confirmation, else main color
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20.0),
-                            child: CheckBoxAgent(sellFormProvider: sellFormProvider, isButtonDisabled: needAgent,textSize: 60,text: '          '),
+                            child: _buildMaterialButton(title: 'PICK DATE AND TIME', onPressed: () => _selectDateTime(context),buttonColor: secondaryButtonColor, textSize: 20),
                           ),
                         ],
                       ),
@@ -172,7 +217,7 @@ class CustomServiceMobile extends ViewModelWidget<CustomServiceViewModel> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ...customTitles.map((e) => CardServices( sellformProvider:sellFormProvider,title: e, description: customDescriptions[customTitles.indexOf(e)], color: primaryCardColor,)).toList(),
+                    ...widget.customTitles.map((e) => CardServices( sellformProvider:widget.sellFormProvider,title: e, description: widget.customDescriptions[widget.customTitles.indexOf(e)], color: primaryCardColor,)).toList(),
                   ],
                 ),
                 verticalSpaceLarge,
@@ -183,19 +228,19 @@ class CustomServiceMobile extends ViewModelWidget<CustomServiceViewModel> {
                       print('Entered text: $enteredText');
 
                       // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
-                      if (sellFormProvider.costumerPrice != "0") {
+                      if (widget.sellFormProvider.costumerPrice != "0") {
                         DBProvider db = Provider.of<DBProvider>(context, listen: false);
                         Map<String,dynamic> data = {
-                          'ADDRESS': sellFormProvider.address,
-                          'HOUSE_CONDITION': sellFormProvider.condition,
-                          'HOUSE_TYPE': sellFormProvider.type,
-                          'SERVICE_TYPE': sellFormProvider.serviceType,
-                          'API_PRICES': sellFormProvider.apiPrices,
+                          'ADDRESS': widget.sellFormProvider.address,
+                          'HOUSE_CONDITION': widget.sellFormProvider.condition,
+                          'HOUSE_TYPE': widget.sellFormProvider.type,
+                          'SERVICE_TYPE': widget.sellFormProvider.serviceType,
+                          'API_PRICES': widget.sellFormProvider.apiPrices,
                           'API_AVERAGE_PRICE': averageApiPrice,
-                          'CUSTOMER_PRICE': sellFormProvider.costumerPrice,
-                          'NEED_AGENT': sellFormProvider.sendAgent,
-                          'CUSTOM_SERVICES': sellFormProvider.getServicesChosen(),
-                          'COSTUMER': sellFormProvider.getCostumerInformation(),
+                          'CUSTOMER_PRICE': widget.sellFormProvider.costumerPrice,
+                          'NEED_AGENT': widget.sellFormProvider.sendAgent,
+                          'CUSTOM_SERVICES': widget.sellFormProvider.getServicesChosen(),
+                          'COSTUMER': widget.sellFormProvider.getCostumerInformation(),
                         };
                         await db.setSellingFormData(data);
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
