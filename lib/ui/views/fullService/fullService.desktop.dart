@@ -260,7 +260,8 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
                         'COSTUMER': widget.sellFormProvider.getCostumerInformation(),
                       };
                       await db.setSellingFormData(data);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
+                      showConfirmationDialog(context);
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
                   }, buttonColor: confirmButtonColor)),
               verticalSpaceLarge,
             ],
@@ -269,6 +270,48 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
       ),
     );
   }
+  void showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: primaryCardColor,
+          title: Text('Thank you for the information...',
+          style:TextStyle(
+            color: fontWhiteColor,
+            fontFamily: fontOutfitBold,
+            fontSize: 50,
+          )),
+          content: Text('An agent will contact you soon!!!',
+          style:TextStyle(
+            color: fontWhiteColor,
+            fontFamily: fontOutfitMedium,
+            fontSize: 30,
+          )),
+          actions: [
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(confirmButtonColor),
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text('OK',
+                style:TextStyle(
+                  color: fontWhiteColor,
+                  fontFamily: fontOutfitBold,
+                  fontSize: 30,
+                )),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   Widget _buildMaterialButton({
     required String title,
