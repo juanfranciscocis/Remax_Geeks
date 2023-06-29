@@ -4,6 +4,7 @@ import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:remax_geeks/ui/views/learnMore/learnMore_view.dart';
 
 import '../../ui/common/app_colors.dart';
+import '../../ui/views/getToKnowUS/getToKnowUs_view.dart';
 
 class MainDesktopNavBar extends StatelessWidget {
   const MainDesktopNavBar({
@@ -81,7 +82,7 @@ class MainDesktopNavBar extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 50.0),
                 child: MaterialButton(
                   onPressed: () {
-                    print('GET TO KNOW US PRESSED');
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const GetToKnowUsView()));
                   }, //TODO: CHANGE TO LEARN MORE SCREEN
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:remax_geeks/ui/views/getToKnowUS/getToKnowUs_view.dart';
 
 import '../../ui/common/app_colors.dart';
 import '../../ui/common/app_strings.dart';
@@ -82,7 +83,7 @@ class MainTabletNavBar extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 20.0),
                   child: MaterialButton(
                     onPressed: () {
-                      print('GET TO KNOW US PRESSED');
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const GetToKnowUsView()));
                     },
                     child: const Padding(
                       padding: EdgeInsets.only(

@@ -2,6 +2,7 @@ import 'package:provider/provider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:remax_geeks/ui/views/getToKnowUS/getToKnowUs_view.dart';
 import 'package:remax_geeks/ui/views/learnMore/learnMore_view.dart';
 import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
@@ -77,10 +78,7 @@ class _BurgerMenuViewMobileState extends State<BurgerMenuViewMobile> {
                     }, isPressed: false),
                     verticalSpaceMedium,
                     _buildMaterialButton(title: 'GET TO KNOW US',textSize: 20, onPressed: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LearnMoreView()),
-                      );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const GetToKnowUsView()));
                     }, isPressed: false),
                     verticalSpaceMassive,
                     verticalSpaceLarge,
