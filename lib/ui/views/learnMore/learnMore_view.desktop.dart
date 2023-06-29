@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/helpers/getLearnMorePaths.dart';
+import 'package:remax_geeks/models/article.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
@@ -18,20 +19,44 @@ import '../../../services/authGoogle.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
 import '../addPhoneNumber/addPhoneNumber_view.dart';
+import '../article/article_view.dart';
 import '../customService/customService_view.dart';
 import '../fullService/fullService_view.dart';
 import '../signUp/singUp_view.dart';
 import 'learnMore_viewmodel.dart';
 
-class LearnMoreViewDesktop extends ViewModelWidget<LearnMoreViewModel> {
+class LearnMoreViewDesktop extends StatefulWidget {
 
-  List<String> paths = [];
+
   LearnMoreViewDesktop({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, LearnMoreViewModel viewModel) {
+  State<LearnMoreViewDesktop> createState() => _LearnMoreViewDesktopState();
+}
+
+class _LearnMoreViewDesktopState extends State<LearnMoreViewDesktop> {
+  List<String> paths = [];
+
+  late List<Article> articles=[];
+
+  void initState() {
     DBProvider db = Provider.of<DBProvider>(context, listen: false);
     paths = getLearnMorePaths();
+    articlesInit();
+    super.initState();
+  }
+
+  Future<void> articlesInit() async {
+    DBProvider db = Provider.of<DBProvider>(context, listen: false);
+    await db.getArticles();
+    setState(() {
+      articles = db.articles;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Center(
@@ -40,20 +65,25 @@ class LearnMoreViewDesktop extends ViewModelWidget<LearnMoreViewModel> {
             mainAxisSize: MainAxisSize.max,
             children: [
               verticalSpaceLarge,
-              //for each path in paths create a article
-              ...paths.map((e) => Padding(
-                padding: const EdgeInsets.only(left:100, right: 100, bottom: 50),
-                child: learnMoreArticle(
-                  title: 'Title1',
-                  subtitle: 'Subtitle',
-                  imagePath: e,
+              //for each path in paths create a article, using the articles list get the title and subtitle
+              if(articles.length == 0)
+                CircularProgressIndicator(),
+              if(articles.length != 0)
+              for (int i = 0; i < articles.length; i++)
+                Container(
+                  width: 1400,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ArticleView(article: articles[i],)));
+                    },
+                    child: learnMoreArticle(
+                      title: articles[i].title,
+                      subtitle: articles[i].subtitle,
+                      imagePath: '',
+                    ),
+                  ),
                 ),
-              )),
             ],
-
-
-
-
           ),
         ),
       ),
@@ -68,10 +98,17 @@ class learnMoreArticle extends StatelessWidget {
   String title = 'Title';
   String subtitle = 'Subtitle';
   String imagePath = 'path';
+  double? textTitleSize;
+  double? textSubtitleSize;
+  double? imageSize;
+
   learnMoreArticle({
     required this.title,
     required this.subtitle,
     required this.imagePath,
+    this.textTitleSize,
+    this.textSubtitleSize,
+    this.imageSize,
     super.key,
   });
 
@@ -88,8 +125,8 @@ class learnMoreArticle extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Container(
-              width: 200,
-              height: 200,
+              width: imageSize??200,
+              height: imageSize??200,
               child: Image.asset(
                 imagePath,
                 fit: BoxFit.cover,
@@ -103,7 +140,7 @@ class learnMoreArticle extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 50,
+                    fontSize: textTitleSize ??50,
                     fontFamily: fontOutfitBold,
                     color: fontMainColor,
 
@@ -111,7 +148,7 @@ class learnMoreArticle extends StatelessWidget {
                 ),
                 Text(subtitle,
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: textSubtitleSize??30,
                     fontFamily: fontOutfitMedium,
                     color: fontMainColor,
                   ),

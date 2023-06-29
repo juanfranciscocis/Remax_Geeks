@@ -1,6 +1,7 @@
 //import material
 import 'package:flutter/material.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
+import 'package:remax_geeks/ui/views/burgerMenu/burgerMenu_view.dart';
 
 import '../../ui/common/app_colors.dart';
 
@@ -53,7 +54,7 @@ class MainMobileNavBar extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 20.0),
                 child: MaterialButton(
                   onPressed: () {
-                    print('BURGER MENU PRESSED');
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const BurgerMenuView()));
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),

@@ -6,13 +6,16 @@ import 'package:remax_geeks/services/googlePlacesService.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
-import 'learnMore_view.desktop.dart';
-import 'learnMore_view.tablet.dart';
-import 'learnMore_view.mobile.dart';
-import 'learnMore_viewmodel.dart';
+import 'article_view.desktop.dart';
+import 'article_view.tablet.dart';
+import 'article_view.mobile.dart';
+import 'article_viewmodel.dart';
 
-class LearnMoreView extends StackedView<LearnMoreViewModel> {
-  const LearnMoreView({super.key});
+class ArticleView extends StackedView<LearnMoreViewModel> {
+
+  Article article;
+
+  ArticleView({super.key, required this.article});
 
   @override
   Widget builder(
@@ -21,9 +24,9 @@ class LearnMoreView extends StackedView<LearnMoreViewModel> {
     Widget? child,
   ) {
     return ScreenTypeLayout.builder(
-      mobile: (_) => const LearnMoreViewMobile(),
-      tablet: (_) => const LearnMoreViewTablet(), //ADD TABLET VIEW IF NEEDED
-      desktop: (_) =>  LearnMoreViewDesktop(),
+      mobile: (_) => ArticleViewMobile(article: this.article,),
+      tablet: (_) => ArticleViewTablet(article: this.article), //ADD TABLET VIEW IF NEEDED
+      desktop: (_) =>  ArticleViewDesktop(article: this.article,),
     );
   }
 

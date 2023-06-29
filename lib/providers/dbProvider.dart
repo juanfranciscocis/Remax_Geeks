@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:remax_geeks/models/article.dart';
 import 'package:remax_geeks/models/sellNowFormModel.dart';
 
 
@@ -13,6 +14,7 @@ class DBProvider extends ChangeNotifier{
   //GETTING THE NUMBER OF COSTUMERS
   late int _numberOfCostumers;
   late int _numberOfSellForms;
+  late int _numberOfArticles;
   //GETTIN THE PHONE NUMBER WHEN LOGGING IN
   late String phoneNumber = '';
   //GETTING PREMIUM SERVICES TITLES AND DESCRIPTIONS
@@ -23,6 +25,8 @@ class DBProvider extends ChangeNotifier{
   late List<String> cTitles;
   late List<String> cDescriptions;
   late String? cCustomIncludes = '';
+  //GETTING THE ARTICLES
+  late List<Article> articles = [];
 
   //CONSTRUCTOR
   DBProvider(){
@@ -101,15 +105,36 @@ class DBProvider extends ChangeNotifier{
     }
     return phoneNumber;
   }
+  //NUMBER OF COSTUMERS, GET THE NUMBER OF COSTUMERS FROM THE DATABASE AS INT
+  Future<void> getNumberOfArticles() async{
+    final snapshot = await _databaseReference!.child('LEARN_MORE').child('NUMBER_OF_ARTICLES').get();
+    final numberOfArticles = snapshot.value as int;
+    _numberOfArticles = numberOfArticles;
+    notifyListeners();
+  }
 
+  Future<List<Article>> getArticles() async {
+    int numberOfArticles = _numberOfArticles;
+    this.articles = [];
+    for(int i = 0 ; i <= numberOfArticles; i++){
+      final snapshot = await _databaseReference!
+          .child('LEARN_MORE')
+          .child('ARTICLE_' + i.toString())
+          .get();
 
+      final article = snapshot.value as Map<dynamic, dynamic>?;
 
-
-
-
-
-
-
+      if (article != null) {
+        String title = (article['TITLE'] as String?)!;
+        String subtitle = (article['SUBTITLE'] as String?)!;
+        String description = (article['DESCRIPTION'] as String?)!;
+        Article articleFounded = Article(title: title, subtitle: subtitle, description: description);
+        this.articles.add(articleFounded);
+      }
+    }
+    notifyListeners();
+    return this.articles;
+  }
 
   //GET PREMIUM SERVICES TITLES
   Future<List<String>> getPremiumServicesTitles() async{
