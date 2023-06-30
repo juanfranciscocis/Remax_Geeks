@@ -281,13 +281,13 @@ class _FullServiceMobileState extends State<FullServiceMobile> {
               style:TextStyle(
                 color: fontWhiteColor,
                 fontFamily: fontOutfitBold,
-                fontSize: 50,
+                fontSize: 20,
               )),
           content: Text('An agent will contact you soon!!!',
               style:TextStyle(
                 color: fontWhiteColor,
                 fontFamily: fontOutfitMedium,
-                fontSize: 30,
+                fontSize: 15,
               )),
           actions: [
             ElevatedButton(
@@ -303,7 +303,7 @@ class _FullServiceMobileState extends State<FullServiceMobile> {
                     style:TextStyle(
                       color: fontWhiteColor,
                       fontFamily: fontOutfitBold,
-                      fontSize: 30,
+                      fontSize: 15,
                     )),
               ),
             ),
