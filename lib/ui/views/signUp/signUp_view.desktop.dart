@@ -44,23 +44,21 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
               child: Align(
                 alignment: Alignment.center,
                 child: SingleChildScrollView(
-                  child: Card(
-                    color: Colors.white,
-                    elevation: 8.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    margin: EdgeInsets.all(50.0),
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Card(
+                        color: Colors.white,
+                        elevation: 8.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        margin: EdgeInsets.only(left: 50, right: 50,),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              "Welcome... Sign In",
+                              welcomeMessageSingUp,
                               style: TextStyle(
                                 color: fontMainColor,
                                 fontFamily: fontOutfitBold,
@@ -69,231 +67,249 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          verticalSpaceMedium,
-                          TextWidget(
-                            text: "Enter your Email:",
-                            color: fontMainColor,
-                            fontFamily: fontOutfitMedium,
-                            fontSize: 35,
-                          ),
-                          verticalSpaceSmall,
-                          TextFieldWidget(
-                            labelText: "Email...",
-                            labelColor: fontMainColor,
-                            labelFontFamily: fontOutfitRegular,
-                            labelFontSize: 15,
-                            enabledBorderColor: fontMainColor,
-                            filled: true,
-                            fillColor: inputColor,
-                            textColor: fontMainColor,
-                            textFontFamily: fontOutfitRegular,
-                            textFontSize: 15,
-                            onChanged: (value) {
-                              costumer.email = value;
-                            },
-                          ),
-                          verticalSpaceMedium,
-                          TextWidget(
-                            text: "Enter a new Password:",
-                            color: fontMainColor,
-                            fontFamily: fontOutfitMedium,
-                            fontSize: 35,
-                          ),
-                          verticalSpaceSmall,
-                          TextFieldWidget(
-                            labelText: "New Password...",
-                            labelColor: fontMainColor,
-                            labelFontFamily: fontOutfitRegular,
-                            labelFontSize: 15,
-                            enabledBorderColor: fontMainColor,
-                            filled: true,
-                            fillColor: inputColor,
-                            textColor: fontMainColor,
-                            textFontFamily: fontOutfitRegular,
-                            textFontSize: 15,
-                            onChanged: (value) {
-                              costumer.password = value;
-                            },
-                            obscureText: true, // Password field should be obscured
-                          ),
-                          verticalSpaceMedium,
-                          TextWidget(
-                            text: "Enter your Full Name:",
-                            color: fontMainColor,
-                            fontFamily: fontOutfitMedium,
-                            fontSize: 35,
-                          ),
-                          verticalSpaceSmall,
-                          TextFieldWidget(
-                            labelText: "Full Name...",
-                            labelColor: fontMainColor,
-                            labelFontFamily: fontOutfitRegular,
-                            labelFontSize: 15,
-                            enabledBorderColor: fontMainColor,
-                            filled: true,
-                            fillColor: inputColor,
-                            textColor: fontMainColor,
-                            textFontFamily: fontOutfitRegular,
-                            textFontSize: 15,
-                            onChanged: (value) {
-                              costumer.fullName = value;
-                            },
-                          ),
-                          verticalSpaceMedium,
-                          TextWidget(
-                            text: "Enter your Phone Number:",
-                            color: fontMainColor,
-                            fontFamily: fontOutfitMedium,
-                            fontSize: 35,
-                          ),
-                          verticalSpaceSmall,
-                          TextFieldWidget(
-                            labelText: "Phone Number...",
-                            labelColor: fontMainColor,
-                            labelFontFamily: fontOutfitRegular,
-                            labelFontSize: 15,
-                            enabledBorderColor: fontMainColor,
-                            filled: true,
-                            fillColor: inputColor,
-                            textColor: fontMainColor,
-                            textFontFamily: fontOutfitRegular,
-                            textFontSize: 15,
-                            onChanged: (value) {
-                              costumer.phoneNumber = value;
-                            },
-                          ),
-                          verticalSpaceMedium,
-                          Align(
-                            alignment: Alignment.center,
-                            child: MaterialButton(
-                              height: 50,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              elevation: 5.0,
-                              onPressed: () async {
-                                if(costumer.email != '' && costumer.password != '' && costumer.fullName != '' && costumer.phoneNumber != '') {
-                                  await auth.signUpWithEmailAndPassword(
-                                      email: costumer.email,
-                                      password: costumer.password,
-                                      fullName: costumer.fullName,
-                                      phoneNumber: costumer.phoneNumber);
-                                  if(auth.errorMessage == '') {
-                                    String serviceChoose = sellForm.serviceType;
-                                    sellForm.costumer = costumer.costumer;
-                                    Map<String, dynamic> newCostumer = {
-                                      'EMAIL': costumer.email,
-                                      'FULL_NAME': costumer.fullName,
-                                      'PHONE_NUMBER': costumer.phoneNumber,
-                                      'UID': auth.user?.uid,
-                                    };
-                                    db.setNewCostumer(newCostumer);
-                                    if (serviceChoose ==
-                                        chooseServiceTypeCard1Title) {
-                                      Navigator.push(context, MaterialPageRoute(
-                                          builder: (context) =>
-                                              FullServiceView()));
-                                    } else {
-                                      Navigator.push(context, MaterialPageRoute(
-                                          builder: (context) =>
-                                              CustomServiceView()));
-                                    }
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          auth.errorMessage,
-                                          style: TextStyle(
-                                            fontFamily: fontOutfitRegular,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
-                                    auth.errorMessage = '';
-                                  }
-                                }else{
-                                  // SHOW ERROR MESSAGE
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Please fill all the fields',
-                                        style: TextStyle(
-                                          fontFamily: fontOutfitRegular,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
-                                }
-                              },
-
-                              color: primaryButtonColor,
-                              textColor: fontWhiteColor,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Sign Up",
-                                  style: TextStyle(
-                                    fontFamily: fontOutfitBold,
-                                    fontSize: 35,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          verticalSpaceMedium,
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Or Sign Up With",
-                              style: TextStyle(
-                                color: inputColor,
-                                fontFamily: fontOutfitBold,
-                                fontSize: 20,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          verticalSpaceMedium,
-                          // Google sign-in button
-                          Align(
-                            alignment: Alignment.center,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () async {
-                                    await authGoogle.signInWithGoogle();
-                                    checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
-                                  },
-                                  child: Image.asset(
-                                    googleIcon, // Replace with the path to your Google icon
-                                    width: 90,
-                                    height: 90,
-                                  ),
-                                ),
-                                horizontalSpaceSmall,
-                                InkWell(
-                                  onTap: () async {
-                                    await authFacebook.signIn();
-                                    checkForFacebookSignin(authFacebook, db, sellForm, costumer, context);
-                                    //checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
-                                  },
-                                  child: Image.asset(
-                                    facebookIcon, // Replace with the path to your Google icon
-                                    width: 75,
-                                    height: 75,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                      verticalSpaceMedium,
+                      Card(
+                        color: Colors.white,
+                        elevation: 8.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        margin: EdgeInsets.only(left:50.0, right: 50.0),
+                        child: Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              verticalSpaceMedium,
+                              TextWidget(
+                                text: enterEmail,
+                                color: fontMainColor,
+                                fontFamily: fontOutfitMedium,
+                                fontSize: 40,
+                              ),
+                              verticalSpaceSmall,
+                              TextFieldWidget(
+                                labelText: emailBox,
+                                labelColor: fontMainColor,
+                                labelFontFamily: fontOutfitRegular,
+                                labelFontSize: 20,
+                                enabledBorderColor: fontMainColor,
+                                filled: true,
+                                fillColor: inputColor,
+                                textColor: fontMainColor,
+                                textFontFamily: fontOutfitRegular,
+                                textFontSize: 20,
+                                onChanged: (value) {
+                                  costumer.email = value;
+                                },
+                              ),
+                              verticalSpaceMedium,
+                              TextWidget(
+                                text: enterPassword,
+                                color: fontMainColor,
+                                fontFamily: fontOutfitMedium,
+                                fontSize: 40,
+                              ),
+                              verticalSpaceSmall,
+                              TextFieldWidget(
+                                labelText: enterPassword,
+                                labelColor: fontMainColor,
+                                labelFontFamily: fontOutfitRegular,
+                                labelFontSize: 20,
+                                enabledBorderColor: fontMainColor,
+                                filled: true,
+                                fillColor: inputColor,
+                                textColor: fontMainColor,
+                                textFontFamily: fontOutfitRegular,
+                                textFontSize: 20,
+                                onChanged: (value) {
+                                  costumer.password = value;
+                                },
+                                obscureText: true, // Password field should be obscured
+                              ),
+                              verticalSpaceMedium,
+                              TextWidget(
+                                text: enterFullName,
+                                color: fontMainColor,
+                                fontFamily: fontOutfitMedium,
+                                fontSize: 40,
+                              ),
+                              verticalSpaceSmall,
+                              TextFieldWidget(
+                                labelText: fullNameBox,
+                                labelColor: fontMainColor,
+                                labelFontFamily: fontOutfitRegular,
+                                labelFontSize: 20,
+                                enabledBorderColor: fontMainColor,
+                                filled: true,
+                                fillColor: inputColor,
+                                textColor: fontMainColor,
+                                textFontFamily: fontOutfitRegular,
+                                textFontSize: 20,
+                                onChanged: (value) {
+                                  costumer.fullName = value;
+                                },
+                              ),
+                              verticalSpaceMedium,
+                              TextWidget(
+                                text: enterPhoneNumber,
+                                color: fontMainColor,
+                                fontFamily: fontOutfitMedium,
+                                fontSize: 40,
+                              ),
+                              verticalSpaceSmall,
+                              TextFieldWidget(
+                                labelText: enterPhoneNumber,
+                                labelColor: fontMainColor,
+                                labelFontFamily: fontOutfitRegular,
+                                labelFontSize: 20,
+                                enabledBorderColor: fontMainColor,
+                                filled: true,
+                                fillColor: inputColor,
+                                textColor: fontMainColor,
+                                textFontFamily: fontOutfitRegular,
+                                textFontSize: 20,
+                                onChanged: (value) {
+                                  costumer.phoneNumber = value;
+                                },
+                              ),
+                              verticalSpaceMedium,
+                              Align(
+                                alignment: Alignment.center,
+                                child: MaterialButton(
+                                  height: 50,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  elevation: 5.0,
+                                  onPressed: () async {
+                                    if(costumer.email != '' && costumer.password != '' && costumer.fullName != '' && costumer.phoneNumber != '') {
+                                      await auth.signUpWithEmailAndPassword(
+                                          email: costumer.email,
+                                          password: costumer.password,
+                                          fullName: costumer.fullName,
+                                          phoneNumber: costumer.phoneNumber);
+                                      if(auth.errorMessage == '') {
+                                        String serviceChoose = sellForm.serviceType;
+                                        sellForm.costumer = costumer.costumer;
+                                        Map<String, dynamic> newCostumer = {
+                                          'EMAIL': costumer.email,
+                                          'FULL_NAME': costumer.fullName,
+                                          'PHONE_NUMBER': costumer.phoneNumber,
+                                          'UID': auth.user?.uid,
+                                        };
+                                        db.setNewCostumer(newCostumer);
+                                        if (serviceChoose ==
+                                            chooseServiceTypeCard1Title) {
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FullServiceView()));
+                                        } else {
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CustomServiceView()));
+                                        }
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              auth.errorMessage,
+                                              style: TextStyle(
+                                                fontFamily: fontOutfitRegular,
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        );
+                                        auth.errorMessage = '';
+                                      }
+                                    }else{
+                                      // SHOW ERROR MESSAGE
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Please fill all the fields',
+                                            style: TextStyle(
+                                              fontFamily: fontOutfitRegular,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    }
+                                  },
+
+                                  color: primaryButtonColor,
+                                  textColor: fontWhiteColor,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Sign Up",
+                                      style: TextStyle(
+                                        fontFamily: fontOutfitBold,
+                                        fontSize: 35,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              verticalSpaceMedium,
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Or Sign Up With",
+                                  style: TextStyle(
+                                    color: inputColor,
+                                    fontFamily: fontOutfitBold,
+                                    fontSize: 20,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              verticalSpaceMedium,
+                              // Google sign-in button
+                              Align(
+                                alignment: Alignment.center,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: () async {
+                                        await authGoogle.signInWithGoogle();
+                                        checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
+                                      },
+                                      child: Image.asset(
+                                        googleIcon, // Replace with the path to your Google icon
+                                        width: 90,
+                                        height: 90,
+                                      ),
+                                    ),
+                                    horizontalSpaceSmall,
+                                    InkWell(
+                                      onTap: () async {
+                                        await authFacebook.signIn();
+                                        checkForFacebookSignin(authFacebook, db, sellForm, costumer, context);
+                                        //checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
+                                      },
+                                      child: Image.asset(
+                                        facebookIcon, // Replace with the path to your Google icon
+                                        width: 75,
+                                        height: 75,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

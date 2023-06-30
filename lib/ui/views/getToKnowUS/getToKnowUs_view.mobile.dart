@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:remax_geeks/ui/views/article/article_view.dart';
 import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../helpers/getLearnMorePaths.dart';
 import '../../../models/article.dart';
@@ -33,79 +34,193 @@ class GetToKnowUsViewMobile extends StatefulWidget {
 }
 
 class _GetToKnowUsViewMobileState extends State<GetToKnowUsViewMobile> {
-
-  late List<Article> articles=[];
-
-  void initState() {
-    articlesInit();
-    super.initState();
+  void openGoogleMap() async {
+    const googleMapUrl =
+        'https://www.google.com/maps/dir/42.3821312,-88.080384/remax+american+dream/@42.379145,-88.0896378,16z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x880f9caaaab4d5eb:0xb174ca526d7918d!2m2!1d-88.0901364!2d42.3779509?entry=ttu';
+    if (await canLaunch(googleMapUrl)) {
+      await launch(googleMapUrl);
+    } else {
+      print('Failed to open Google Map');
+    }
   }
 
-  Future<void> articlesInit() async {
-    DBProvider db = Provider.of<DBProvider>(context, listen: false);
-    await db.getArticles();
-    setState(() {
-      articles = db.articles;
-    });
+  Future<void> openWebPage(String page) async {
+    String launchP = 'https://' + page;
+    if (await canLaunch(launchP)) {
+      await launch(launchP);
+    } else {
+      print('Failed to open $launchP');
+    }
   }
 
-
+  void callPhoneNumber(String phoneNumber) async {
+    final url = 'tel:$phoneNumber';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Failed to make a phone call');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: backgroundColor,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-
-                    verticalSpaceLarge,
-                    //for each path in paths create a article, using the articles list get the title and subtitle
-                    if(articles.length == 0)
-                      CircularProgressIndicator(),
-                    if(articles.length != 0)
-                      for (int i = 0; i < articles.length; i++)
-                        Column(
-                          children: [
-                            Container(
-                              width: 1400,
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ArticleView(
-                                        article: articles[i],
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: learnMoreArticle(
-                                  title: articles[i].title,
-                                  subtitle: articles[i].subtitle,
-                                  imagePath: '',
-                                  textSubtitleSize: 15,
-                                  textTitleSize: 25,
-                                  imageSize: 100,
+      backgroundColor: backgroundColor,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              SizedBox(height: 20),
+              Container(
+                width: 1000,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Card(
+                    color: whiteCardColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              titleGetToKnowUs,
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontFamily: fontOutfitBold,
+                                color: fontMainColor,
+                              ),
+                            ),
+                          ),
+                          verticalSpaceSmall,
+                          GestureDetector(
+                            onTap: () {
+                              openGoogleMap();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                subtitle1,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: fontOutfitRegular,
+                                  color: fontMainColor,
                                 ),
                               ),
                             ),
-                            verticalSpaceMedium,
-                          ],
-                        ),
-
-                  ],
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              callPhoneNumber(phoneNumber);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                subtitle2,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: fontOutfitRegular,
+                                  color: fontMainColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              openWebPage(webpageLink);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                webpageLink,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  //color blue, underline
+                                  fontFamily: fontOutfitRegular,
+                                  color: Colors.blueAccent,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ),
+                          ),
+                          verticalSpaceMedium,
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: TextButton(
+                                  onPressed: () {
+                                    callPhoneNumber(phoneNumber);
+                                  },
+                                  child: Text(
+                                    "CALL ME",
+                                    style: TextStyle(
+                                      color: fontWhiteColor,
+                                      fontFamily: fontOutfitBold,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                    MaterialStateProperty.all(
+                                      primaryColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              horizontalSpaceMedium,
+                              Expanded(
+                                flex: 1,
+                                child: TextButton(
+                                  onPressed: () {
+                                    openWebPage(whatsAppLink);
+                                  },
+                                  child: Text(
+                                    "TEXT ME",
+                                    style: TextStyle(
+                                      color: fontWhiteColor,
+                                      fontFamily: fontOutfitBold,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                    MaterialStateProperty.all(
+                                      primaryColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Center(
+                            child: GestureDetector(
+                              onTap: (){
+                                openGoogleMap();
+                              },
+                              child: Image.asset(
+                                map,
+                                width: 500,
+                                height: 500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
-

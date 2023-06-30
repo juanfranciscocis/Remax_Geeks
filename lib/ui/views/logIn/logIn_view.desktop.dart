@@ -45,237 +45,254 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
               child: Align(
                 alignment: Alignment.center,
                 child: SingleChildScrollView(
-                  child: Card(
-                    color: Colors.white,
-                    elevation: 8.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    margin: EdgeInsets.all(50.0),
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment: Alignment.center,
+                  child: Column(
+                    children: [
+
+                      Card(
+                        color: Colors.white,
+                        elevation: 8.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        margin: EdgeInsets.only(left:50.0, right: 50.0),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              "Welcome back... Log In",
+                              welcomeMessageLogin,
                               style: TextStyle(
                                 color: fontMainColor,
                                 fontFamily: fontOutfitBold,
-                                fontSize: 55,
+                                fontSize: 50,
                               ),
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          verticalSpaceMedium,
-                          TextWidget(
-                            text: "Enter your email:",
-                            color: fontMainColor,
-                            fontFamily: fontOutfitMedium,
-                            fontSize: 40,
-                          ),
-                          verticalSpaceSmall,
-                          TextFieldWidget(
-                            labelText: "Email...",
-                            labelColor: fontMainColor,
-                            labelFontFamily: fontOutfitRegular,
-                            labelFontSize: 20,
-                            enabledBorderColor: fontMainColor,
-                            filled: true,
-                            fillColor: inputColor,
-                            textColor: fontMainColor,
-                            textFontFamily: fontOutfitRegular,
-                            textFontSize: 20,
-                            onChanged: (value) {
-                              costumer.email = value;
-                            },
-                          ),
-                          verticalSpaceMedium,
-                          TextWidget(
-                            text: "Enter your password:",
-                            color: fontMainColor,
-                            fontFamily: fontOutfitMedium,
-                            fontSize: 40,
-                          ),
-                          verticalSpaceSmall,
-                          TextFieldWidget(
-                            labelText: "Password...",
-                            labelColor: fontMainColor,
-                            labelFontFamily: fontOutfitRegular,
-                            labelFontSize: 20,
-                            enabledBorderColor: fontMainColor,
-                            filled: true,
-                            fillColor: inputColor,
-                            textColor: fontMainColor,
-                            textFontFamily: fontOutfitRegular,
-                            textFontSize: 20,
-                            onChanged: (value) {
-                              costumer.password = value;
-                            },
-                            obscureText: true, // Password field should be obscured
-                          ),
-                          verticalSpaceMedium,
-                          Align(
-                            alignment: Alignment.center,
-                            child: MaterialButton(
-                              height: 50,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      verticalSpaceSmall,
+                      Card(
+                        color: Colors.white,
+                        elevation: 8.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        margin: EdgeInsets.only(left:50.0, right: 50.0),
+                        child: Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              verticalSpaceSmall,
+                              TextWidget(
+                                text: enterEmail,
+                                color: fontMainColor,
+                                fontFamily: fontOutfitMedium,
+                                fontSize: 40,
                               ),
-                              elevation: 5.0,
-                              onPressed: () async {
-                                if(costumer.email != '' && costumer.password != '') {
-                                  await auth.signInWithEmailAndPassword(
-                                      email: costumer.email,
-                                      password: costumer.password);
-                                  if(auth.errorMessage == '') {
-                                    String serviceChoose = sellForm.serviceType;
-                                    costumer.fullName = auth.user!.displayName!;
-                                    String authUID = auth.user!.uid.toString();
-                                    await db.getPhoneNumberByUID(authUID);
-                                    costumer.phoneNumber = db.phoneNumber;
-                                    sellForm.costumer = costumer.costumer;
-                                    if (serviceChoose ==
-                                        chooseServiceTypeCard1Title) {
-                                      Navigator.push(context, MaterialPageRoute(
-                                          builder: (context) =>
-                                              FullServiceView()));
-                                    } else {
-                                      Navigator.push(context, MaterialPageRoute(
-                                          builder: (context) =>
-                                              CustomServiceView()));
-                                    }
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          auth.errorMessage,
-                                          style: TextStyle(
-                                            fontFamily: fontOutfitRegular,
-                                            fontSize: 15,
+                              verticalSpaceSmall,
+                              TextFieldWidget(
+                                labelText: emailBox,
+                                labelColor: fontMainColor,
+                                labelFontFamily: fontOutfitRegular,
+                                labelFontSize: 20,
+                                enabledBorderColor: fontMainColor,
+                                filled: true,
+                                fillColor: inputColor,
+                                textColor: fontMainColor,
+                                textFontFamily: fontOutfitRegular,
+                                textFontSize: 20,
+                                onChanged: (value) {
+                                  costumer.email = value;
+                                },
+                              ),
+                              verticalSpaceMedium,
+                              TextWidget(
+                                text: enterPassword,
+                                color: fontMainColor,
+                                fontFamily: fontOutfitMedium,
+                                fontSize: 40,
+                              ),
+                              verticalSpaceSmall,
+                              TextFieldWidget(
+                                labelText: passwordBox,
+                                labelColor: fontMainColor,
+                                labelFontFamily: fontOutfitRegular,
+                                labelFontSize: 20,
+                                enabledBorderColor: fontMainColor,
+                                filled: true,
+                                fillColor: inputColor,
+                                textColor: fontMainColor,
+                                textFontFamily: fontOutfitRegular,
+                                textFontSize: 20,
+                                onChanged: (value) {
+                                  costumer.password = value;
+                                },
+                                obscureText: true, // Password field should be obscured
+                              ),
+                              verticalSpaceMedium,
+                              Align(
+                                alignment: Alignment.center,
+                                child: MaterialButton(
+                                  height: 50,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  elevation: 5.0,
+                                  onPressed: () async {
+                                    if(costumer.email != '' && costumer.password != '') {
+                                      await auth.signInWithEmailAndPassword(
+                                          email: costumer.email,
+                                          password: costumer.password);
+                                      if(auth.errorMessage == '') {
+                                        String serviceChoose = sellForm.serviceType;
+                                        costumer.fullName = auth.user!.displayName!;
+                                        String authUID = auth.user!.uid.toString();
+                                        await db.getPhoneNumberByUID(authUID);
+                                        costumer.phoneNumber = db.phoneNumber;
+                                        sellForm.costumer = costumer.costumer;
+                                        if (serviceChoose ==
+                                            chooseServiceTypeCard1Title) {
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FullServiceView()));
+                                        } else {
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CustomServiceView()));
+                                        }
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              auth.errorMessage,
+                                              style: TextStyle(
+                                                fontFamily: fontOutfitRegular,
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                            backgroundColor: Colors.red,
                                           ),
+                                        );
+                                        auth.errorMessage = '';
+                                      }
+                                    }else{
+                                      // SHOW ERROR MESSAGE
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Please fill all the fields',
+                                            style: TextStyle(
+                                              fontFamily: fontOutfitRegular,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          backgroundColor: Colors.red,
                                         ),
-                                        backgroundColor: Colors.red,
+                                      );
+                                    }
+                                  },
+                                  color: primaryButtonColor,
+                                  textColor: fontWhiteColor,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Log In",
+                                      style: TextStyle(
+                                        fontFamily: fontOutfitBold,
+                                        fontSize: 40,
                                       ),
-                                    );
-                                    auth.errorMessage = '';
-                                  }
-                                }else{
-                                  // SHOW ERROR MESSAGE
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Please fill all the fields',
-                                        style: TextStyle(
-                                          fontFamily: fontOutfitRegular,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                      backgroundColor: Colors.red,
                                     ),
-                                  );
-                                }
-                              },
-                              color: primaryButtonColor,
-                              textColor: fontWhiteColor,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Log In",
-                                  style: TextStyle(
-                                    fontFamily: fontOutfitBold,
-                                    fontSize: 40,
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                          verticalSpaceSmall,
-                          Align(
-                            alignment: Alignment.center,
-                            child: MaterialButton(
-                              height: 50,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              elevation: 5.0,
-                              onPressed: () {
-                                //NAVIGATE TO SIGN UP PAGE
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SignUpView(),
+                              verticalSpaceSmall,
+                              Align(
+                                alignment: Alignment.center,
+                                child: MaterialButton(
+                                  height: 50,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
-                                );
-                              },
-                              color: inputColor,
-                              textColor: fontWhiteColor,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                  elevation: 5.0,
+                                  onPressed: () {
+                                    //NAVIGATE TO SIGN UP PAGE
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SignUpView(),
+                                      ),
+                                    );
+                                  },
+                                  color: inputColor,
+                                  textColor: fontWhiteColor,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Sign Up",
+                                      style: TextStyle(
+                                        fontFamily: fontOutfitBold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              verticalSpaceMedium,
+                              Align(
+                                alignment: Alignment.center,
                                 child: Text(
-                                  "Sign In",
+                                  "Or Login With",
                                   style: TextStyle(
+                                    color: inputColor,
                                     fontFamily: fontOutfitBold,
                                     fontSize: 20,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
-                            ),
-                          ),
-                          verticalSpaceMedium,
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Or Login With",
-                              style: TextStyle(
-                                color: inputColor,
-                                fontFamily: fontOutfitBold,
-                                fontSize: 20,
+                              verticalSpaceMedium,
+                              // Google sign-in button
+                              Align(
+                                alignment: Alignment.center,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: () async {
+                                        await authGoogle.signInWithGoogle();
+                                        checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
+                                      },
+                                      child: Image.asset(
+                                        googleIcon, // Replace with the path to your Google icon
+                                        width: 100,
+                                        height: 100,
+                                      ),
+                                    ),
+                                    horizontalSpaceSmall,
+                                    InkWell(
+                                      onTap: () async {
+                                        await authFacebook.signIn();
+                                        checkForFacebookSignin(authFacebook, db, sellForm, costumer, context);
+                                        //checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
+                                      },
+                                      child: Image.asset(
+                                        facebookIcon, // Replace with the path to your Google icon
+                                        width: 75,
+                                        height: 75,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          verticalSpaceMedium,
-                          // Google sign-in button
-                          Align(
-                            alignment: Alignment.center,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () async {
-                                    await authGoogle.signInWithGoogle();
-                                    checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
-                                  },
-                                  child: Image.asset(
-                                    googleIcon, // Replace with the path to your Google icon
-                                    width: 100,
-                                    height: 100,
-                                  ),
-                                ),
-                                horizontalSpaceSmall,
-                                InkWell(
-                                  onTap: () async {
-                                    await authFacebook.signIn();
-                                    checkForFacebookSignin(authFacebook, db, sellForm, costumer, context);
-                                    //checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
-                                  },
-                                  child: Image.asset(
-                                    facebookIcon, // Replace with the path to your Google icon
-                                    width: 75,
-                                    height: 75,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
 
-                        ],
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),

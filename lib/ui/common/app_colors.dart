@@ -20,6 +20,7 @@ const Color confirmButtonColor = Color(0xff84aa74);
 const Color primaryCardColor = Color(0xffee8f23);
 const Color secondaryCardColor = Color(0xffd1d1d2);
 const Color thirdCardColor = Color(0xfff2bc39);
+const Color whiteCardColor = Color(0xffd1d1d2);
 const Color loginCardColor = Color(0xfff5f5f6);
 const Color goldCardColor = Color(0xffccaa39);
 

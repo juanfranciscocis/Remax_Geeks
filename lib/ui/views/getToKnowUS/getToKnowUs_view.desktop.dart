@@ -9,6 +9,7 @@ import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../providers/costumerProvider.dart';
 import '../../../providers/dbProvider.dart';
@@ -34,25 +35,38 @@ class GetToKnowUsViewDesktop extends StatefulWidget {
   State<GetToKnowUsViewDesktop> createState() => _GetToKnowUsViewDesktopState();
 }
 
-class _GetToKnowUsViewDesktopState extends State<GetToKnowUsViewDesktop> {
-  List<String> paths = [];
+class _GetToKnowUsViewDesktopState extends State<GetToKnowUsViewDesktop>{
 
-  late List<Article> articles=[];
-
-  void initState() {
-    DBProvider db = Provider.of<DBProvider>(context, listen: false);
-    paths = getLearnMorePaths();
-    articlesInit();
-    super.initState();
+  void openGoogleMap() async {
+    const googleMapUrl = 'https://www.google.com/maps/dir/42.3821312,-88.080384/remax+american+dream/@42.379145,-88.0896378,16z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x880f9caaaab4d5eb:0xb174ca526d7918d!2m2!1d-88.0901364!2d42.3779509?entry=ttu';
+    if (await canLaunch(googleMapUrl)) {
+      await launch(googleMapUrl);
+    } else {
+      print('Failed to open Google Map');
+    }
   }
 
-  Future<void> articlesInit() async {
-    DBProvider db = Provider.of<DBProvider>(context, listen: false);
-    await db.getArticles();
-    setState(() {
-      articles = db.articles;
-    });
+  Future<void> openWebPage(String page) async {
+    String launchP = 'https://'+page;
+    if(await canLaunch(launchP)){
+      await launch(launchP);
+    }else{
+      print('Failed to open $launchP');
+    }
   }
+
+  void callPhoneNumber(String phoneNumber) async {
+    final url = 'tel:$phoneNumber';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Failed to make a phone call');
+    }
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,25 +78,164 @@ class _GetToKnowUsViewDesktopState extends State<GetToKnowUsViewDesktop> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              verticalSpaceLarge,
-              //for each path in paths create a article, using the articles list get the title and subtitle
-              if(articles.length == 0)
-                CircularProgressIndicator(),
-              if(articles.length != 0)
-              for (int i = 0; i < articles.length; i++)
-                Container(
-                  width: 1400,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ArticleView(article: articles[i],)));
-                    },
-                    child: learnMoreArticle(
-                      title: articles[i].title,
-                      subtitle: articles[i].subtitle,
-                      imagePath: '',
+              //CARD, COLOR WHITE CARD COLOR, ROUND CORNERS 8, ELEVATION 5, INSIDE IT:
+              //ROW WITH 2 COLUMNS, SECOND COLUMN: IMAGE, FIRST COLUMN: TEXT, TEXT AND TWO ACTION BUTTONS
+              //ACTION BUTTONS: 1. CALL ME, 2. TEXT ME
+              //TEXT: "WE ARE HERE TO HELP YOU"
+              //IMAGE: PATH: assets/images/landingPage/landingPageImage.png
+              Container(
+                width: 1200,
+                child: Card(
+                  color: whiteCardColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  elevation: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  titleGetToKnowUs,
+                                  style: TextStyle(
+                                    fontSize: 70,
+                                    fontFamily: fontOutfitBold,
+                                    color: fontMainColor,
+                                  ),
+                                ),
+                              ),
+                              verticalSpaceMedium,
+                              GestureDetector(
+                                onTap: () {
+                                  openGoogleMap();
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    subtitle1,
+                                    style: TextStyle(
+                                      fontSize: 45,
+                                      fontFamily: fontOutfitRegular,
+                                      color: fontMainColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  callPhoneNumber(phoneNumber);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    subtitle2,
+                                    style: TextStyle(
+                                      fontSize: 45,
+                                      fontFamily: fontOutfitRegular,
+                                      color: fontMainColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  openWebPage(webpageLink);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    webpageLink,
+                                    style: TextStyle(
+                                      fontSize: 40,
+                                      //color blue, underline
+                                      fontFamily: fontOutfitRegular,
+                                      color: Colors.blueAccent,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              verticalSpaceMedium,
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: TextButton(
+                                      onPressed: () {
+                                        callPhoneNumber(phoneNumber);
+                                      },
+                                      child: Text(
+                                        "CALL ME",
+                                        style: TextStyle(
+                                          color: fontWhiteColor,
+                                          fontFamily: fontOutfitBold,
+                                          fontSize: 30,
+
+                                        ),
+                                      ),
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all(
+                                          primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  horizontalSpaceMedium,
+                                  Expanded(
+                                    flex: 1,
+                                    child: TextButton(
+                                      onPressed: () {
+                                        openWebPage(whatsAppLink);
+                                      },
+                                      child: Text(
+                                        "TEXT ME",
+                                        style: TextStyle(
+                                          color: fontWhiteColor,
+                                          fontFamily: fontOutfitBold,
+                                          fontSize: 30,
+                                        ),
+                                      ),
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all(
+                                          primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        horizontalSpaceMedium,
+                        Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: (){
+                              openGoogleMap();
+                            },
+                            child: Image.asset(
+                              map,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
+              ),
+
+
+
+
             ],
           ),
         ),
@@ -93,73 +246,3 @@ class _GetToKnowUsViewDesktopState extends State<GetToKnowUsViewDesktop> {
 
 
 
-class learnMoreArticle extends StatelessWidget {
-
-  String title = 'Title';
-  String subtitle = 'Subtitle';
-  String imagePath = 'path';
-  double? textTitleSize;
-  double? textSubtitleSize;
-  double? imageSize;
-
-  learnMoreArticle({
-    required this.title,
-    required this.subtitle,
-    required this.imagePath,
-    this.textTitleSize,
-    this.textSubtitleSize,
-    this.imageSize,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: navColor,
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Container(
-              width: imageSize??200,
-              height: imageSize??200,
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: textTitleSize ??50,
-                    fontFamily: fontOutfitBold,
-                    color: fontMainColor,
-
-                  ),
-                ),
-                Text(subtitle,
-                  style: TextStyle(
-                    fontSize: textSubtitleSize??30,
-                    fontFamily: fontOutfitMedium,
-                    color: fontMainColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-      ],
-      ),
-    );
-  }
-}
-
-// Rest of the code...

@@ -47,7 +47,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                   style: TextStyle(
                     color: fontMainColor,
                     fontFamily: fontOutfitBold,
-                    fontSize: 55,
+                    fontSize: 40,
                   ),
                 ),
                 //TO CARDS IN A ROW, WITH A TITLE, A SUBTITLE AND ONE CENTERED BUTTON, A MATERIAL BUTTON
@@ -82,7 +82,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                               style: TextStyle(
                                 color: fontWhiteColor,
                                 fontFamily: fontOutfitBold,
-                                fontSize: 60,
+                                fontSize: 40,
                               ),
                             ),
                           ),
@@ -94,7 +94,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                             style: TextStyle(
                               color: fontWhiteColor,
                               fontFamily: fontOutfitRegular,
-                              fontSize: 25,
+                              fontSize: 20,
                             ),
                           ),
                           verticalSpaceLarge,
@@ -167,7 +167,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                             style: TextStyle(
                               color: fontWhiteColor,
                               fontFamily: fontOutfitBold,
-                              fontSize: 55,
+                              fontSize: 40,
                             ),
                           ),
                         ),
@@ -179,7 +179,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                           style: TextStyle(
                             color: fontWhiteColor,
                             fontFamily: fontOutfitRegular,
-                            fontSize: 25,
+                            fontSize: 20,
                           ),
                         ),
                         verticalSpaceLarge,

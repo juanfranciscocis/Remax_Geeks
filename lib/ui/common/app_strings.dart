@@ -67,3 +67,22 @@ const String addCustomServices = 'Choose Services...';
 //LOGIN AND SIGN IN
 const String googleIcon = 'assets/signIn/google.png';
 const String facebookIcon = 'assets/signIn/facebook.png';
+const String enterPassword = 'Enter your password:';
+const String enterEmail = 'Enter your email:';
+const String enterFullName = 'Enter your full name:';
+const String enterPhoneNumber = 'Enter your phone number:';
+const String passwordBox = 'Password...';
+const String emailBox = 'Email...';
+const String fullNameBox = 'Full Name...';
+const String phoneNumberBox = 'Phone Number...';
+const String welcomeMessageLogin = 'Hi! By logging you will be able to see your property valuation and choose extra services';
+const String welcomeMessageSingUp = 'Hi! By signing up you will be able to see your property valuation and choose extra services';
+
+//GET TO KNOW US
+const String titleGetToKnowUs = 'Luigui Corral’s Team - RE/MAX American Dream';
+const String subtitle1 = 'Round Lake Beach, LL';
+const String subtitle2 = '+1 (847) 236-0000';
+const String webpageLink = 'luigui.com';
+const String map = 'assets/getToKnowUs/maps.png';
+const String phoneNumber = '8472360000';
+const String whatsAppLink = 'wa.me/18472360000?text=Hey%20Luigui%2C%20I%20came%20from%20RemaxGeeks.com';
