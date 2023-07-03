@@ -1,4 +1,5 @@
 import 'package:provider/provider.dart';
+import 'package:remax_geeks/services/sendEmail.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
@@ -260,6 +261,7 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
                         'COSTUMER': widget.sellFormProvider.getCostumerInformation(),
                       };
                       await db.setSellingFormData(data);
+                      await SendMail().sendEmail(widget.sellFormProvider.costumer);
                       showConfirmationDialog(context);
                       //Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
                   }, buttonColor: confirmButtonColor)),

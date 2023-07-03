@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:g_recaptcha_v3/g_recaptcha_v3.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/providers/costumerProvider.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
@@ -10,6 +11,7 @@ import 'package:remax_geeks/services/authEmailPassword.dart';
 import 'package:remax_geeks/services/authFacebook.dart';
 import 'package:remax_geeks/services/authGoogle.dart';
 import 'package:remax_geeks/services/realtyMoleService.dart';
+import 'package:remax_geeks/services/sendEmail.dart';
 import 'package:remax_geeks/services/zillowService.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:remax_geeks/app/app.bottomsheets.dart';
@@ -45,6 +47,8 @@ Future<void> main() async {
     version: "v14.0",
   );
 
+  bool ready = await GRecaptchaV3.ready("6LcIKvEmAAAAAGkSLtJYmH12dp0USLJx8AdEoExt");
+  print("Is Recaptcha ready? $ready");
 
   runApp(const MyApp());
 

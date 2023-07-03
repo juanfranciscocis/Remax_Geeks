@@ -8,6 +8,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../helpers/currencyFormater.dart';
 import '../../../providers/sellFormProvider.dart';
+import '../../../services/sendEmail.dart';
 import '../../../widgets/landingPage/LandingPageTabletSite.dart';
 import '../../../widgets/landingPage/MainTabletNavBar.dart';
 import '../../../widgets/services/forDesktop/CardApiInformationDesktop.dart';
@@ -249,6 +250,7 @@ class _FullServiceTabletState extends State<FullServiceTablet> {
                             'COSTUMER': widget.sellFormProvider.getCostumerInformation(),
                           };
                           await db.setSellingFormData(data);
+                          await SendMail().sendEmail(widget.sellFormProvider.costumer);
                           showConfirmationDialog(context);
                       }, buttonColor: confirmButtonColor)),
                   verticalSpaceLarge,

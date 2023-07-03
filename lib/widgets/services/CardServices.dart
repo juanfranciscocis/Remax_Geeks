@@ -58,7 +58,8 @@ class _CardServicesState extends State<CardServices> {
                 ),
               ),
               SizedBox(height: 8.0),
-              Center(
+              Align(
+                alignment: Alignment.bottomCenter,
                 child: Container(
                   width: 100,
                   height: 50,

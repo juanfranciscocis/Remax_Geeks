@@ -10,6 +10,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../helpers/currencyFormater.dart';
 import '../../../providers/sellFormProvider.dart';
+import '../../../services/sendEmail.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../../widgets/services/CardServices.dart';
 import '../../../widgets/services/forDesktop/CardSendAgentDesktop.dart';
@@ -249,6 +250,7 @@ class _FullServiceMobileState extends State<FullServiceMobile> {
                           'COSTUMER': widget.sellFormProvider.getCostumerInformation(),
                         };
                         await db.setSellingFormData(data);
+                        await SendMail().sendEmail(widget.sellFormProvider.costumer);
                         showConfirmationDialog(context);
                     }, buttonColor: confirmButtonColor)),
                 verticalSpaceLarge,

@@ -9,6 +9,7 @@ import 'package:stacked/stacked.dart';
 import '../../../helpers/currencyFormater.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
+import '../../../services/sendEmail.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
 import '../../../widgets/services/forDesktop/CardApiInformationDesktop.dart';
@@ -249,6 +250,7 @@ class _CustomServiceDesktopState extends State<CustomServiceDesktop> {
                         'COSTUMER': widget.sellFormProvider.getCostumerInformation(),
                       };
                       await db.setSellingFormData(data);
+                      await SendMail().sendEmail(widget.sellFormProvider.costumer);
                       showConfirmationDialog(context);
                     } else {
                       // SHOW ERROR MESSAGE
