@@ -204,13 +204,9 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
                                         db.setNewCostumer(newCostumer);
                                         if (serviceChoose ==
                                             chooseServiceTypeCard1Title) {
-                                          Navigator.push(context, MaterialPageRoute(
-                                              builder: (context) =>
-                                                  FullServiceView()));
+                                          Navigator.of(context).pushNamed("/fullService");
                                         } else {
-                                          Navigator.push(context, MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CustomServiceView()));
+                                          Navigator.of(context).pushNamed("/customService");;
                                         }
                                       } else {
                                         ScaffoldMessenger.of(context).showSnackBar(
@@ -336,14 +332,10 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
       sellForm.costumer = costumer.costumer;
       if (serviceChoose ==
           chooseServiceTypeCard1Title) {
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>
-                FullServiceView()));
+        Navigator.of(context).pushNamed("/fullService");
         return;
       } else {
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>
-                CustomServiceView()));
+        Navigator.of(context).pushNamed("/customService");
         return;
       }
     }else{
@@ -390,14 +382,10 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
       if (serviceChoose ==
           chooseServiceTypeCard1Title) {
         print(chooseServiceTypeCard1Title);
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>
-                FullServiceView()));
+        Navigator.of(context).pushNamed("/fullService");
         return;
       } else {
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>
-                CustomServiceView()));
+        Navigator.of(context).pushNamed("/customService");
         return;
       }
     }else{

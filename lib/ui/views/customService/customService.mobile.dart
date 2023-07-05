@@ -306,7 +306,7 @@ class _CustomServiceMobileState extends State<CustomServiceMobile> {
                 backgroundColor: MaterialStateProperty.all<Color>(confirmButtonColor),
               ),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
+                Navigator.pushNamed(context, '/home');
               },
               child: Padding(
                 padding: const EdgeInsets.all(20.0),

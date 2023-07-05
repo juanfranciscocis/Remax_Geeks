@@ -6,7 +6,6 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
 import 'signUp_view.desktop.dart';
-import 'signUp_view.tablet.dart';
 import 'signUp_view.mobile.dart';
 import 'signUp_viewmodel.dart';
 

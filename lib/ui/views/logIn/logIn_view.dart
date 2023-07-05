@@ -6,7 +6,6 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
 import 'logIn_view.desktop.dart';
-import 'logIn_view.tablet.dart';
 import 'logIn_view.mobile.dart';
 import 'logIn_viewmodel.dart';
 

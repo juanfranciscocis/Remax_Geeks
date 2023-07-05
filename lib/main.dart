@@ -7,12 +7,24 @@ import 'package:remax_geeks/providers/costumerProvider.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/providers/sellFormProvider.dart';
 import 'package:remax_geeks/services/GooglePlacesService.dart';
+import 'package:remax_geeks/services/analyticsService.dart';
 import 'package:remax_geeks/services/authEmailPassword.dart';
 import 'package:remax_geeks/services/authFacebook.dart';
 import 'package:remax_geeks/services/authGoogle.dart';
 import 'package:remax_geeks/services/realtyMoleService.dart';
 import 'package:remax_geeks/services/sendEmail.dart';
 import 'package:remax_geeks/services/zillowService.dart';
+import 'package:remax_geeks/ui/views/addPhoneNumber/addPhoneNumber_view.dart';
+import 'package:remax_geeks/ui/views/address/address_view.dart';
+import 'package:remax_geeks/ui/views/burgerMenu/burgerMenu_view.dart';
+import 'package:remax_geeks/ui/views/chooseServiceType/chooseServiceType_view.dart';
+import 'package:remax_geeks/ui/views/customService/customService_view.dart';
+import 'package:remax_geeks/ui/views/fullService/fullService_view.dart';
+import 'package:remax_geeks/ui/views/getToKnowUS/getToKnowUs_view.dart';
+import 'package:remax_geeks/ui/views/home/home_view.dart';
+import 'package:remax_geeks/ui/views/learnMore/learnMore_view.dart';
+import 'package:remax_geeks/ui/views/logIn/logIn_view.dart';
+import 'package:remax_geeks/ui/views/signUp/singUp_view.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:remax_geeks/app/app.bottomsheets.dart';
 import 'package:remax_geeks/app/app.dialogs.dart';
@@ -71,10 +83,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CostumerProvider()),
         ChangeNotifierProvider(create: (_) => AuthGoogle()),
         ChangeNotifierProvider(create: (_) => AuthFacebook()),
+        ChangeNotifierProvider(create: (_) => AnalyticsService()),
       ],
       child: ResponsiveApp(
           preferDesktop: true,
-          builder: (_) => MaterialApp.router(
+          builder: (_) => MaterialApp(
                 title: 'Remax Geeks',
                 theme: Theme.of(context).copyWith(
                   primaryColor: backgroundColor,
@@ -83,8 +96,24 @@ class MyApp extends StatelessWidget {
                       ),
                 ),
                 debugShowCheckedModeBanner: false,
-                routerDelegate: stackedRouter.delegate(),
-                routeInformationParser: stackedRouter.defaultRouteParser(),
+                initialRoute: '/home',
+                routes: {
+                  '/home':(context) => HomeView(),
+                  '/addressView':(context) => AddressView(),
+                  '/chooseService':(context) => ChooseServiceTypeView(),
+                  '/login':(context) => LogInView(),
+                  '/signUp':(context) => SignUpView(),
+                  '/fullService':(context) => FullServiceView(),
+                  '/customService':(context) => CustomServiceView(),
+                  '/burgerMenu':(context) => BurgerMenuView(),
+                  '/learnMore':(context) => LearnMoreView(),
+                  '/getToKnowUs':(context) => GetToKnowUsView(),
+                },
+                navigatorObservers: [
+                  AnalyticsService().getAnalyticsObserver,
+                ],
+                //routerDelegate: stackedRouter.delegate(),
+                //routeInformationParser: stackedRouter.defaultRouteParser(),
               ).animate().fadeIn(
                     delay: const Duration(milliseconds: 50),
                     duration: const Duration(milliseconds: 400),

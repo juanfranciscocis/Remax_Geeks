@@ -52,6 +52,7 @@ dependencies:
   firebase_storage: ^11.2.4
   url_launcher: ^6.1.11
   g_recaptcha_v3: ^0.0.5
+  firebase_analytics: ^10.4.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

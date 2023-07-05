@@ -85,14 +85,11 @@ class _BurgerMenuViewMobileState extends State<BurgerMenuViewMobile> {
                             children: [
                               verticalSpaceLarge,
                               _buildMaterialButton(title: 'LEARN MORE',textSize: 20, onPressed: (){
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => LearnMoreView()),
-                                );
+                                Navigator.pushNamed(context, '/learnMore');
                               }, isPressed: false),
                               verticalSpaceMedium,
                               _buildMaterialButton(title: 'GET TO KNOW US',textSize: 20, onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const GetToKnowUsView()));
+                                Navigator.pushNamed(context, '/getToKnowUs');
                               }, isPressed: false),
                               verticalSpaceLarge,
                             ],
@@ -108,10 +105,7 @@ class _BurgerMenuViewMobileState extends State<BurgerMenuViewMobile> {
                       children: [
                         verticalSpaceLarge,
                         _buildMaterialButton(title: 'Sell Now',textSize: 20, onPressed: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => AddressView()),
-                          );
+                          Navigator.pushNamed(context, '/addressView');
                         }, isPressed: false),
                         verticalSpaceMedium,
                         _buildMaterialButton(title: 'Buy Now',textSize: 20, onPressed: (){

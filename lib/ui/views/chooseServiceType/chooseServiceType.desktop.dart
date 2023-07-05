@@ -137,18 +137,9 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                         print(sellFormProvider.serviceType);
                                         // NAVIGATE TO NEXT PAGE
                                         if(costumerProvider.email != '' || costumerProvider.fullName != '' || costumerProvider.phoneNumber != ''){
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => const FullServiceView()),
-                                            );
+                                          Navigator.of(context).pushNamed("/fullService");
                                         }else {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => const LogInView(),
-                                            ),
-                                          );
+                                          Navigator.of(context).pushNamed("/login");
                                         }
                                       },
                                       color: confirmButtonColor,
@@ -223,19 +214,10 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                           chooseServiceTypeCard2Title;
                                       print(sellFormProvider.serviceType);
                                       if(costumerProvider.email != '' || costumerProvider.fullName != '' || costumerProvider.phoneNumber != ''){
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => const CustomServiceView()),
-                                        );
+                                        Navigator.of(context).pushNamed("/customService");
                                       }else{
                                         //NAVIGATE TO NEXT PAGE
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => const LogInView(),
-                                          ),
-                                        );
+                                        Navigator.of(context).pushNamed("/login");
                                       }
                                     },
                                     color: confirmButtonColor,

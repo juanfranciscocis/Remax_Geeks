@@ -128,13 +128,9 @@ class AddPhoneNumberDesktop extends ViewModelWidget<AddPhoneNumberViewModel> {
                                     sellForm.costumer = costumer.costumer;
                                     if (serviceChoose ==
                                         chooseServiceTypeCard1Title) {
-                                      Navigator.push(context, MaterialPageRoute(
-                                          builder: (context) =>
-                                              FullServiceView()));
+                                      Navigator.of(context).pushNamed("/fullService");
                                     } else {
-                                      Navigator.push(context, MaterialPageRoute(
-                                          builder: (context) =>
-                                              CustomServiceView()));
+                                      Navigator.of(context).pushNamed("/customService");
                                     }
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(

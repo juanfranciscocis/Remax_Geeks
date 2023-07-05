@@ -6,7 +6,6 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
 import 'addPhoneNumber_view.desktop.dart';
-import 'addPhoneNumber_view.tablet.dart';
 import 'addPhoneNumber_view.mobile.dart';
 import 'addPhoneNumber_viewmodel.dart';
 
@@ -23,7 +22,7 @@ class AddPhoneNumberView extends StackedView<AddPhoneNumberViewModel> {
     Widget? child,
   ) {
     return ScreenTypeLayout.builder(
-      mobile: (_) => const AddPhoneNumberMobile(),
+      mobile: (_) => AddPhoneNumberMobile(isGoogle: this.isGoogle,),
       //tablet: (_) => const LogInViewTablet(), //ADD TABLET VIEW IF NEEDED
       desktop: (_) => AddPhoneNumberDesktop(isGoogle: this.isGoogle,),
     );

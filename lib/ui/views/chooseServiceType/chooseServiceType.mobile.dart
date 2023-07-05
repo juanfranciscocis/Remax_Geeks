@@ -106,19 +106,10 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                               print(sellFormProvider.serviceType);
                               //NAVIGATE TO NEXT PAGE
                               if(costumerProvider.email != '' || costumerProvider.fullName != '' || costumerProvider.phoneNumber != ''){
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const FullServiceView()),
-                                );
+                                Navigator.of(context).pushNamed("/fullService");
                               }else{
                                 //NAVIGATE TO NEXT PAGE
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const LogInView(),
-                                  ),
-                                );
+                                Navigator.of(context).pushNamed("/login");
                               }
                             },
                             color: confirmButtonColor,
@@ -191,19 +182,10 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                             print(sellFormProvider.serviceType);
                             //NAVIGATE TO NEXT PAGE
                             if(costumerProvider.email != '' || costumerProvider.fullName != '' || costumerProvider.phoneNumber != ''){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const CustomServiceView()),
-                              );
+                              Navigator.of(context).pushNamed("/customService");
                             }else{
                               //NAVIGATE TO NEXT PAGE
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LogInView(),
-                                ),
-                              );
+                              Navigator.of(context).pushNamed("/login");
                             }
                           },
                           color: confirmButtonColor,

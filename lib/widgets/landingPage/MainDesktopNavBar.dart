@@ -56,7 +56,7 @@ class MainDesktopNavBar extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 20.0),
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const LearnMoreView()));
+                    Navigator.pushNamed(context, '/learnMore');
                   }, //TODO: CHANGE TO LEARN MORE SCREEN
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),
@@ -82,7 +82,7 @@ class MainDesktopNavBar extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 50.0),
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const GetToKnowUsView()));
+                    Navigator.pushNamed(context, '/getToKnowUs');
                   }, //TODO: CHANGE TO LEARN MORE SCREEN
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),

@@ -151,13 +151,9 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                                         sellForm.costumer = costumer.costumer;
                                         if (serviceChoose ==
                                             chooseServiceTypeCard1Title) {
-                                          Navigator.push(context, MaterialPageRoute(
-                                              builder: (context) =>
-                                                  FullServiceView()));
+                                          Navigator.of(context).pushNamed("/fullService");
                                         } else {
-                                          Navigator.push(context, MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CustomServiceView()));
+                                          Navigator.of(context).pushNamed("/customService");
                                         }
                                       } else {
                                         ScaffoldMessenger.of(context).showSnackBar(
@@ -216,12 +212,7 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                                   elevation: 5.0,
                                   onPressed: () {
                                     //NAVIGATE TO SIGN UP PAGE
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => SignUpView(),
-                                      ),
-                                    );
+                                    Navigator.of(context).pushNamed("/signUp");
                                   },
                                   color: inputColor,
                                   textColor: fontWhiteColor,
@@ -315,14 +306,10 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
       sellForm.costumer = costumer.costumer;
       if (serviceChoose ==
           chooseServiceTypeCard1Title) {
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>
-                FullServiceView()));
+        Navigator.of(context).pushNamed("/fullService");
         return;
       } else {
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>
-                CustomServiceView()));
+        Navigator.of(context).pushNamed("/customService");
         return;
       }
     }else{
@@ -368,14 +355,10 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
       if (serviceChoose ==
           chooseServiceTypeCard1Title) {
         print(chooseServiceTypeCard1Title);
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>
-                FullServiceView()));
+        Navigator.of(context).pushNamed("/fullService");
         return;
       } else {
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>
-                CustomServiceView()));
+        Navigator.of(context).pushNamed("/customService");
         return;
       }
     }else{

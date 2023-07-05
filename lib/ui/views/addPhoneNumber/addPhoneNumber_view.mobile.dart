@@ -9,6 +9,7 @@ import '../../../providers/costumerProvider.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../services/authEmailPassword.dart';
+import '../../../services/authFacebook.dart';
 import '../../../services/authGoogle.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../common/app_constants.dart';
@@ -20,13 +21,15 @@ import '../signUp/singUp_view.dart';
 import 'addPhoneNumber_viewmodel.dart';
 
 class AddPhoneNumberMobile extends ViewModelWidget<AddPhoneNumberViewModel> {
-  const AddPhoneNumberMobile({super.key});
+  bool isGoogle = false;
+  AddPhoneNumberMobile({super.key, required this.isGoogle});
 
   @override
   Widget build(BuildContext context, AddPhoneNumberViewModel viewModel) {
     CostumerProvider costumer = Provider.of<CostumerProvider>(context);
     AuthManager auth = Provider.of<AuthManager>(context);
     AuthGoogle authGoogle = Provider.of<AuthGoogle>(context);
+    AuthFacebook authFacebook = Provider.of<AuthFacebook>(context);
     SellFormProvider sellForm = Provider.of<SellFormProvider>(context);
     DBProvider db = Provider.of<DBProvider>(context, listen: false);
     return Scaffold(
@@ -98,23 +101,29 @@ class AddPhoneNumberMobile extends ViewModelWidget<AddPhoneNumberViewModel> {
                             onPressed: () async {
                               if(costumer.phoneNumber != '') {
                                 String serviceChoose = sellForm.serviceType;
-                                Map<String, dynamic> newCostumer = {
-                                  'EMAIL': costumer.email,
-                                  'FULL_NAME': costumer.fullName,
-                                  'PHONE_NUMBER': costumer.phoneNumber,
-                                  'UID': authGoogle.user?.uid.toString(),
-                                };
-                                db.setNewCostumer(newCostumer);
+                                if(this.isGoogle){
+                                  Map<String, dynamic> newCostumer = {
+                                    'EMAIL': costumer.email,
+                                    'FULL_NAME': costumer.fullName,
+                                    'PHONE_NUMBER': costumer.phoneNumber,
+                                    'UID': authGoogle.user?.uid.toString(),
+                                  };
+                                  db.setNewCostumer(newCostumer);
+                                }else{
+                                  Map<String, dynamic> newCostumer = {
+                                    'EMAIL': costumer.email,
+                                    'FULL_NAME': costumer.fullName,
+                                    'PHONE_NUMBER': costumer.phoneNumber,
+                                    'UID': authFacebook.uid,
+                                  };
+                                  db.setNewCostumer(newCostumer);
+                                }
                                 sellForm.costumer = costumer.costumer;
                                 if (serviceChoose ==
                                     chooseServiceTypeCard1Title) {
-                                  Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) =>
-                                          FullServiceView()));
+                                  Navigator.of(context).pushNamed("/fullService");
                                 } else {
-                                  Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) =>
-                                          CustomServiceView()));
+                                  Navigator.of(context).pushNamed("/customService");
                                 }
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(

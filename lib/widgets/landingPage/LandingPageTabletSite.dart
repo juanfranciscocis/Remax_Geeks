@@ -72,7 +72,7 @@ class LandingPageTabletSite extends StatelessWidget {
               child: MaterialButton(
                 onPressed: () {
                   print('SELL NOW PRESSED');
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AddressView()));
+                  Navigator.of(context).pushNamed("/addressView");
                 },
                 child: const Padding(
                   padding: EdgeInsets.only(

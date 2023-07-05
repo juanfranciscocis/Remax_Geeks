@@ -54,7 +54,7 @@ class MainMobileNavBar extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 20.0),
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const BurgerMenuView()));
+                    Navigator.pushNamed(context, '/burgerMenu');
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),

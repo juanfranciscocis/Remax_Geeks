@@ -32,7 +32,7 @@ import '../ui/views/chooseServiceType/chooseServiceType_view.dart';
       prices[1] = realty.price;
       sellFormProvider.apiPrices = prices;
       // GO TO NEXT PAGE
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseServiceTypeView()));
+      Navigator.of(context).pushNamed("/chooseService");
 
     } else {
       // SHOW ERROR MESSAGE

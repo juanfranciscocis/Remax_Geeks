@@ -56,7 +56,7 @@ class MainTabletNavBar extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 20.0),
                   child: MaterialButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LearnMoreView()));
+                      Navigator.pushNamed(context, '/learnMore');
                     },
                     child: const Padding(
                       padding: EdgeInsets.only(
@@ -83,7 +83,7 @@ class MainTabletNavBar extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 20.0),
                   child: MaterialButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const GetToKnowUsView()));
+                      Navigator.pushNamed(context, '/getToKnowUs');
                     },
                     child: const Padding(
                       padding: EdgeInsets.only(
