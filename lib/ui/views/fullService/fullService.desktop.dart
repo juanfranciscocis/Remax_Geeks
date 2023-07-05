@@ -6,6 +6,7 @@ import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:remax_geeks/ui/views/home/home_view.dart';
+import 'package:remax_geeks/widgets/services/CardServicesDesktop.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../helpers/currencyFormater.dart';
@@ -231,7 +232,7 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
                 spacing: 16.0, // Adjust the spacing between cards as needed
                 children: [
                   // Dynamically create the CardServices based on the titles and descriptions from the API
-                  ...widget.premiumTitles.map((e) => CardServices(
+                  ...widget.premiumTitles.map((e) => CardServicesDesktop(
                     color: goldCardColor,
                     title: e,
                     description: widget.premiumDescriptions[widget.premiumTitles.indexOf(e)],

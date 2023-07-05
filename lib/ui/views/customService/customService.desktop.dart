@@ -12,6 +12,7 @@ import '../../../providers/sellFormProvider.dart';
 import '../../../services/sendEmail.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
+import '../../../widgets/services/CardServicesDesktop.dart';
 import '../../../widgets/services/forDesktop/CardApiInformationDesktop.dart';
 import '../../../widgets/services/forDesktop/CardAverageApiDesktop.dart';
 import '../../../widgets/services/CardServices.dart';
@@ -217,7 +218,7 @@ class _CustomServiceDesktopState extends State<CustomServiceDesktop> {
                 spacing: 16.0, // Adjust the spacing between cards as needed
                 children: [
                   // Dynamically create the CardServices based on the titles and descriptions from the API
-                  ...widget.customTitles.map((e) => CardServices(
+                  ...widget.customTitles.map((e) => CardServicesDesktop(
                     sellformProvider: widget.sellFormProvider,
                     color: primaryCardColor,
                     title: e,

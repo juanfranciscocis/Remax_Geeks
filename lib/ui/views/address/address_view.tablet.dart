@@ -1,5 +1,6 @@
 import 'package:g_recaptcha_v3/g_recaptcha_v3.dart';
 import 'package:provider/provider.dart';
+import 'package:remax_geeks/helpers/apiRequest.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
@@ -317,38 +318,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                     alignment: Alignment.centerRight,
                     child: _buildMaterialButton(title: 'NEXT', onPressed: () async {
                       //CHECK FOR CAPTCHA TOKEN
-
-                      if (await getCaptcha() == 'NULL'){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
-                      }
-                      // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
-                      if (sellFormProvider.address != '' && sellFormProvider.condition != '' && sellFormProvider.type != '') {
-                        RealtyMoleService realty = RealtyMoleService();
-                        await realty.getPrice(sellFormProvider.address);
-                        ZillowService zillow = ZillowService();
-                        await zillow.getPrice(sellFormProvider.address);
-                        List<double> prices = [0,0];
-                        prices[0] = zillow.price;
-                        prices[1] = realty.price;
-                        sellFormProvider.apiPrices = prices;
-                        // GO TO NEXT PAGE
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseServiceTypeView()));
-
-                      } else {
-                        // SHOW ERROR MESSAGE
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Please fill all the fields',
-                              style: TextStyle(
-                                fontFamily: fontOutfitRegular,
-                                fontSize: 15,
-                              ),
-                            ),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                      }
+                      navigate(context);
                     }, buttonColor: confirmButtonColor, isPressed: false)),
 
                 verticalSpaceLarge,
@@ -389,9 +359,5 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
         ),
       ),
     );
-  }
-  Future<String> getCaptcha() async {
-    String token = await GRecaptchaV3.execute('submit') ?? 'NULL';
-    return token;
   }
 }
