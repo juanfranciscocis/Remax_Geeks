@@ -139,7 +139,7 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                         if(costumerProvider.email != '' || costumerProvider.fullName != '' || costumerProvider.phoneNumber != ''){
                                           Navigator.of(context).pushNamed("/fullService");
                                         }else {
-                                          Navigator.of(context).pushNamed("/login");
+                                          Navigator.of(context).pushNamed("/signUp");
                                         }
                                       },
                                       color: confirmButtonColor,
@@ -217,7 +217,7 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                         Navigator.of(context).pushNamed("/customService");
                                       }else{
                                         //NAVIGATE TO NEXT PAGE
-                                        Navigator.of(context).pushNamed("/login");
+                                        Navigator.of(context).pushNamed("/signUp");
                                       }
                                     },
                                     color: confirmButtonColor,

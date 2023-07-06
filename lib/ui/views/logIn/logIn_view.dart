@@ -19,9 +19,9 @@ class LogInView extends StackedView<LogInViewModel> {
     Widget? child,
   ) {
     return ScreenTypeLayout.builder(
-      mobile: (_) => const LogInViewMobile(),
+      mobile: (_) => LogInViewMobile(),
       //tablet: (_) => const LogInViewTablet(), //ADD TABLET VIEW IF NEEDED
-      desktop: (_) => const LogInViewDesktop(),
+      desktop: (_) => LogInViewDesktop(),
     );
   }
 

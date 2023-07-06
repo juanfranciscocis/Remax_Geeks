@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/services/googlePlacesService.dart';
+import 'package:remax_geeks/ui/views/signUp/signUp_view.desktop.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
-import 'signUp_view.desktop.dart';
 import 'signUp_view.mobile.dart';
 import 'signUp_viewmodel.dart';
 
@@ -19,8 +19,8 @@ class SignUpView extends StackedView<SignUpViewModel> {
     Widget? child,
   ) {
     return ScreenTypeLayout.builder(
-      mobile: (_) => const SignUpViewMobile(),
-      desktop: (_) => const SignUpViewDesktop(),
+      mobile: (_) => SignUpViewMobile(),
+      desktop: (_) => SignUpViewDesktop(),
     );
   }
 

@@ -109,7 +109,7 @@ class ChooseServiceTypeTablet extends ViewModelWidget<ChooseServiceTypeViewModel
                                   Navigator.of(context).pushNamed("/fullService");
                                 }else{
                                   //NAVIGATE TO NEXT PAGE
-                                  Navigator.of(context).pushNamed("/login");
+                                  Navigator.of(context).pushNamed("/signUp");
                                 }
                               },
                               color: confirmButtonColor,
@@ -185,7 +185,7 @@ class ChooseServiceTypeTablet extends ViewModelWidget<ChooseServiceTypeViewModel
                                 Navigator.of(context).pushNamed("/customService");
                               }else{
                                 //NAVIGATE TO NEXT PAGE
-                                Navigator.of(context).pushNamed("/login");
+                                Navigator.of(context).pushNamed("/signUp");
                               }
                             },
                             color: confirmButtonColor,

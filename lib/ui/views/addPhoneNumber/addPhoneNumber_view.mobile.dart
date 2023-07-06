@@ -16,8 +16,9 @@ import '../../common/app_constants.dart';
 import '../../common/app_strings.dart';
 import '../customService/customService_view.dart';
 import '../fullService/fullService_view.dart';
-import '../signUp/signUp_view.desktop.dart';
+import '../logIn/logIn_view.desktop.dart';
 import '../signUp/singUp_view.dart';
+import 'addPhoneNumber_view.desktop.dart';
 import 'addPhoneNumber_viewmodel.dart';
 
 class AddPhoneNumberMobile extends ViewModelWidget<AddPhoneNumberViewModel> {
@@ -33,10 +34,9 @@ class AddPhoneNumberMobile extends ViewModelWidget<AddPhoneNumberViewModel> {
     SellFormProvider sellForm = Provider.of<SellFormProvider>(context);
     DBProvider db = Provider.of<DBProvider>(context, listen: false);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
-          Positioned.fill(child: CirclesBackground(circleCount: 10,)), // Add the background circles
           Center(
             child: SingleChildScrollView(
               child: Align(

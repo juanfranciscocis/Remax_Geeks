@@ -37,10 +37,9 @@ class AddPhoneNumberDesktop extends ViewModelWidget<AddPhoneNumberViewModel> {
     SellFormProvider sellForm = Provider.of<SellFormProvider>(context);
     DBProvider db = Provider.of<DBProvider>(context, listen: false);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
-          Positioned.fill(child: CirclesBackground()), // Add the background circles
           Center(
             child: SizedBox(
               width: kdDesktopMaxContentWidth,

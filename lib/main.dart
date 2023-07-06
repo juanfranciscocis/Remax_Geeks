@@ -24,7 +24,9 @@ import 'package:remax_geeks/ui/views/getToKnowUS/getToKnowUs_view.dart';
 import 'package:remax_geeks/ui/views/home/home_view.dart';
 import 'package:remax_geeks/ui/views/learnMore/learnMore_view.dart';
 import 'package:remax_geeks/ui/views/logIn/logIn_view.dart';
+import 'package:remax_geeks/ui/views/signUp/signUp_view.desktop.dart';
 import 'package:remax_geeks/ui/views/signUp/singUp_view.dart';
+import 'package:remax_geeks/ui/views/unknown/unknown_view.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:remax_geeks/app/app.bottomsheets.dart';
 import 'package:remax_geeks/app/app.dialogs.dart';
@@ -112,6 +114,7 @@ class MyApp extends StatelessWidget {
                 navigatorObservers: [
                   AnalyticsService().getAnalyticsObserver,
                 ],
+            onUnknownRoute: (settings) => MaterialPageRoute(builder: (_) => UnknownView()),
                 //routerDelegate: stackedRouter.delegate(),
                 //routeInformationParser: stackedRouter.defaultRouteParser(),
               ).animate().fadeIn(

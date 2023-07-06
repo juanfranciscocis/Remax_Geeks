@@ -75,8 +75,9 @@ const String passwordBox = 'Password...';
 const String emailBox = 'Email...';
 const String fullNameBox = 'Full Name...';
 const String phoneNumberBox = 'Phone Number...';
-const String welcomeMessageLogin = 'Hi! By logging you will be able to see your property valuation and choose extra services';
-const String welcomeMessageSingUp = 'Hi! By signing up you will be able to see your property valuation and choose extra services';
+const String welcomeMessageLogin = 'Welcome back! To ensure your privacy and deliver precise estimates, we kindly request you to login to your secure account.';
+const String welcomeMessageSingUp = 'To ensure your privacy and deliver precise estimates, we kindly request you to create a secure account.';
+const String lockIcon = 'assets/signIn/privacy.png';
 
 //GET TO KNOW US
 const String titleGetToKnowUs = 'Luigui Corral’s Team - RE/MAX American Dream';

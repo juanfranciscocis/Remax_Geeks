@@ -19,7 +19,6 @@ import '../../common/app_strings.dart';
 import '../addPhoneNumber/addPhoneNumber_view.dart';
 import '../customService/customService_view.dart';
 import '../fullService/fullService_view.dart';
-import '../signUp/signUp_view.desktop.dart';
 import '../signUp/singUp_view.dart';
 import 'article_view.desktop.dart';
 import 'article_viewmodel.dart';

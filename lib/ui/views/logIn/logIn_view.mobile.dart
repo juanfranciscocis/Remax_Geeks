@@ -1,285 +1,213 @@
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
+import 'package:remax_geeks/ui/common/app_constants.dart';
+import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:remax_geeks/ui/common/ui_helpers.dart';
-import 'package:flutter/material.dart';
-import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
+import 'package:remax_geeks/ui/views/logIn/logIn_viewmodel.dart';
+import 'package:remax_geeks/ui/views/signUp/signUp_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../helpers/authHelpers.dart';
 import '../../../providers/costumerProvider.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../services/authEmailPassword.dart';
 import '../../../services/authFacebook.dart';
 import '../../../services/authGoogle.dart';
-import '../../../widgets/landingPage/MainMobileNavBar.dart';
-import '../../common/app_constants.dart';
-import '../../common/app_strings.dart';
+import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
+import '../../../widgets/landingPage/MainDesktopNavBar.dart';
 import '../addPhoneNumber/addPhoneNumber_view.dart';
-import '../customService/customService_view.dart';
-import '../fullService/fullService_view.dart';
-import '../signUp/signUp_view.desktop.dart';
-import '../signUp/singUp_view.dart';
-import 'logIn_viewmodel.dart';
 
 class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
-  const LogInViewMobile({super.key});
-
   @override
   Widget build(BuildContext context, LogInViewModel viewModel) {
     CostumerProvider costumer = Provider.of<CostumerProvider>(context);
-    AuthManager auth = Provider.of<AuthManager>(context);
     AuthGoogle authGoogle = Provider.of<AuthGoogle>(context);
     AuthFacebook authFacebook = Provider.of<AuthFacebook>(context);
+    AuthManager auth = Provider.of<AuthManager>(context);
     SellFormProvider sellForm = Provider.of<SellFormProvider>(context);
     DBProvider db = Provider.of<DBProvider>(context, listen: false);
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Stack(
+      backgroundColor: backgroundColor,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Positioned.fill(child: CirclesBackground(circleCount: 10,)), // Add the background circles
-            Center(
+            verticalSpaceMedium,
+            // Left side with text and image
+            Padding(
+              padding: const EdgeInsets.all(40),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    welcomeMessageLogin,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: fontMainColor,
+                      fontSize: 30,
+                      fontFamily: fontOutfitBold,
+                    ),
+                  ),
+                  SizedBox(height: 40),
+                  Container(
+                    width: 100,
+                    height: 100,
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Image.asset(lockIcon),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // Right side card with a column
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
               child: SingleChildScrollView(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      Card(
-                        color: Colors.white,
-                        elevation: 8.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        margin: EdgeInsets.only(left:20.0, right: 20.0, top: 20.0),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 5, right: 5),
+                  child: Card(
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Container(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          verticalSpaceMedium,
+                          // Two images in a row
+                          Align(
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () async {
+                                    await authGoogle.signInWithGoogle();
+                                    checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
+                                  },
+                                  child: Image.asset(
+                                    googleIcon,
+                                    width: 90,
+                                    height: 90,
+                                  ),
+                                ),
+                                horizontalSpaceSmall,
+                                InkWell(
+                                  onTap: () async {
+                                    await authFacebook.signIn();
+                                    checkForFacebookSignin(authFacebook, db, sellForm, costumer, context);
+                                  },
+                                  child: Image.asset(
+                                    facebookIcon,
+                                    width: 75,
+                                    height: 75,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          verticalSpaceMedium,
+                          Align(
+                            alignment: Alignment.center,
                             child: Text(
-                              welcomeMessageLogin,
+                              "Or Sign In Using Email",
                               style: TextStyle(
-                                color: fontMainColor,
+                                color: inputColor,
                                 fontFamily: fontOutfitBold,
-                                fontSize: 30,
+                                fontSize: 20,
+
                               ),
                               textAlign: TextAlign.center,
                             ),
                           ),
-                        ),
-                      ),
-                      verticalSpaceSmall,
-                      Card(
-                        color: Colors.white,
-                        elevation: 8.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        margin: EdgeInsets.only(left:20.0, right: 20.0, bottom: 20.0),
-                        child: Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          verticalSpaceMedium,
+                          // Email
+                          LogSingForm(
+                            height: 50,
+                            label: "Email",
+                            padding: 10,
+                            font: 20,
+                            query: 1.2,
+                            onChanged: (value) {
+                              costumer.email = value;
+                            },
+                          ),
+                          verticalSpaceSmall,
+                          // Password
+                          LogSingForm(
+                            height: 50,
+                            label: "Password",
+                            font: 20,
+                            padding: 10,
+                            query: 1.2,
+                            onChanged: (value) {
+                              costumer.password = value;
+                            },
+                          ),
+                          verticalSpaceMedium,
+                          // Sign Up Button
+                          MaterialButton(
+                            onPressed: () {
+                              authLogIn(costumer, auth, sellForm, db, context);
+                            },
+                            color: primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Log In",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: fontOutfitBold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                          verticalSpaceMedium,
+                          // Sign In Text
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              verticalSpaceMedium,
-                              TextWidget(
-                                text: enterEmail,
-                                color: fontMainColor,
-                                fontFamily: fontOutfitMedium,
-                                fontSize: 20,
-                              ),
-                              verticalSpaceSmall,
-                              TextFieldWidget(
-                                labelText: emailBox,
-                                labelColor: fontMainColor,
-                                labelFontFamily: fontOutfitRegular,
-                                labelFontSize: 15,
-                                enabledBorderColor: fontMainColor,
-                                filled: true,
-                                fillColor: inputColor,
-                                textColor: fontMainColor,
-                                textFontFamily: fontOutfitRegular,
-                                textFontSize: 15,
-                                onChanged: (value) {
-                                  costumer.email = value;
-                                },
-                              ),
-                              verticalSpaceMedium,
-                              TextWidget(
-                                text: enterPassword,
-                                color: fontMainColor,
-                                fontFamily: fontOutfitMedium,
-                                fontSize: 20,
-                              ),
-                              verticalSpaceSmall,
-                              TextFieldWidget(
-                                labelText: passwordBox,
-                                labelColor: fontMainColor,
-                                labelFontFamily: fontOutfitRegular,
-                                labelFontSize: 10,
-                                enabledBorderColor: fontMainColor,
-                                filled: true,
-                                fillColor: inputColor,
-                                textColor: fontMainColor,
-                                textFontFamily: fontOutfitRegular,
-                                textFontSize: 10,
-                                onChanged: (value) {
-                                  costumer.password = value;
-                                },
-                                obscureText: true, // Password field should be obscured
-                              ),
-                              verticalSpaceMedium,
-                              Align(
-                                alignment: Alignment.center,
-                                child: MaterialButton(
-                                  height: 15,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  elevation: 5.0,
-                                  onPressed: () async {
-                                    if(costumer.email != '' && costumer.password != '') {
-                                      await auth.signInWithEmailAndPassword(
-                                          email: costumer.email,
-                                          password: costumer.password);
-                                      if(auth.errorMessage == '') {
-                                        String serviceChoose = sellForm.serviceType;
-                                        costumer.fullName = auth.user!.displayName!;
-                                        String authUID = auth.user!.uid.toString();
-                                        await db.getPhoneNumberByUID(authUID);
-                                        costumer.phoneNumber = db.phoneNumber;
-                                        sellForm.costumer = costumer.costumer;
-                                        if (serviceChoose ==
-                                            chooseServiceTypeCard1Title) {
-                                          Navigator.of(context).pushNamed("/fullService");
-                                        } else {
-                                          Navigator.of(context).pushNamed("/customService");
-                                        }
-                                      } else {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              auth.errorMessage,
-                                              style: TextStyle(
-                                                fontFamily: fontOutfitRegular,
-                                                fontSize: 15,
-                                              ),
-                                            ),
-                                            backgroundColor: Colors.red,
-                                          ),
-                                        );
-                                        auth.errorMessage = '';
-                                      }
-                                    }else{
-                                      // SHOW ERROR MESSAGE
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Please fill all the fields',
-                                            style: TextStyle(
-                                              fontFamily: fontOutfitRegular,
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                          backgroundColor: Colors.red,
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  color: primaryButtonColor,
-                                  textColor: fontWhiteColor,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Log In",
-                                      style: TextStyle(
-                                        fontFamily: fontOutfitBold,
-                                        fontSize: 25,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              verticalSpaceSmall,
-                              Align(
-                                alignment: Alignment.center,
-                                child: MaterialButton(
-                                  height: 50,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  elevation: 5.0,
-                                  onPressed: () {
-                                    //NAVIGATE TO SIGN UP PAGE
-                                    Navigator.of(context).pushNamed("/signUp");
-                                  },
+                              Text(
+                                "Don't have an account yet?",
+                                style: TextStyle(
                                   color: inputColor,
-                                  textColor: fontWhiteColor,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Sign Up",
-                                      style: TextStyle(
-                                        fontFamily: fontOutfitBold,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ),
+                                  fontFamily: fontOutfitBold,
+                                  fontSize: 10,
                                 ),
                               ),
-                              verticalSpaceMedium,
-                              Align(
-                                alignment: Alignment.center,
+                              horizontalSpaceSmall,
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/signUp');
+                                },
                                 child: Text(
-                                  "Or Login With",
+                                  "Sign Up",
                                   style: TextStyle(
-                                    color: inputColor,
+                                    color: fontSecondColor,
                                     fontFamily: fontOutfitBold,
-                                    fontSize: 20,
+                                    fontSize: 15,
                                   ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              verticalSpaceMedium,
-                              // Google sign-in button
-                              Align(
-                                alignment: Alignment.center,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    InkWell(
-                                      onTap: () async {
-                                        await authGoogle.signInWithGoogle();
-                                        checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
-                                      },
-                                      child: Image.asset(
-                                        googleIcon, // Replace with the path to your Google icon
-                                        width: 75,
-                                        height: 75,
-                                      ),
-                                    ),
-                                    horizontalSpaceSmall,
-                                    InkWell(
-                                      onTap: () async {
-                                        await authFacebook.signIn();
-                                        checkForFacebookSignin(authFacebook, db, sellForm, costumer, context);
-                                        //checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
-                                      },
-                                      child: Image.asset(
-                                        facebookIcon, // Replace with the path to your Google icon
-                                        width: 75,
-                                        height: 75,
-                                      ),
-                                    ),
-                                  ],
                                 ),
                               ),
                             ],
                           ),
-                        ),
+                          verticalSpaceMedium,
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
@@ -289,97 +217,4 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
       ),
     );
   }
-
-  void checkForGoogleSignIn(AuthGoogle authGoogle, DBProvider db, SellFormProvider sellForm,CostumerProvider costumer, BuildContext context) async{
-    if(authGoogle.errorMessage == ''){
-      String serviceChoose = sellForm.serviceType;
-      costumer.fullName = authGoogle.user!.displayName!;
-      costumer.email = authGoogle.user!.email!;
-      String authUID = authGoogle.user!.uid.toString();
-      await db.getPhoneNumberByUID(authUID);
-      if(db.phoneNumber.isEmpty){
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) => AddPhoneNumberView(isGoogle: true,)));
-        return;
-      }
-      costumer.phoneNumber = db.phoneNumber;
-      sellForm.costumer = costumer.costumer;
-      if (serviceChoose ==
-          chooseServiceTypeCard1Title) {
-        Navigator.of(context).pushNamed("/fullService");
-        return;
-      } else {
-        Navigator.of(context).pushNamed("/customService");
-        return;
-      }
-    }else{
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Can not Login with Google',
-            style: TextStyle(
-              fontFamily: fontOutfitRegular,
-              fontSize: 15,
-            ),
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
-      authGoogle.errorMessage = '';
-    }
-
-
-  }
-
-  void checkForFacebookSignin(AuthFacebook authFacebook, DBProvider db, SellFormProvider sellForm,CostumerProvider costumer, BuildContext context) async{
-    if(authFacebook.errorMessage == ''){
-      String serviceChoose = sellForm.serviceType;
-      print(serviceChoose);
-      costumer.fullName = authFacebook.userData?['name'];
-      print(costumer.fullName);
-      costumer.email = authFacebook.userData?['email'];
-      print(costumer.email);
-      String authUID = authFacebook.uid;
-      print(authUID);
-      await db.getPhoneNumberByUID(authUID);
-      if(db.phoneNumber.isEmpty){
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>
-                AddPhoneNumberView(isGoogle: false,)));
-        return;
-      }
-      costumer.phoneNumber = db.phoneNumber;
-      print(costumer.phoneNumber);
-      sellForm.costumer = costumer.costumer;
-      print(sellForm.costumer);
-      if (serviceChoose ==
-          chooseServiceTypeCard1Title) {
-        print(chooseServiceTypeCard1Title);
-        Navigator.of(context).pushNamed("/fullService");
-        return;
-      } else {
-        Navigator.of(context).pushNamed("/customService");
-        return;
-      }
-    }else{
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Can not Login with Facebook',
-            style: TextStyle(
-              fontFamily: fontOutfitRegular,
-              fontSize: 15,
-            ),
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
-      authFacebook.errorMessage = '';
-    }
-
-
-  }
-
-
 }
-
