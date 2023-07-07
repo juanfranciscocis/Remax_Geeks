@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../providers/costumerProvider.dart';
 import '../providers/dbProvider.dart';
 import '../providers/sellFormProvider.dart';
+import '../services/analyticsService.dart';
 import '../services/authEmailPassword.dart';
 import '../services/authFacebook.dart';
 import '../services/authGoogle.dart';
@@ -11,12 +13,16 @@ import '../ui/common/app_colors.dart';
 import '../ui/common/app_strings.dart';
 import '../ui/views/addPhoneNumber/addPhoneNumber_view.dart';
 
-void checkForGoogleSignIn(AuthGoogle authGoogle, DBProvider db, SellFormProvider sellForm,CostumerProvider costumer, BuildContext context) async{
+Future<void> checkForGoogleSignIn(AuthGoogle authGoogle, DBProvider db, SellFormProvider sellForm,CostumerProvider costumer, BuildContext context) async{
+  //AuthGoogle authGoogle = AuthGoogle();
+  AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
+  analyticsService.analytics.logLogin(loginMethod: "GOOGLE");
+  await authGoogle.signInWithGoogle();
   if(authGoogle.errorMessage == ''){
     String serviceChoose = sellForm.serviceType;
-    costumer.fullName = authGoogle.user!.displayName!;
-    costumer.email = authGoogle.user!.email!;
-    String authUID = authGoogle.user!.uid.toString();
+    costumer.fullName = authGoogle.googleUser!.displayName!;
+    costumer.email = authGoogle.googleUser!.email!;
+    String authUID = authGoogle.firebaseUser!.uid.toString();
     await db.getPhoneNumberByUID(authUID);
     if(db.phoneNumber.isEmpty){
       Navigator.push(context, MaterialPageRoute(
@@ -53,7 +59,9 @@ void checkForGoogleSignIn(AuthGoogle authGoogle, DBProvider db, SellFormProvider
 }
 
 
-void checkForFacebookSignin(AuthFacebook authFacebook, DBProvider db, SellFormProvider sellForm,CostumerProvider costumer, BuildContext context) async{
+Future<void> checkForFacebookSignin(AuthFacebook authFacebook, DBProvider db, SellFormProvider sellForm,CostumerProvider costumer, BuildContext context) async{
+  AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
+  analyticsService.analytics.logLogin(loginMethod: "FACEBOOK");
   if(authFacebook.errorMessage == ''){
     String serviceChoose = sellForm.serviceType;
     print(serviceChoose);
@@ -158,6 +166,8 @@ class LogSingForm extends StatelessWidget {
 
 
 Future<void> authSignUp(CostumerProvider costumer, AuthManager auth, SellFormProvider sellForm, DBProvider db,BuildContext context) async {
+  AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
+  analyticsService.analytics.logSignUp(signUpMethod: "EMAIL");
   if(costumer.email != '' && costumer.password != '' && costumer.fullName != '' && costumer.phoneNumber != '') {
     await auth.signUpWithEmailAndPassword(
         email: costumer.email,
@@ -215,6 +225,8 @@ Future<void> authSignUp(CostumerProvider costumer, AuthManager auth, SellFormPro
 
 
 Future<void> authLogIn(CostumerProvider costumer, AuthManager auth, SellFormProvider sellForm,DBProvider db, BuildContext context) async {
+  AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
+  analyticsService.analytics.logLogin(loginMethod: "EMAIL");
   if(costumer.email != '' && costumer.password != '') {
     await auth.signInWithEmailAndPassword(
         email: costumer.email,

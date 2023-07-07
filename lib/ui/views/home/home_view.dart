@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
+import 'package:remax_geeks/services/analyticsService.dart';
 import 'package:remax_geeks/services/authEmailPassword.dart';
 import 'package:remax_geeks/services/googlePlacesService.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -20,6 +21,8 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
+    AnalyticsService analyticsService = Provider.of<AnalyticsService>(context);
+    analyticsService.analytics.logAppOpen();
     DBProvider db = Provider.of<DBProvider>(context);
     db.getNumberOfCostumers();
     db.getNumberOfSellingForms();

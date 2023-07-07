@@ -93,7 +93,18 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              verticalSpaceMedium,
+                              Padding(
+                                padding: const EdgeInsets.only(left: 40.0, right: 40.0,top: 50),
+                                child: Text(
+                                  logInTitle,
+                                  style: TextStyle(
+                                    color: inputColor2,
+                                    fontFamily: fontOutfitBold,
+                                    fontSize: 40,
+                                  ),
+                                ),
+                              ),
+                              verticalSpaceSmall,
                               //two images in a row
                               Align(
                                 alignment: Alignment.center,
@@ -133,7 +144,7 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                                 child: Text(
                                   "Or Sign In Using Email",
                                   style: TextStyle(
-                                    color: inputColor,
+                                    color: inputColor2,
                                     fontFamily: fontOutfitBold,
                                     fontSize: 20,
                                   ),
@@ -175,7 +186,7 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                                   Text(
                                     "Don't have an account yet?",
                                     style: TextStyle(
-                                      color: inputColor,
+                                      color: Colors.black45,
                                       fontFamily: fontOutfitBold,
                                       fontSize: 20,
                                     ),
@@ -188,13 +199,22 @@ class LogInViewDesktop extends ViewModelWidget<LogInViewModel> {
                                     child: Text(
                                       "Sign Up",
                                       style: TextStyle(
-                                        color: fontSecondColor,
+                                        color: Colors.blueAccent,
                                         fontFamily: fontOutfitBold,
                                         fontSize: 20,
                                       ),
                                     ),
                                   ),
                                 ],
+                              ),
+                              verticalSpaceTiny,
+                              Text(
+                                privacyText,
+                                style: TextStyle(
+                                  color: Colors.black38,
+                                  fontFamily: fontOutfitRegular,
+                                  fontSize: 20,
+                                ),
                               ),
                               verticalSpaceMedium,
 

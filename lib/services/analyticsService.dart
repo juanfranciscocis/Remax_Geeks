@@ -6,5 +6,5 @@ class AnalyticsService extends ChangeNotifier{
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
   final FirebaseAnalyticsObserver getAnalyticsObserver = FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance);
 
-
+  FirebaseAnalytics get analytics => _analytics;
 }

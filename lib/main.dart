@@ -103,7 +103,7 @@ class MyApp extends StatelessWidget {
                   '/home':(context) => HomeView(),
                   '/addressView':(context) => AddressView(),
                   '/chooseService':(context) => ChooseServiceTypeView(),
-                  '/login':(context) => LogInView(),
+                  '/logIn':(context) => LogInView(),
                   '/signUp':(context) => SignUpView(),
                   '/fullService':(context) => FullServiceView(),
                   '/customService':(context) => CustomServiceView(),

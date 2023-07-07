@@ -52,6 +52,7 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                       fontFamily: fontOutfitBold,
                     ),
                   ),
+
                   SizedBox(height: 40),
                   Container(
                     width: 100,
@@ -72,6 +73,7 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 5, right: 5),
                   child: Card(
+                    margin: EdgeInsets.only(left: 10, right: 10),
                     elevation: 10,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -83,6 +85,23 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           verticalSpaceMedium,
+                          Text(
+                            logInTitlePhone1,
+                            style: TextStyle(
+                              color: inputColor2,
+                              fontFamily: fontOutfitBold,
+                              fontSize: 25,
+                            ),
+                          ),
+                          Text(
+                            logInTitlePhone2,
+                            style: TextStyle(
+                              color: inputColor2,
+                              fontFamily: fontOutfitBold,
+                              fontSize: 25,
+                            ),
+                          ),
+                          verticalSpaceSmall,
                           // Two images in a row
                           Align(
                             alignment: Alignment.center,
@@ -121,7 +140,7 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                             child: Text(
                               "Or Sign In Using Email",
                               style: TextStyle(
-                                color: inputColor,
+                                color: inputColor2,
                                 fontFamily: fontOutfitBold,
                                 fontSize: 20,
 
@@ -183,9 +202,9 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                               Text(
                                 "Don't have an account yet?",
                                 style: TextStyle(
-                                  color: inputColor,
+                                  color: Colors.black45,
                                   fontFamily: fontOutfitBold,
-                                  fontSize: 10,
+                                  fontSize: 18,
                                 ),
                               ),
                               horizontalSpaceSmall,
@@ -196,13 +215,22 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                                 child: Text(
                                   "Sign Up",
                                   style: TextStyle(
-                                    color: fontSecondColor,
+                                    color: Colors.blueAccent,
                                     fontFamily: fontOutfitBold,
-                                    fontSize: 15,
+                                    fontSize: 20,
                                   ),
                                 ),
                               ),
                             ],
+                          ),
+                          verticalSpaceTiny,
+                          Text(
+                            privacyText,
+                            style: TextStyle(
+                              color: Colors.black38,
+                              fontFamily: fontOutfitRegular,
+                              fontSize: 10,
+                            ),
                           ),
                           verticalSpaceMedium,
                         ],

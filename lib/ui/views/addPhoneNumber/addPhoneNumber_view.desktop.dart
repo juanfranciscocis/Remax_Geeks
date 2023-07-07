@@ -13,6 +13,7 @@ import 'package:stacked/stacked.dart';
 import '../../../providers/costumerProvider.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
+import '../../../services/analyticsService.dart';
 import '../../../services/authEmailPassword.dart';
 import '../../../services/authGoogle.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
@@ -106,13 +107,15 @@ class AddPhoneNumberDesktop extends ViewModelWidget<AddPhoneNumberViewModel> {
                               elevation: 5.0,
                               onPressed: () async {
                                 if(costumer.phoneNumber != '') {
+                                  AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
+                                  analyticsService.analytics.logEvent(name: "PHONE_NUMBER_ADDED");
                                     String serviceChoose = sellForm.serviceType;
                                     if(this.isGoogle){
                                       Map<String, dynamic> newCostumer = {
                                         'EMAIL': costumer.email,
                                         'FULL_NAME': costumer.fullName,
                                         'PHONE_NUMBER': costumer.phoneNumber,
-                                        'UID': authGoogle.user?.uid.toString(),
+                                        'UID': authGoogle.firebaseUser?.uid.toString(),
                                       };
                                       db.setNewCostumer(newCostumer);
                                     }else{

@@ -10,6 +10,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../providers/sellFormProvider.dart';
 import '../../../services/GooglePlacesService.dart';
+import '../../../services/analyticsService.dart';
 import '../../../services/realtyMoleService.dart';
 import '../../../services/zillowService.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
@@ -308,6 +309,12 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                 Align(
                   alignment: Alignment.centerRight,
                     child: _buildMaterialButton(title: 'NEXT', onPressed: () async {
+                      AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
+                      analyticsService.analytics.logEvent(name: 'SELL_LOCATION',parameters:{
+                        'LOCATION': widget.sellFormProvider.address,
+                        'PROPERTY_TYPE':  widget.sellFormProvider.type,
+                        'PROPERTY_CONDITION': widget.sellFormProvider.condition
+                      });
                       //CHECK FOR CAPTCHA TOKEN
                       navigate(context);
                     }, buttonColor: confirmButtonColor, isPressed: false)),

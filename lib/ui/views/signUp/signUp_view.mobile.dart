@@ -214,7 +214,7 @@ class SignUpViewMobile extends ViewModelWidget<SignUpViewModel> {
                               horizontalSpaceSmall,
                               InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/login');
+                                  Navigator.pushNamed(context, '/logIn');
                                 },
                                 child: Text(
                                   "Sign In",

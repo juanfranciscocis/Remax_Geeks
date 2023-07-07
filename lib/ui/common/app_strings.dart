@@ -75,8 +75,15 @@ const String passwordBox = 'Password...';
 const String emailBox = 'Email...';
 const String fullNameBox = 'Full Name...';
 const String phoneNumberBox = 'Phone Number...';
-const String welcomeMessageLogin = 'Welcome back! To ensure your privacy and deliver precise estimates, we kindly request you to login to your secure account.';
-const String welcomeMessageSingUp = 'To ensure your privacy and deliver precise estimates, we kindly request you to create a secure account.';
+const String welcomeMessageLogin = 'Welcome back! To protect your privacy we ask you to login into your account to be able to see our estimates';
+const String welcomeMessageSingUp = 'To protect your privacy we ask you to create an account to be able to see our estimates';
+const String signUpTitle = 'You can easily Sign Up using this services:';
+const String signUpTitlePhone1 = 'You can easily Sign Up ';
+const String signUpTitlePhone2 = 'using this services:';
+const String logInTitle = 'You can easily Sign In using this services:';
+const String logInTitlePhone1 = 'You can easily Sign In ';
+const String logInTitlePhone2 = 'using this services:';
+const String privacyText = 'We do not sell or share your personal information with third parties!';
 const String lockIcon = 'assets/signIn/privacy.png';
 
 //GET TO KNOW US

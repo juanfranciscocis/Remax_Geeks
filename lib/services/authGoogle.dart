@@ -8,21 +8,22 @@ class AuthGoogle extends ChangeNotifier{
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   String errorMessage = '';
-  User? user;
+  late GoogleSignInAccount googleUser;
+  late User? firebaseUser;
 
-  Future<User?> signInWithGoogle() async {
+  Future<GoogleSignInAccount?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication? googleAuth =
       await googleUser?.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+        //idToken: googleAuth?.idToken,
       );
-      final User? user =
+      this.firebaseUser =
           (await FirebaseAuth.instance.signInWithCredential(credential)).user;
-      this.user = user;
-      return user;
+      this.googleUser = googleUser!;
+      return googleUser;
     } catch (e) {
       print(e);
       errorMessage = e.toString();
