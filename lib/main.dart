@@ -24,6 +24,7 @@ import 'package:remax_geeks/ui/views/getToKnowUS/getToKnowUs_view.dart';
 import 'package:remax_geeks/ui/views/home/home_view.dart';
 import 'package:remax_geeks/ui/views/learnMore/learnMore_view.dart';
 import 'package:remax_geeks/ui/views/logIn/logIn_view.dart';
+import 'package:remax_geeks/ui/views/privacy/privacy_view.dart';
 import 'package:remax_geeks/ui/views/signUp/signUp_view.desktop.dart';
 import 'package:remax_geeks/ui/views/signUp/singUp_view.dart';
 import 'package:remax_geeks/ui/views/unknown/unknown_view.dart';
@@ -38,6 +39,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:http/http.dart' as http;
 
 Future<void> main() async {
   setPathUrlStrategy();
@@ -110,6 +112,7 @@ class MyApp extends StatelessWidget {
                   '/burgerMenu':(context) => BurgerMenuView(),
                   '/learnMore':(context) => LearnMoreView(),
                   '/getToKnowUs':(context) => GetToKnowUsView(),
+                  '/privacy':(context) => PrivacyView(),
                 },
                 navigatorObservers: [
                   AnalyticsService().getAnalyticsObserver,

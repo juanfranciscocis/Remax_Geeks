@@ -220,13 +220,32 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
                                   ],
                                 ),
                                 verticalSpaceTiny,
-                                Text(
-                                  privacyText,
-                                  style: TextStyle(
-                                    color: Colors.black38,
-                                    fontFamily: fontOutfitRegular,
-                                    fontSize: 20,
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      privacyText,
+                                      style: TextStyle(
+                                        color: Colors.black38,
+                                        fontFamily: fontOutfitRegular,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    horizontalSpaceTiny,
+                                    InkWell(
+                                      onTap: (){
+                                        Navigator.of(context).pushNamed("/privacy");
+                                      },
+                                      child: Text(
+                                        learnMorePrivacy,
+                                        style: TextStyle(
+                                          color: Colors.blueAccent,
+                                          fontFamily: fontOutfitRegular,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 verticalSpaceMedium,
 

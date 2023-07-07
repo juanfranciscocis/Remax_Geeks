@@ -5,29 +5,29 @@ import 'package:remax_geeks/services/googlePlacesService.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
-import 'logIn_view.desktop.dart';
-import 'logIn_view.mobile.dart';
-import 'logIn_viewmodel.dart';
+import 'privacy_view.desktop.dart';
+import 'privacy_view.mobile.dart';
+import 'privacy_viewmodel.dart';
 
-class LogInView extends StackedView<LogInViewModel> {
-  const LogInView({super.key});
+class PrivacyView extends StackedView<PrivacyViewModel> {
+  const PrivacyView({super.key});
 
   @override
   Widget builder(
     BuildContext context,
-    LogInViewModel viewModel,
+    PrivacyViewModel viewModel,
     Widget? child,
   ) {
     return ScreenTypeLayout.builder(
-      mobile: (_) => LogInViewMobile(),
+      mobile: (_) => PrivacyViewMobile(),
       //tablet: (_) => const LogInViewTablet(), //ADD TABLET VIEW IF NEEDED
-      desktop: (_) => LogInViewDesktop(),
+      desktop: (_) => PrivacyViewDesktop(),
     );
   }
 
   @override
-  LogInViewModel viewModelBuilder(
+  PrivacyViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      LogInViewModel();
+      PrivacyViewModel();
 }

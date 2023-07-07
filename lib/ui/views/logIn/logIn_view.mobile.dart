@@ -230,13 +230,32 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                             ],
                           ),
                           verticalSpaceTiny,
-                          Text(
-                            privacyText,
-                            style: TextStyle(
-                              color: Colors.black38,
-                              fontFamily: fontOutfitRegular,
-                              fontSize: 10,
-                            ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                privacyText,
+                                style: TextStyle(
+                                  color: Colors.black38,
+                                  fontFamily: fontOutfitRegular,
+                                  fontSize: 10,
+                                ),
+                              ),
+                              horizontalSpaceTiny,
+                              InkWell(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed("/privacy");
+                                },
+                                child: Text(
+                                  learnMorePrivacy,
+                                  style: TextStyle(
+                                    color: Colors.blueAccent,
+                                    fontFamily: fontOutfitRegular,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           verticalSpaceMedium,
                         ],
