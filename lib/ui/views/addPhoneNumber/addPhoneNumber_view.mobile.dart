@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../helpers/authHelpers.dart';
 import '../../../providers/costumerProvider.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
@@ -75,19 +76,14 @@ class AddPhoneNumberMobile extends ViewModelWidget<AddPhoneNumberViewModel> {
                           fontSize: 20,
                         ),
                         verticalSpaceSmall,
-                        TextFieldWidget(
-                          labelText: "Phone Number...",
-                          labelColor: fontMainColor,
-                          labelFontFamily: fontOutfitRegular,
-                          labelFontSize: 15,
-                          enabledBorderColor: fontMainColor,
-                          filled: true,
-                          fillColor: inputColor,
-                          textColor: fontMainColor,
-                          textFontFamily: fontOutfitRegular,
-                          textFontSize: 15,
+                        LogSingForm(
+                          height: 50,
+                          label: "Phone Number",
+                          font: 20,
+                          padding: 10,
+                          query: 1.2,
                           onChanged: (value) {
-                            costumer.phoneNumber = value;
+                            costumer.password = value;
                           },
                         ),
                         verticalSpaceMedium,

@@ -35,7 +35,8 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            verticalSpaceMassive,
+            verticalSpaceLarge,
+            verticalSpaceMedium,
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -44,7 +45,7 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
                 Flexible(
                   flex: 1,
                   child: Padding(
-                    padding: const EdgeInsets.all(40),
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -92,6 +93,23 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 verticalSpaceMedium,
+                                Text(
+                                  signUpTitlePhone1,
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontFamily: fontOutfitBold,
+                                    fontSize: 40,
+                                  ),
+                                ),
+                                Text(
+                                  signUpTitlePhone2,
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontFamily: fontOutfitBold,
+                                    fontSize: 40,
+                                  ),
+                                ),
+                                verticalSpaceMedium,
                                 //two images in a row
                                 Align(
                                   alignment: Alignment.center,
@@ -131,7 +149,7 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
                                   child: Text(
                                     "Or Sign Up Using Email",
                                     style: TextStyle(
-                                      color: inputColor,
+                                      color: Colors.grey,
                                       fontFamily: fontOutfitBold,
                                       fontSize: 20,
                                     ),
@@ -180,7 +198,7 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
                                     Text(
                                       "Already have an account?",
                                       style: TextStyle(
-                                        color: inputColor,
+                                        color: Colors.black45,
                                         fontFamily: fontOutfitBold,
                                         fontSize: 20,
                                       ),
@@ -188,18 +206,27 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
                                     horizontalSpaceSmall,
                                     InkWell(
                                       onTap: (){
-                                        Navigator.pushNamed(context, '/logIn');
+                                        Navigator.of(context).pushNamed("/logIn");
                                       },
                                       child: Text(
                                         "Sign In",
                                         style: TextStyle(
-                                          color: fontSecondColor,
+                                          color: Colors.blueAccent,
                                           fontFamily: fontOutfitBold,
                                           fontSize: 20,
                                         ),
                                       ),
                                     ),
                                   ],
+                                ),
+                                verticalSpaceTiny,
+                                Text(
+                                  privacyText,
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontFamily: fontOutfitRegular,
+                                    fontSize: 20,
+                                  ),
                                 ),
                                 verticalSpaceMedium,
 

@@ -10,6 +10,9 @@
       "region": "us-east1"
     }
   },
+  "storage": {
+    "rules": "storage.rules"
+  },
   "functions": [
     {
       "source": "functions",
@@ -21,8 +24,5 @@
         "firebase-debug.*.log"
       ]
     }
-  ],
-  "storage": {
-    "rules": "storage.rules"
-  }
+  ]
 }

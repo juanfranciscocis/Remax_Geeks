@@ -71,6 +71,7 @@ class SignUpViewMobile extends ViewModelWidget<SignUpViewModel> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 5, right: 5),
                   child: Card(
+                    margin: EdgeInsets.only(left: 10, right: 10),
                     elevation: 10,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -81,6 +82,23 @@ class SignUpViewMobile extends ViewModelWidget<SignUpViewModel> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          verticalSpaceMedium,
+                          Text(
+                            signUpTitlePhone1,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: fontOutfitBold,
+                              fontSize: 25,
+                            ),
+                          ),
+                          Text(
+                            signUpTitlePhone2,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: fontOutfitBold,
+                              fontSize: 25,
+                            ),
+                          ),
                           verticalSpaceMedium,
                           // Two images in a row
                           Align(
@@ -130,51 +148,63 @@ class SignUpViewMobile extends ViewModelWidget<SignUpViewModel> {
                           ),
                           verticalSpaceMedium,
                           // Full Name
-                          LogSingForm(
-                            height: 50,
-                            label: "Full Name",
-                            font: 20,
-                            padding: 10,
-                            query: 1.2,
-                            onChanged: (value) {
-                              costumer.fullName = value;
-                            },
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: LogSingForm(
+                              height: 50,
+                              label: "Full Name",
+                              font: 20,
+                              padding: 10,
+                              query: 1.2,
+                              onChanged: (value) {
+                                costumer.fullName = value;
+                              },
+                            ),
                           ),
                           verticalSpaceSmall,
                           // Email
-                          LogSingForm(
-                            height: 50,
-                            label: "Email",
-                            padding: 10,
-                            font: 20,
-                            query: 1.2,
-                            onChanged: (value) {
-                              costumer.email = value;
-                            },
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: LogSingForm(
+                              height: 50,
+                              label: "Email",
+                              padding: 10,
+                              font: 20,
+                              query: 1.2,
+                              onChanged: (value) {
+                                costumer.email = value;
+                              },
+                            ),
                           ),
                           verticalSpaceSmall,
                           // Password
-                          LogSingForm(
-                            height: 50,
-                            label: "Password",
-                            font: 20,
-                            padding: 10,
-                            query: 1.2,
-                            onChanged: (value) {
-                              costumer.password = value;
-                            },
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: LogSingForm(
+                              height: 50,
+                              label: "Password",
+                              font: 20,
+                              padding: 10,
+                              query: 1.2,
+                              onChanged: (value) {
+                                costumer.password = value;
+                              },
+                            ),
                           ),
                           verticalSpaceSmall,
                           // Phone
-                          LogSingForm(
-                            height: 50,
-                            label: "Phone",
-                            font: 20,
-                            padding: 10,
-                            query: 1.2,
-                            onChanged: (value) {
-                              costumer.phoneNumber = value;
-                            },
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: LogSingForm(
+                              height: 50,
+                              label: "Phone",
+                              font: 20,
+                              padding: 10,
+                              query: 1.2,
+                              onChanged: (value) {
+                                costumer.phoneNumber = value;
+                              },
+                            ),
                           ),
                           verticalSpaceMedium,
                           // Sign Up Button
@@ -193,7 +223,7 @@ class SignUpViewMobile extends ViewModelWidget<SignUpViewModel> {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: fontOutfitBold,
-                                  fontSize: 20,
+                                  fontSize: 30,
                                 ),
                               ),
                             ),
@@ -206,26 +236,35 @@ class SignUpViewMobile extends ViewModelWidget<SignUpViewModel> {
                               Text(
                                 "Already have an account?",
                                 style: TextStyle(
-                                  color: inputColor,
+                                  color: Colors.black45,
                                   fontFamily: fontOutfitBold,
-                                  fontSize: 10,
+                                  fontSize: 18,
                                 ),
                               ),
                               horizontalSpaceSmall,
                               InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/logIn');
+                                  Navigator.of(context).pushNamed("/logIn");
                                 },
                                 child: Text(
                                   "Sign In",
                                   style: TextStyle(
-                                    color: fontSecondColor,
+                                    color: Colors.blueAccent,
                                     fontFamily: fontOutfitBold,
-                                    fontSize: 15,
+                                    fontSize: 20,
                                   ),
                                 ),
                               ),
                             ],
+                          ),
+                          verticalSpaceTiny,
+                          Text(
+                            privacyText,
+                            style: TextStyle(
+                              color: Colors.black38,
+                              fontFamily: fontOutfitRegular,
+                              fontSize: 10,
+                            ),
                           ),
                           verticalSpaceMedium,
                         ],

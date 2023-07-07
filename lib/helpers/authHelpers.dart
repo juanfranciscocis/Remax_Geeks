@@ -14,6 +14,7 @@ import '../ui/common/app_strings.dart';
 import '../ui/views/addPhoneNumber/addPhoneNumber_view.dart';
 
 Future<void> checkForGoogleSignIn(AuthGoogle authGoogle, DBProvider db, SellFormProvider sellForm,CostumerProvider costumer, BuildContext context) async{
+  await db.getNumberOfCostumers();
   //AuthGoogle authGoogle = AuthGoogle();
   AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
   analyticsService.analytics.logLogin(loginMethod: "GOOGLE");
@@ -60,6 +61,7 @@ Future<void> checkForGoogleSignIn(AuthGoogle authGoogle, DBProvider db, SellForm
 
 
 Future<void> checkForFacebookSignin(AuthFacebook authFacebook, DBProvider db, SellFormProvider sellForm,CostumerProvider costumer, BuildContext context) async{
+  await db.getNumberOfCostumers();
   AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
   analyticsService.analytics.logLogin(loginMethod: "FACEBOOK");
   if(authFacebook.errorMessage == ''){
@@ -166,6 +168,7 @@ class LogSingForm extends StatelessWidget {
 
 
 Future<void> authSignUp(CostumerProvider costumer, AuthManager auth, SellFormProvider sellForm, DBProvider db,BuildContext context) async {
+  await db.getNumberOfCostumers();
   AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
   analyticsService.analytics.logSignUp(signUpMethod: "EMAIL");
   if(costumer.email != '' && costumer.password != '' && costumer.fullName != '' && costumer.phoneNumber != '') {

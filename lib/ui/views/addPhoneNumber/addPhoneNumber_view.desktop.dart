@@ -10,6 +10,7 @@ import 'package:remax_geeks/ui/common/ui_helpers.dart';
 import 'package:remax_geeks/ui/views/addPhoneNumber/addPhoneNumber_view.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../helpers/authHelpers.dart';
 import '../../../providers/costumerProvider.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
@@ -81,21 +82,7 @@ class AddPhoneNumberDesktop extends ViewModelWidget<AddPhoneNumberViewModel> {
                             fontSize: 40,
                           ),
                           verticalSpaceSmall,
-                          TextFieldWidget(
-                            labelText: "Phone Number...",
-                            labelColor: fontMainColor,
-                            labelFontFamily: fontOutfitRegular,
-                            labelFontSize: 20,
-                            enabledBorderColor: fontMainColor,
-                            filled: true,
-                            fillColor: inputColor,
-                            textColor: fontMainColor,
-                            textFontFamily: fontOutfitRegular,
-                            textFontSize: 20,
-                            onChanged: (value) {
-                              costumer.phoneNumber = value;
-                            },
-                          ),
+                          Center(child: LogSingForm(height:70, label: "Phone Number", font: 20, onChanged: (value) {costumer.phoneNumber = value;},)),
                           verticalSpaceMedium,
                           Align(
                             alignment: Alignment.center,
