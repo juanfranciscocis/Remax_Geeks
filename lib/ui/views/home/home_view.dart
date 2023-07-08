@@ -4,9 +4,11 @@ import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/services/analyticsService.dart';
 import 'package:remax_geeks/services/authEmailPassword.dart';
 import 'package:remax_geeks/services/googlePlacesService.dart';
+import 'package:remax_geeks/services/pixelsService.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../providers/storageProvider.dart';
 import 'home_view.desktop.dart';
 import 'home_view.tablet.dart';
 import 'home_view.mobile.dart';
@@ -21,8 +23,12 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    AnalyticsService analyticsService = Provider.of<AnalyticsService>(context);
+    //StorageProvider storageProvider = Provider.of<StorageProvider>(context,listen: false);
+    //storageProvider.getImages(['article1.jpg']);
+    AnalyticsService analyticsService = Provider.of<AnalyticsService>(context, listen: false);
     analyticsService.analytics.logAppOpen();
+    //PixelService pixelService = Provider.of<PixelService>(context, listen: false);
+    //pixelService.trackCurrentPage('HomeView');
     DBProvider db = Provider.of<DBProvider>(context);
     db.getNumberOfCostumers();
     db.getNumberOfSellingForms();

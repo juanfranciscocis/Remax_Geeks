@@ -43,14 +43,14 @@ class DBProvider extends ChangeNotifier{
   Future<void> setSellingFormData( Map<String, dynamic> sellingFormData) async{
     //ADD THE NUMBER OF COSTUMERS TO THE KEY
     String sellForm = _numberOfSellForms.toString();
-    await _databaseReference!.child('SELLING_FORMS').child('SELLING_FORM_' + sellForm).set(sellingFormData);
+    await _databaseReference!.child('SELLING_FORMS').child('COMPLETED_FORMS').child('SELLING_FORM_' + sellForm).set(sellingFormData);
     incrementNumberOfSellForms();
     notifyListeners();
   }
 
   //NUMBER OF SELL FORMS, GET THE NUMBER OF COSTUMERS FROM THE DATABASE AS INT
   Future<void> getNumberOfSellingForms() async{
-    final snapshot = await _databaseReference!.child('SELLING_FORMS_COUNT').get();
+    final snapshot = await _databaseReference!.child('SELLING_FORMS').child('SELLING_FORMS_COUNT').get();
     final numberOfSellForms = snapshot.value as int;
     _numberOfSellForms = numberOfSellForms;
     notifyListeners();
@@ -59,14 +59,14 @@ class DBProvider extends ChangeNotifier{
   //NUMBER OF COSTUMERS, INCREMENT THE NUMBER OF COSTUMERS IN THE DATABASE
   Future<void> incrementNumberOfSellForms() async{
     _numberOfSellForms++;
-    await _databaseReference!.child('SELLING_FORMS_COUNT').set(_numberOfSellForms);
+    await _databaseReference!.child('SELLING_FORMS').child('SELLING_FORMS_COUNT').set(_numberOfSellForms);
     notifyListeners();
   }
 
 
   //NUMBER OF COSTUMERS, GET THE NUMBER OF COSTUMERS FROM THE DATABASE AS INT
   Future<void> getNumberOfCostumers() async{
-    final snapshot = await _databaseReference!.child('COSTUMERS_COUNT').get();
+    final snapshot = await _databaseReference!.child('ALL_COSTUMERS').child('COSTUMERS_COUNT').get();
     final numberOfCostumers = snapshot.value as int;
     _numberOfCostumers = numberOfCostumers;
     notifyListeners();
@@ -75,7 +75,7 @@ class DBProvider extends ChangeNotifier{
   //NUMBER OF COSTUMERS, INCREMENT THE NUMBER OF COSTUMERS IN THE DATABASE
   Future<void> incrementNumberOfCostumers() async{
     _numberOfCostumers++;
-    await _databaseReference!.child('COSTUMERS_COUNT').set(_numberOfCostumers);
+    await _databaseReference!.child('ALL_COSTUMERS').child('COSTUMERS_COUNT').set(_numberOfCostumers);
     notifyListeners();
   }
 
@@ -138,7 +138,7 @@ class DBProvider extends ChangeNotifier{
 
   //GET PREMIUM SERVICES TITLES
   Future<List<String>> getPremiumServicesTitles() async{
-    final snapshot = await _databaseReference!.child('PREMIUM_SERVICES_TITLES').get();
+    final snapshot = await _databaseReference!.child('FULL_SERVICES').child('SELLING_SERVICES').child('FULL_SERVICE_TITLES').get();
     List<dynamic> premiumServicesTitles = snapshot.value as List<dynamic>;
     this.pTitles = premiumServicesTitles.map((e) => e.toString()).toList();
     notifyListeners();
@@ -148,7 +148,7 @@ class DBProvider extends ChangeNotifier{
 
   //GET FULL SERVICE DESCRIPTION
   Future<String?> getFullServiceIncludes() async{
-    final snapshot = await _databaseReference!.child('FULL_SERVICE_INCLUDES').get();
+    final snapshot = await _databaseReference!.child('FULL_SERVICES').child('FULL_SERVICE_INCLUDES').get();
     final fullServiceIncludes = snapshot.value as String;
     this.pFullServiceIncludes = fullServiceIncludes;
     notifyListeners();
@@ -157,7 +157,7 @@ class DBProvider extends ChangeNotifier{
 
   //GET PREMIUM SERVICES DESCRIPTIONS
   Future<List<String>> getPremiumServicesDescriptions() async{
-    final snapshot = await _databaseReference!.child('PREMIUM_SERVICES_DESCRIPTIONS').get();
+    final snapshot = await _databaseReference!.child('FULL_SERVICES').child('SELLING_SERVICES').child('FULL_SERVICE_DESCRIPTIONS').get();
     List<dynamic> premiumServicesDescriptions = snapshot.value as List<dynamic>;
     this.pDescriptions = premiumServicesDescriptions.map((e) => e.toString()).toList();
     notifyListeners();
@@ -167,7 +167,7 @@ class DBProvider extends ChangeNotifier{
 
   //GET CUSTOM SERVICES TITLES
   Future<List<String>> getCustomServicesTitles() async{
-    final snapshot = await _databaseReference!.child('CUSTOM_SERVICES_TITLES').get();
+    final snapshot = await _databaseReference!.child('CUSTOM_SERVICES').child('SELLING_SERVICES').child('CUSTOM_SERVICES_TITLES').get();
     List<dynamic> customServicesTitles = snapshot.value as List<dynamic>;
     this.cTitles = customServicesTitles.map((e) => e.toString()).toList();
     notifyListeners();
@@ -176,7 +176,7 @@ class DBProvider extends ChangeNotifier{
 
   //GET CUSTOM SERVICES DESCRIPTIONS
   Future<List<String>> getCustomServicesDescriptions() async{
-    final snapshot = await _databaseReference!.child('CUSTOM_SERVICES_DESCRIPTIONS').get();
+    final snapshot = await _databaseReference!.child('CUSTOM_SERVICES').child('SELLING_SERVICES').child('CUSTOM_SERVICES_DESCRIPTIONS').get();
     List<dynamic> customServicesDescriptions = snapshot.value as List<dynamic>;
     this.cDescriptions = customServicesDescriptions.map((e) => e.toString()).toList();
     notifyListeners();
@@ -185,7 +185,7 @@ class DBProvider extends ChangeNotifier{
 
   //GET CUSTOM SERVICES INCLUDES
   Future<String?> getCustomServicesIncludes() async{
-    final snapshot = await _databaseReference!.child('CUSTOM_SERVICE_INCLUDES').get();
+    final snapshot = await _databaseReference!.child('CUSTOM_SERVICES').child('CUSTOM_SERVICE_INCLUDES').get();
     final customServicesIncludes = snapshot.value as String;
     this.cCustomIncludes = customServicesIncludes;
     notifyListeners();

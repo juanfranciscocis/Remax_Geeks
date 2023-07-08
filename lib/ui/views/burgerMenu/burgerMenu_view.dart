@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:remax_geeks/models/article.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/services/googlePlacesService.dart';
+import 'package:remax_geeks/services/pixelsService.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
@@ -18,6 +19,7 @@ class BurgerMenuView extends StackedView<BurgerMenuViewModel> {
     BurgerMenuViewModel viewModel,
     Widget? child,
   ) {
+    PixelService().trackEvent('BurgerMenuView', {'MobilePressed': true});
     return ScreenTypeLayout.builder(
       mobile: (_) => const BurgerMenuViewMobile(),
     );

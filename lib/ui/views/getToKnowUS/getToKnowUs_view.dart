@@ -6,6 +6,7 @@ import 'package:remax_geeks/services/googlePlacesService.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../services/pixelsService.dart';
 import 'getToKnowUs_view.desktop.dart';
 import 'getToKnowUs_view.tablet.dart';
 import 'getToKnowUs_view.mobile.dart';
@@ -20,6 +21,8 @@ class GetToKnowUsView extends StackedView<GetToKnowUsViewModel> {
     GetToKnowUsViewModel viewModel,
     Widget? child,
   ) {
+    PixelService().trackCurrentPage('GetToKnowUsView');
+    PixelService().trackButtonPress('GET_TO_KNOW_US_BUTTON_PRESSED');
     return ScreenTypeLayout.builder(
       mobile: (_) => const GetToKnowUsViewMobile(),
       tablet: (_) => const GetToKnowUsViewTablet(), //ADD TABLET VIEW IF NEEDED

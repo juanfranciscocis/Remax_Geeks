@@ -83,7 +83,7 @@ class AddPhoneNumberMobile extends ViewModelWidget<AddPhoneNumberViewModel> {
                           padding: 10,
                           query: 1.2,
                           onChanged: (value) {
-                            costumer.password = value;
+                            costumer.phoneNumber = value;
                           },
                         ),
                         verticalSpaceMedium,

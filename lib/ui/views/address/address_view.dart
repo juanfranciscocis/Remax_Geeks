@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/services/analyticsService.dart';
+import 'package:remax_geeks/services/pixelsService.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
@@ -23,6 +24,8 @@ class AddressView extends StackedView<AddressViewModel> {
   ) {
     AnalyticsService analyticsService = Provider.of<AnalyticsService>(context);
     analyticsService.analytics.logEvent(name: 'SELL_BUTTON_PRESSED');
+    PixelService().trackButtonPress('SELL_BUTTON_PRESSED');
+    PixelService().trackCurrentPage('AddressView');
     final dbProvider = Provider.of<DBProvider>(context);
     dbProvider.getFullServiceIncludes();
     dbProvider.getCustomServicesIncludes();

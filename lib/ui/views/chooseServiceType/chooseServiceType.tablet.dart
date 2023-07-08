@@ -10,6 +10,7 @@ import 'package:stacked/stacked.dart';
 import '../../../providers/costumerProvider.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../services/analyticsService.dart';
+import '../../../services/pixelsService.dart';
 import '../../../widgets/landingPage/LandingPageTabletSite.dart';
 import '../../../widgets/landingPage/MainTabletNavBar.dart';
 import '../../common/app_strings.dart';
@@ -104,6 +105,7 @@ class ChooseServiceTypeTablet extends ViewModelWidget<ChooseServiceTypeViewModel
                               onPressed: () {
                                 AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
                                 analyticsService.analytics.logEvent(name: 'FULL_SERVICE');
+                                PixelService().trackButtonPress('FULL_SERVICE');
                                 //SELL FORM PROVIDER => 'Full Service'
                                 sellFormProvider.serviceType = chooseServiceTypeCard1Title;
                                 print(sellFormProvider.serviceType);
@@ -182,6 +184,7 @@ class ChooseServiceTypeTablet extends ViewModelWidget<ChooseServiceTypeViewModel
                             onPressed: () {
                               AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
                               analyticsService.analytics.logEvent(name: 'CUSTOM_SERVICE');
+                              PixelService().trackButtonPress('CUSTOM_SERVICE');
                               //SELL FORM PROVIDER => 'Full Service'
                               sellFormProvider.serviceType = chooseServiceTypeCard2Title;
                               print(sellFormProvider.serviceType);

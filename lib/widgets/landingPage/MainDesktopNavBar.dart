@@ -1,5 +1,7 @@
 //Import material
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:remax_geeks/providers/storageProvider.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:remax_geeks/ui/views/learnMore/learnMore_view.dart';
 
@@ -55,7 +57,9 @@ class MainDesktopNavBar extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 20.0),
                 child: MaterialButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    StorageProvider storageProvider = Provider.of<StorageProvider>(context, listen: false);
+                    await storageProvider.getImages(['article1.jpg']);
                     Navigator.pushNamed(context, '/learnMore');
                   }, //TODO: CHANGE TO LEARN MORE SCREEN
                   child: const Padding(

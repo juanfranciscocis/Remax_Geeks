@@ -7,6 +7,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../models/article.dart';
 import '../../../providers/dbProvider.dart';
+import '../../../services/pixelsService.dart';
 import '../../../widgets/landingPage/LandingPageTabletSite.dart';
 import '../../../widgets/landingPage/MainTabletNavBar.dart';
 import '../../common/app_strings.dart';
@@ -61,6 +62,8 @@ class _LearnMoreViewTabletState extends State<LearnMoreViewTablet> {
                             width: 1400,
                             child: GestureDetector(
                               onTap: () {
+                                String articleTitle = articles[i].title;
+                                PixelService().trackEvent('ARTICLE_$articleTitle');
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

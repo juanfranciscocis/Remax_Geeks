@@ -5,6 +5,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
+import '../../../services/pixelsService.dart';
 import 'chooseServiceType.desktop.dart';
 import 'chooseServiceType.tablet.dart';
 import 'chooseServiceType.mobile.dart';
@@ -19,6 +20,7 @@ class ChooseServiceTypeView extends StackedView<ChooseServiceTypeViewModel> {
     ChooseServiceTypeViewModel viewModel,
     Widget? child,
   ) {
+    PixelService().trackCurrentPage('ChooseServiceTypeView');
     final dbProvider = Provider.of<DBProvider>(context, listen: false);
     dbProvider.getTitlesAndDescriptions(); //GETTING TITLES BEFORE BUILDING THE WIDGETS
     final sellFormProvider = Provider.of<SellFormProvider>(context);

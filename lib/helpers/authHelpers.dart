@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:remax_geeks/services/pixelsService.dart';
 
 import '../providers/costumerProvider.dart';
 import '../providers/dbProvider.dart';
@@ -18,6 +19,7 @@ Future<void> checkForGoogleSignIn(AuthGoogle authGoogle, DBProvider db, SellForm
   //AuthGoogle authGoogle = AuthGoogle();
   AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
   analyticsService.analytics.logLogin(loginMethod: "GOOGLE");
+  PixelService().trackLogin("GOOGLE");
   await authGoogle.signInWithGoogle();
   if(authGoogle.errorMessage == ''){
     String serviceChoose = sellForm.serviceType;
@@ -61,6 +63,7 @@ Future<void> checkForGoogleSignIn(AuthGoogle authGoogle, DBProvider db, SellForm
 
 
 Future<void> checkForFacebookSignin(AuthFacebook authFacebook, DBProvider db, SellFormProvider sellForm,CostumerProvider costumer, BuildContext context) async{
+  PixelService().trackLogin("FACEBOOK");
   await db.getNumberOfCostumers();
   AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
   analyticsService.analytics.logLogin(loginMethod: "FACEBOOK");
@@ -168,6 +171,7 @@ class LogSingForm extends StatelessWidget {
 
 
 Future<void> authSignUp(CostumerProvider costumer, AuthManager auth, SellFormProvider sellForm, DBProvider db,BuildContext context) async {
+  PixelService().trackSignup("EMAIL");
   await db.getNumberOfCostumers();
   AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
   analyticsService.analytics.logSignUp(signUpMethod: "EMAIL");
@@ -228,6 +232,7 @@ Future<void> authSignUp(CostumerProvider costumer, AuthManager auth, SellFormPro
 
 
 Future<void> authLogIn(CostumerProvider costumer, AuthManager auth, SellFormProvider sellForm,DBProvider db, BuildContext context) async {
+  PixelService().trackLogin("EMAIL");
   AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
   analyticsService.analytics.logLogin(loginMethod: "EMAIL");
   if(costumer.email != '' && costumer.password != '') {

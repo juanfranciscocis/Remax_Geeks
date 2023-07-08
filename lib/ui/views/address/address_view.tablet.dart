@@ -10,6 +10,7 @@ import 'package:stacked/stacked.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../services/GooglePlacesService.dart';
 import '../../../services/analyticsService.dart';
+import '../../../services/pixelsService.dart';
 import '../../../services/realtyMoleService.dart';
 import '../../../services/zillowService.dart';
 import '../../../widgets/landingPage/LandingPageTabletSite.dart';
@@ -40,6 +41,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
   _AddressViewTabletState({required this.sellFormProvider});
 
   void changeTextFieldToSuggestion(String suggestion){
+    PixelService().trackSellingLocation(suggestion);
     setState(() {
       addressController.text = suggestion;
       sellFormProvider.address = suggestion;
@@ -321,6 +323,11 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
 
                       AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
                       analyticsService.analytics.logEvent(name: 'SELL_LOCATION',parameters:{
+                        'LOCATION': widget.sellFormProvider.address,
+                        'PROPERTY_TYPE':  widget.sellFormProvider.type,
+                        'PROPERTY_CONDITION': widget.sellFormProvider.condition
+                      });
+                      PixelService().trackForms('SELL_LOCATION', {
                         'LOCATION': widget.sellFormProvider.address,
                         'PROPERTY_TYPE':  widget.sellFormProvider.type,
                         'PROPERTY_CONDITION': widget.sellFormProvider.condition

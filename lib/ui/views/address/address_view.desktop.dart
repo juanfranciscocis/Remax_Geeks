@@ -2,6 +2,7 @@
 import 'package:g_recaptcha_v3/g_recaptcha_v3.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/helpers/apiRequest.dart';
+import 'package:remax_geeks/services/pixelsService.dart';
 import 'package:remax_geeks/services/realtyMoleService.dart';
 import 'package:remax_geeks/services/zillowService.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
@@ -42,6 +43,7 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
   _AddressViewDesktopState({required this.sellFormProvider});
 
   void changeTextFieldToSuggestion(String suggestion){
+    PixelService().trackSellingLocation(suggestion);
     setState(() {
       addressController.text = suggestion;
       sellFormProvider.address = suggestion;
@@ -329,7 +331,11 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                       'PROPERTY_TYPE':  widget.sellFormProvider.type,
                       'PROPERTY_CONDITION': widget.sellFormProvider.condition
                     });
-
+                    PixelService().trackForms('SELL_LOCATION', {
+                      'LOCATION': widget.sellFormProvider.address,
+                      'PROPERTY_TYPE':  widget.sellFormProvider.type,
+                      'PROPERTY_CONDITION': widget.sellFormProvider.condition
+                    });
                     //CHECK FOR CAPTCHA TOKEN
                     navigate(context);
                   }, buttonColor: confirmButtonColor, isPressed: false)),

@@ -11,6 +11,7 @@ import 'package:stacked/stacked.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../services/GooglePlacesService.dart';
 import '../../../services/analyticsService.dart';
+import '../../../services/pixelsService.dart';
 import '../../../services/realtyMoleService.dart';
 import '../../../services/zillowService.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
@@ -41,6 +42,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
   _AddressViewMobileState({required this.sellFormProvider});
 
   void changeTextFieldToSuggestion(String suggestion){
+    PixelService().trackSellingLocation(suggestion);
     setState(() {
       addressController.text = suggestion;
       sellFormProvider.address = suggestion;
@@ -311,6 +313,11 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                     child: _buildMaterialButton(title: 'NEXT', onPressed: () async {
                       AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
                       analyticsService.analytics.logEvent(name: 'SELL_LOCATION',parameters:{
+                        'LOCATION': widget.sellFormProvider.address,
+                        'PROPERTY_TYPE':  widget.sellFormProvider.type,
+                        'PROPERTY_CONDITION': widget.sellFormProvider.condition
+                      });
+                      PixelService().trackForms('SELL_LOCATION', {
                         'LOCATION': widget.sellFormProvider.address,
                         'PROPERTY_TYPE':  widget.sellFormProvider.type,
                         'PROPERTY_CONDITION': widget.sellFormProvider.condition

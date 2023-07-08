@@ -5,6 +5,7 @@ import 'package:remax_geeks/services/googlePlacesService.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../services/pixelsService.dart';
 import 'privacy_view.desktop.dart';
 import 'privacy_view.mobile.dart';
 import 'privacy_viewmodel.dart';
@@ -18,6 +19,7 @@ class PrivacyView extends StackedView<PrivacyViewModel> {
     PrivacyViewModel viewModel,
     Widget? child,
   ) {
+    PixelService().trackCurrentPage('PrivacyView');
     return ScreenTypeLayout.builder(
       mobile: (_) => PrivacyViewMobile(),
       //tablet: (_) => const LogInViewTablet(), //ADD TABLET VIEW IF NEEDED

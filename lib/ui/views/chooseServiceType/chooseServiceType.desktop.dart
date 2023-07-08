@@ -12,6 +12,7 @@ import 'package:stacked/stacked.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
 import '../../../services/analyticsService.dart';
+import '../../../services/pixelsService.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
 import '../logIn/logIn_view.dart';
@@ -135,6 +136,7 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                       onPressed: () {
                                         AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
                                         analyticsService.analytics.logEvent(name: 'FULL_SERVICE');
+                                        PixelService().trackButtonPress('FULL_SERVICE');
 
 
                                         sellFormProvider.serviceType =
@@ -216,6 +218,7 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                     onPressed: () {
                                       AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
                                       analyticsService.analytics.logEvent(name: 'CUSTOM_SERVICE');
+                                      PixelService().trackButtonPress('CUSTOM_SERVICE');
                                       //SELL FORM PROVIDER => 'Full Service'
                                       sellFormProvider.serviceType =
                                           chooseServiceTypeCard2Title;

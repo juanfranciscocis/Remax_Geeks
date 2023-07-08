@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/helpers/getLearnMorePaths.dart';
 import 'package:remax_geeks/models/article.dart';
+import 'package:remax_geeks/providers/storageProvider.dart';
+import 'package:remax_geeks/services/pixelsService.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
@@ -35,13 +37,18 @@ class LearnMoreViewDesktop extends StatefulWidget {
 }
 
 class _LearnMoreViewDesktopState extends State<LearnMoreViewDesktop> {
-  List<String> paths = [];
+  List paths = [];
 
   late List<Article> articles=[];
 
   void initState() {
     DBProvider db = Provider.of<DBProvider>(context, listen: false);
     paths = getLearnMorePaths();
+    StorageProvider storageProvider =
+        Provider.of<StorageProvider>(context, listen: false);
+    paths = storageProvider.paths;
+
+
     articlesInit();
     super.initState();
   }
@@ -56,6 +63,7 @@ class _LearnMoreViewDesktopState extends State<LearnMoreViewDesktop> {
 
   @override
   Widget build(BuildContext context) {
+
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -74,12 +82,14 @@ class _LearnMoreViewDesktopState extends State<LearnMoreViewDesktop> {
                   width: 1400,
                   child: GestureDetector(
                     onTap: () {
+                      String articleTitle = articles[i].title;
+                      PixelService().trackEvent('ARTICLE_$articleTitle');
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ArticleView(article: articles[i],)));
                     },
                     child: learnMoreArticle(
                       title: articles[i].title,
                       subtitle: articles[i].subtitle,
-                      imagePath: '',
+                      imagePath: paths[0],
                     ),
                   ),
                 ),
@@ -127,7 +137,7 @@ class learnMoreArticle extends StatelessWidget {
             child: Container(
               width: imageSize??200,
               height: imageSize??200,
-              child: Image.asset(
+              child: Image.network(
                 imagePath,
                 fit: BoxFit.cover,
               ),

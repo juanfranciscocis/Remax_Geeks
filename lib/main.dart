@@ -6,11 +6,13 @@ import 'package:provider/provider.dart';
 import 'package:remax_geeks/providers/costumerProvider.dart';
 import 'package:remax_geeks/providers/dbProvider.dart';
 import 'package:remax_geeks/providers/sellFormProvider.dart';
+import 'package:remax_geeks/providers/storageProvider.dart';
 import 'package:remax_geeks/services/GooglePlacesService.dart';
 import 'package:remax_geeks/services/analyticsService.dart';
 import 'package:remax_geeks/services/authEmailPassword.dart';
 import 'package:remax_geeks/services/authFacebook.dart';
 import 'package:remax_geeks/services/authGoogle.dart';
+import 'package:remax_geeks/services/pixelsService.dart';
 import 'package:remax_geeks/services/realtyMoleService.dart';
 import 'package:remax_geeks/services/sendEmail.dart';
 import 'package:remax_geeks/services/zillowService.dart';
@@ -88,6 +90,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthGoogle()),
         ChangeNotifierProvider(create: (_) => AuthFacebook()),
         ChangeNotifierProvider(create: (_) => AnalyticsService()),
+        ChangeNotifierProvider(create: (_) => StorageProvider()),
+        ChangeNotifierProvider(create: (_) => PixelService()),
       ],
       child: ResponsiveApp(
           preferDesktop: true,

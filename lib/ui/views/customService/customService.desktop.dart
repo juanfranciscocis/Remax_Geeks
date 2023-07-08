@@ -1,4 +1,5 @@
 import 'package:provider/provider.dart';
+import 'package:remax_geeks/services/pixelsService.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
@@ -252,6 +253,7 @@ class _CustomServiceDesktopState extends State<CustomServiceDesktop> {
                       };
                       await db.setSellingFormData(data);
                       await SendMail().sendEmail(widget.sellFormProvider.costumer);
+                      PixelService().trackForms('SELL_HOUSE_FORM_CUSTOM', data);
                       showConfirmationDialog(context);
                     } else {
                       // SHOW ERROR MESSAGE

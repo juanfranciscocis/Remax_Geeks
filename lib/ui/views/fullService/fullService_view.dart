@@ -5,6 +5,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
+import '../../../services/pixelsService.dart';
 import 'fullService.desktop.dart';
 import 'fullService.tablet.dart';
 import 'fullService.mobile.dart';
@@ -19,6 +20,7 @@ class FullServiceView extends StackedView<FullServiceViewModel> {
     FullServiceViewModel viewModel,
     Widget? child,
   ) {
+    PixelService().trackCurrentPage('FullServiceView');
     final dbProvider = Provider.of<DBProvider>(context, listen: false);
     final sellFormProvider = Provider.of<SellFormProvider>(context);
     return ScreenTypeLayout.builder(

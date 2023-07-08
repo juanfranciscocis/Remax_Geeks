@@ -12,6 +12,7 @@ import 'package:stacked/stacked.dart';
 import '../../../helpers/currencyFormater.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
+import '../../../services/pixelsService.dart';
 import '../../../widgets/landingPage/LandingPageDesktopSite.dart';
 import '../../../widgets/landingPage/MainDesktopNavBar.dart';
 import '../../../widgets/services/forDesktop/CardApiInformationDesktop.dart';
@@ -263,6 +264,7 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
                       };
                       await db.setSellingFormData(data);
                       await SendMail().sendEmail(widget.sellFormProvider.costumer);
+                      PixelService().trackForms('SELL_HOUSE_FORM_FULL_SERVICE', data);
                       showConfirmationDialog(context);
                       //Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
                   }, buttonColor: confirmButtonColor)),

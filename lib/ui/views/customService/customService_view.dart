@@ -5,6 +5,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
+import '../../../services/pixelsService.dart';
 import 'customService.desktop.dart';
 import 'customService.tablet.dart';
 import 'customService.mobile.dart';
@@ -19,6 +20,7 @@ class CustomServiceView extends StackedView<CustomServiceViewModel> {
     CustomServiceViewModel viewModel,
     Widget? child,
   ) {
+    PixelService().trackCurrentPage('CustomServiceView');
     final dbProvider = Provider.of<DBProvider>(context);
     final sellFormProvider = Provider.of<SellFormProvider>(context);
     return ScreenTypeLayout.builder(

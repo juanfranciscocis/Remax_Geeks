@@ -14,6 +14,7 @@ import '../../../providers/sellFormProvider.dart';
 import '../../../services/authEmailPassword.dart';
 import '../../../services/authFacebook.dart';
 import '../../../services/authGoogle.dart';
+import '../../../services/pixelsService.dart';
 import '../../../widgets/landingPage/MainMobileNavBar.dart';
 import '../../common/app_constants.dart';
 import '../../common/app_strings.dart';
@@ -76,6 +77,8 @@ class _LearnMoreViewMobileState extends State<LearnMoreViewMobile> {
                               width: 1400,
                               child: GestureDetector(
                                 onTap: () {
+                                  String articleTitle = articles[i].title;
+                                  PixelService().trackEvent('ARTICLE_$articleTitle');
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
