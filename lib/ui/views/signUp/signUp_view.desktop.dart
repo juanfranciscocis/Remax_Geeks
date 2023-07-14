@@ -67,6 +67,30 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
                             child: Image.asset(lockIcon),
                           ),
                         ),
+                        verticalSpaceMedium,
+                        Text(
+                          textAlign: TextAlign.center,
+                          privacyText,
+                          style: TextStyle(
+                            color: fontMainColor,
+                            fontFamily: fontOutfitRegular,
+                            fontSize: 30,
+                          ),
+                        ),
+                        horizontalSpaceTiny,
+                        InkWell(
+                          onTap: (){
+                            Navigator.of(context).pushNamed("/privacy");
+                          },
+                          child: Text(
+                            learnMorePrivacy,
+                            style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontFamily: fontOutfitRegular,
+                              fontSize: 25,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -78,181 +102,180 @@ class SignUpViewDesktop extends ViewModelWidget<SignUpViewModel> {
                       scrollDirection: Axis.vertical,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: Card(
-                          elevation: 10,
-                          //round
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Container(
-                            //height: MediaQuery.of(context).size.height,
-                            //width: MediaQuery.of(context).size.width / 2, // Half of the screen width
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                verticalSpaceMedium,
-                                Text(
-                                  signUpTitlePhone1,
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontFamily: fontOutfitBold,
-                                    fontSize: 40,
-                                  ),
-                                ),
-                                Text(
-                                  signUpTitlePhone2,
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontFamily: fontOutfitBold,
-                                    fontSize: 40,
-                                  ),
-                                ),
-                                verticalSpaceMedium,
-                                //two images in a row
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        onTap: () async {
-                                          await authGoogle.signInWithGoogle();
-                                          checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
-                                        },
-                                        child: Image.asset(
-                                          googleIcon, // Replace with the path to your Google icon
-                                          width: 90,
-                                          height: 90,
-                                        ),
-                                      ),
-                                      horizontalSpaceSmall,
-                                      InkWell(
-                                        onTap: () async {
-                                          await authFacebook.signIn();
-                                          checkForFacebookSignin(authFacebook, db, sellForm, costumer, context);
-                                          //checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
-                                        },
-                                        child: Image.asset(
-                                          facebookIcon, // Replace with the path to your Google icon
-                                          width: 75,
-                                          height: 75,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                verticalSpaceMedium,
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "Or Sign Up Using Email",
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontFamily: fontOutfitBold,
-                                      fontSize: 20,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                verticalSpaceMedium,
-
-                                //Full Name
-                                LogSingForm(height:70, label: "Full Name", font: 20, onChanged: (value) {costumer.fullName = value;},),
-                                verticalSpaceSmall,
-                                //Email
-                                LogSingForm(height:70, label: "Email", font: 20, onChanged: (value) {costumer.email = value;},),
-                                verticalSpaceSmall,
-                                //Password
-                                LogSingForm(height:70, label: "Password", font: 20, onChanged: (value) {costumer.password = value;},),
-                                verticalSpaceSmall,
-                                //Phone
-                                LogSingForm(height:70, label: "Phone", font: 20, onChanged: (value) {costumer.phoneNumber = value;},),
-                                verticalSpaceMedium,
-                                //Sign Up Button
-                                MaterialButton(onPressed: (){
-                                  authSignUp(costumer, auth, sellForm, db, context);
-                                },
-                                  color: primaryColor,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Sign Up",
+                        child: Column(
+                          children: [
+                            Card(
+                              elevation: 10,
+                              //round
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Container(
+                                width: 680,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    verticalSpaceMedium,
+                                    Text(
+                                      signUpTitlePhone1,
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.grey,
                                         fontFamily: fontOutfitBold,
                                         fontSize: 40,
                                       ),
                                     ),
-                                  ),
-                                ),
-                                verticalSpaceMedium,
-                                //Sign In Text
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
                                     Text(
-                                      "Already have an account?",
+                                      signUpTitlePhone2,
                                       style: TextStyle(
-                                        color: Colors.black45,
+                                        color: Colors.grey,
                                         fontFamily: fontOutfitBold,
-                                        fontSize: 20,
+                                        fontSize: 40,
                                       ),
                                     ),
-                                    horizontalSpaceSmall,
-                                    InkWell(
-                                      onTap: (){
-                                        Navigator.of(context).pushNamed("/logIn");
-                                      },
-                                      child: Text(
-                                        "Sign In",
-                                        style: TextStyle(
-                                          color: Colors.blueAccent,
-                                          fontFamily: fontOutfitBold,
-                                          fontSize: 20,
-                                        ),
+                                    verticalSpaceMedium,
+                                    //two images in a row
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: () async {
+                                              await authGoogle.signInWithGoogle();
+                                              checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
+                                            },
+                                            child: Image.asset(
+                                              googleIcon, // Replace with the path to your Google icon
+                                              width: 90,
+                                              height: 90,
+                                            ),
+                                          ),
+                                          horizontalSpaceSmall,
+                                          InkWell(
+                                            onTap: () async {
+                                              await authFacebook.signIn();
+                                              checkForFacebookSignin(authFacebook, db, sellForm, costumer, context);
+                                              //checkForGoogleSignIn(authGoogle, db, sellForm, costumer, context);
+                                            },
+                                            child: Image.asset(
+                                              facebookIcon, // Replace with the path to your Google icon
+                                              width: 75,
+                                              height: 75,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
+                                    verticalSpaceMedium,
+
                                   ],
                                 ),
-                                verticalSpaceTiny,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      privacyText,
-                                      style: TextStyle(
-                                        color: Colors.black38,
-                                        fontFamily: fontOutfitRegular,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                    horizontalSpaceTiny,
-                                    InkWell(
-                                      onTap: (){
-                                        Navigator.of(context).pushNamed("/privacy");
-                                      },
-                                      child: Text(
-                                        learnMorePrivacy,
-                                        style: TextStyle(
-                                          color: Colors.blueAccent,
-                                          fontFamily: fontOutfitRegular,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                verticalSpaceMedium,
+                              ),
 
-
-                              ],
                             ),
-                          ),
+                            Card(
+                              elevation: 10,
+                              //round
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Container(
+                                //height: MediaQuery.of(context).size.height,
+                                //width: MediaQuery.of(context).size.width / 2, // Half of the screen width
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    verticalSpaceMedium,
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Or Sign Up Using Email",
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontFamily: fontOutfitBold,
+                                          fontSize: 30,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    verticalSpaceMedium,
+
+                                    //Full Name
+                                    LogSingForm(height:70, label: "Full Name", font: 20, onChanged: (value) {costumer.fullName = value;},),
+                                    verticalSpaceSmall,
+                                    //Email
+                                    LogSingForm(height:70, label: "Email", font: 20, onChanged: (value) {costumer.email = value;},),
+                                    verticalSpaceSmall,
+                                    //Password
+                                    LogSingForm(height:70, label: "Password", font: 20, onChanged: (value) {costumer.password = value;},),
+                                    verticalSpaceSmall,
+                                    //Phone
+                                    LogSingForm(phoneNumber:true,height:70, label: "Phone", font: 20, onChanged: (value) {if(validatePhoneNumber(value)==null) {costumer.phoneNumber = '';}else{
+                                      costumer.phoneNumber = value;}},),
+                                    verticalSpaceMedium,
+                                    //Sign Up Button
+                                    MaterialButton(onPressed: (){
+                                      authSignUp(costumer, auth, sellForm, db, context);
+                                    },
+                                      color: primaryColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "Sign Up",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: fontOutfitBold,
+                                            fontSize: 40,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    verticalSpaceMedium,
+                                    //Sign In Text
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Already have an account?",
+                                          style: TextStyle(
+                                            color: Colors.black45,
+                                            fontFamily: fontOutfitBold,
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                        horizontalSpaceSmall,
+                                        InkWell(
+                                          onTap: (){
+                                            Navigator.of(context).pushNamed("/logIn");
+                                          },
+                                          child: Text(
+                                            "Sign In",
+                                            style: TextStyle(
+                                              color: Colors.blueAccent,
+                                              fontFamily: fontOutfitBold,
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    verticalSpaceTiny,
+
+                                    verticalSpaceMedium,
+
+
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

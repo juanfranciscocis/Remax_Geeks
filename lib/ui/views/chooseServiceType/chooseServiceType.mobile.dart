@@ -91,7 +91,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                           verticalSpaceMedium,
                           //SUBTITLE
                           Text(
-                            fullServiceDescription,
+                            chooseServiceTypeCard1Desc,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: fontWhiteColor,
@@ -121,10 +121,14 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: Image.asset(
-                              chooseServiceTypeCardConfirmButton,
+                            child: Container(
                               width: 600,
                               height: 70,
+                              child: Icon(
+                                Icons.arrow_forward,
+                                color: fontWhiteColor,
+                                size: 50,
+                              ),
                             ),
                           ),
                           verticalSpaceMedium,
@@ -170,7 +174,7 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                         verticalSpaceMedium,
                         //SUBTITLE
                          Text(
-                          customServiceDescription,
+                           chooseServiceTypeCard2Desc,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: fontWhiteColor,
@@ -200,10 +204,14 @@ class ChooseServiceTypeMobile extends ViewModelWidget<ChooseServiceTypeViewModel
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Image.asset(
-                            chooseServiceTypeCardConfirmButton,
+                          child: Container(
                             width: 600,
                             height: 70,
+                            child: Icon(
+                              Icons.arrow_forward,
+                              color: fontWhiteColor,
+                              size: 50,
+                            ),
                           ),
                         ),
                         verticalSpaceMedium,

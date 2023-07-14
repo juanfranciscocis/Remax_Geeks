@@ -67,7 +67,7 @@ class AddPhoneNumberDesktop extends ViewModelWidget<AddPhoneNumberViewModel> {
                             child: Text(
                               "One More Thing...",
                               style: TextStyle(
-                                color: fontMainColor,
+                                color: inputColor,
                                 fontFamily: fontOutfitBold,
                                 fontSize: 55,
                               ),
@@ -77,12 +77,13 @@ class AddPhoneNumberDesktop extends ViewModelWidget<AddPhoneNumberViewModel> {
                           verticalSpaceMedium,
                           TextWidget(
                             text: "Please enter your phone so that we can contact you:",
-                            color: fontMainColor,
+                            color: inputColor,
                             fontFamily: fontOutfitMedium,
                             fontSize: 40,
                           ),
                           verticalSpaceSmall,
-                          Center(child: LogSingForm(height:70, label: "Phone Number", font: 20, onChanged: (value) {costumer.phoneNumber = value;},)),
+                          Center(child: LogSingForm(phoneNumber: true,height:70, label: "Phone Number", font: 20, onChanged: (value) {if(validatePhoneNumber(value)==null) {costumer.phoneNumber = '';}else{
+                            costumer.phoneNumber = value;}},)),
                           verticalSpaceMedium,
                           Align(
                             alignment: Alignment.center,
@@ -125,7 +126,7 @@ class AddPhoneNumberDesktop extends ViewModelWidget<AddPhoneNumberViewModel> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Please fill all the fields',
+                                          'US Phone number is required',
                                           style: TextStyle(
                                             fontFamily: fontOutfitRegular,
                                             fontSize: 15,

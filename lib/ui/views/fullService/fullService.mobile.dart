@@ -26,11 +26,12 @@ class FullServiceMobile extends StatefulWidget {
 
   DBProvider dbProvider;
   SellFormProvider sellFormProvider;
-  List<String> premiumTitles;
+  List<String> premiumTitles = [];
   List<String> premiumDescriptions;
+  List<String> premiumPrices;
   String fullServiceIncludes;
 
-  FullServiceMobile({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions, required this.fullServiceIncludes});
+  FullServiceMobile({super.key, required this.premiumPrices,required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions, required this.fullServiceIncludes});
 
   @override
   State<FullServiceMobile> createState() => _FullServiceMobileState();
@@ -80,6 +81,14 @@ class _FullServiceMobileState extends State<FullServiceMobile> {
     }
   }
 
+  @override
+  void initState() {
+    DBProvider dbProvider = widget.dbProvider;
+    dbProvider.getPremiumServicesTitles();
+    widget.premiumTitles = dbProvider.pTitles;
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +115,7 @@ class _FullServiceMobileState extends State<FullServiceMobile> {
                   style: TextStyle(
                     color: fontMainColor,
                     fontFamily: fontOutfitBold,
-                    fontSize: 60,
+                    fontSize: 40,
                   ),
                 ),
 
@@ -124,7 +133,7 @@ class _FullServiceMobileState extends State<FullServiceMobile> {
                 //CARD 2
                 Center(
                   child: Card(
-                    color: secondaryCardColor,
+                    color: primaryCardColor,
                     elevation: 10.0,
                     //ROUND CORNERS
                     shape: RoundedRectangleBorder(
@@ -139,12 +148,12 @@ class _FullServiceMobileState extends State<FullServiceMobile> {
                             child: Padding(
                               padding: const EdgeInsets.only(top:20,bottom: 10),
                               child: Text(
-                                sendAgent,
+                                sendAgentFullService,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: fontWhiteColor,
                                   fontFamily: fontOutfitMedium,
-                                  fontSize: 40,
+                                  fontSize: 30,
                                 ),
                               ),
                             ),
@@ -152,7 +161,7 @@ class _FullServiceMobileState extends State<FullServiceMobile> {
                           //checkbox, when checked color confirmation, else main color
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20.0),
-                            child: _buildMaterialButton(title: 'PICK DATE AND TIME', onPressed: () => _selectDateTime(context),buttonColor: secondaryButtonColor, textSize: 20),
+                            child: _buildMaterialButton(title: 'PICK DATE AND TIME', onPressed: () => _selectDateTime(context),buttonColor: pressedButtonColor, textSize: 20),
                           ),
                         ],
                       ),
@@ -230,7 +239,7 @@ class _FullServiceMobileState extends State<FullServiceMobile> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ...widget.premiumTitles.map((e) => CardServices(sellformProvider: widget.sellFormProvider,title: e, description: widget.premiumDescriptions[widget.premiumTitles.indexOf(e)], color: goldCardColor,)).toList(),
+                    ...widget.premiumTitles.map((e) => CardServices(price: "\$"+ widget.premiumPrices[widget.premiumTitles.indexOf(e)],sellformProvider: widget.sellFormProvider,title: e, description: widget.premiumDescriptions[widget.premiumTitles.indexOf(e)], color: goldCardColor,)).toList(),
                   ],
                 ),
                 verticalSpaceLarge,
@@ -251,7 +260,7 @@ class _FullServiceMobileState extends State<FullServiceMobile> {
                           'COSTUMER': widget.sellFormProvider.getCostumerInformation(),
                         };
                         await db.setSellingFormData(data);
-                        await SendMail().sendEmail(widget.sellFormProvider.costumer);
+                        await EmailSender.sendEmail(condition:widget.sellFormProvider.condition,address:widget.sellFormProvider.address,type:widget.sellFormProvider.type,serviceType:widget.sellFormProvider.serviceType,apiPrices: widget.sellFormProvider.apiPrices,averageApiPrice:averageApiPrice,costumerPrice:widget.sellFormProvider.costumerPrice,sendAgent:widget.sellFormProvider.sendAgent,costumerInformation:widget.sellFormProvider.getCostumerInformation(),context: context);
                         PixelService().trackForms('SELL_HOUSE_FORM_FULL_SERVICE', data);
                         showConfirmationDialog(context);
                     }, buttonColor: confirmButtonColor)),

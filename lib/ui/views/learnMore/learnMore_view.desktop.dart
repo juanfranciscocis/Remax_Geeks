@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:remax_geeks/helpers/getLearnMorePaths.dart';
 import 'package:remax_geeks/models/article.dart';
 import 'package:remax_geeks/providers/storageProvider.dart';
 import 'package:remax_geeks/services/pixelsService.dart';
@@ -37,18 +36,14 @@ class LearnMoreViewDesktop extends StatefulWidget {
 }
 
 class _LearnMoreViewDesktopState extends State<LearnMoreViewDesktop> {
-  List paths = [];
 
+  List paths = [];
   late List<Article> articles=[];
 
   void initState() {
-    DBProvider db = Provider.of<DBProvider>(context, listen: false);
-    paths = getLearnMorePaths();
     StorageProvider storageProvider =
         Provider.of<StorageProvider>(context, listen: false);
     paths = storageProvider.paths;
-
-
     articlesInit();
     super.initState();
   }
@@ -82,6 +77,7 @@ class _LearnMoreViewDesktopState extends State<LearnMoreViewDesktop> {
                   width: 1400,
                   child: GestureDetector(
                     onTap: () {
+                      articles[i].path = paths[i];
                       String articleTitle = articles[i].title;
                       PixelService().trackEvent('ARTICLE_$articleTitle');
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ArticleView(article: articles[i],)));
@@ -89,7 +85,7 @@ class _LearnMoreViewDesktopState extends State<LearnMoreViewDesktop> {
                     child: learnMoreArticle(
                       title: articles[i].title,
                       subtitle: articles[i].subtitle,
-                      imagePath: paths[0],
+                      imagePath: paths[i],
                     ),
                   ),
                 ),

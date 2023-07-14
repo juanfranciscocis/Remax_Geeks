@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,10 +39,10 @@ Future<void> checkForGoogleSignIn(AuthGoogle authGoogle, DBProvider db, SellForm
     if (serviceChoose ==
         chooseServiceTypeCard1Title) {
       Navigator.of(context).pushNamed("/fullService");
-      return;
-    } else {
+    } else if(serviceChoose == chooseServiceTypeCard2Title){
       Navigator.of(context).pushNamed("/customService");
-      return;
+    }else{
+      Navigator.of(context).pushNamed("/pastSells");
     }
   }else{
     ScaffoldMessenger.of(context).showSnackBar(
@@ -89,12 +91,11 @@ Future<void> checkForFacebookSignin(AuthFacebook authFacebook, DBProvider db, Se
     print(sellForm.costumer);
     if (serviceChoose ==
         chooseServiceTypeCard1Title) {
-      print(chooseServiceTypeCard1Title);
       Navigator.of(context).pushNamed("/fullService");
-      return;
-    } else {
+    } else if(serviceChoose == chooseServiceTypeCard2Title){
       Navigator.of(context).pushNamed("/customService");
-      return;
+    }else{
+      Navigator.of(context).pushNamed("/pastSells");
     }
   }else{
     ScaffoldMessenger.of(context).showSnackBar(
@@ -124,6 +125,9 @@ class LogSingForm extends StatelessWidget {
   void Function(String)? onChanged;
   double? padding = 70;
   double? query = 3;
+  bool phoneNumber; // New variable
+  bool phoneValidate;
+
   LogSingForm({
     required this.height,
     required this.label,
@@ -131,16 +135,18 @@ class LogSingForm extends StatelessWidget {
     required this.onChanged,
     this.padding = 70,
     this.query = 3,
+    this.phoneNumber = false, // Initialize phoneNumber with a default value
+    this.phoneValidate = false, // Initialize phoneValidate with a default value
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: padding!, right: padding! ),
+      padding: EdgeInsets.only(left: padding!, right: padding!),
       child: Container(
         height: height,
-        width: MediaQuery.of(context).size.width/query!,
+        width: MediaQuery.of(context).size.width / query!,
 
         child: TextFormField(
           onChanged: onChanged,
@@ -159,7 +165,7 @@ class LogSingForm extends StatelessWidget {
             ),
           ),
           style: TextStyle(
-            color: fontMainColor,
+            color: inputColor,
             fontFamily: fontOutfitBold,
             fontSize: font,
           ),
@@ -167,10 +173,43 @@ class LogSingForm extends StatelessWidget {
       ),
     );
   }
+
+
+
+}
+
+String? validatePhoneNumber(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Phone number is required';
+  }
+
+  // Phone number validation for USA (10 digits with optional country code)
+  final regex = RegExp(r'^\+?1?\d{10}$');
+  if (!regex.hasMatch(value)) {
+    return null;
+  }
+
+  return value;
 }
 
 
+
 Future<void> authSignUp(CostumerProvider costumer, AuthManager auth, SellFormProvider sellForm, DBProvider db,BuildContext context) async {
+  if(costumer.phoneNumber == ''){
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'US Phone number is required',
+          style: TextStyle(
+            fontFamily: fontOutfitRegular,
+            fontSize: 15,
+          ),
+        ),
+        backgroundColor: Colors.red,
+      ),
+    );
+    return;
+  }
   PixelService().trackSignup("EMAIL");
   await db.getNumberOfCostumers();
   AnalyticsService analyticsService = Provider.of<AnalyticsService>(context,listen: false);
@@ -194,8 +233,10 @@ Future<void> authSignUp(CostumerProvider costumer, AuthManager auth, SellFormPro
       if (serviceChoose ==
           chooseServiceTypeCard1Title) {
         Navigator.of(context).pushNamed("/fullService");
-      } else {
-        Navigator.of(context).pushNamed("/customService");;
+      } else if(serviceChoose == chooseServiceTypeCard2Title){
+        Navigator.of(context).pushNamed("/customService");
+      }else{
+        Navigator.of(context).pushNamed("/pastSells");
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

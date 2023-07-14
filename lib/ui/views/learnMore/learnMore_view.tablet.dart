@@ -7,6 +7,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../models/article.dart';
 import '../../../providers/dbProvider.dart';
+import '../../../providers/storageProvider.dart';
 import '../../../services/pixelsService.dart';
 import '../../../widgets/landingPage/LandingPageTabletSite.dart';
 import '../../../widgets/landingPage/MainTabletNavBar.dart';
@@ -22,9 +23,13 @@ class LearnMoreViewTablet extends StatefulWidget {
 }
 
 class _LearnMoreViewTabletState extends State<LearnMoreViewTablet> {
+  List paths = [];
   late List<Article> articles=[];
 
   void initState() {
+    StorageProvider storageProvider =
+    Provider.of<StorageProvider>(context, listen: false);
+    paths = storageProvider.paths;
     articlesInit();
     super.initState();
   }
@@ -62,21 +67,15 @@ class _LearnMoreViewTabletState extends State<LearnMoreViewTablet> {
                             width: 1400,
                             child: GestureDetector(
                               onTap: () {
+                                articles[i].path = paths[i];
                                 String articleTitle = articles[i].title;
                                 PixelService().trackEvent('ARTICLE_$articleTitle');
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ArticleView(
-                                      article: articles[i],
-                                    ),
-                                  ),
-                                );
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => ArticleView(article: articles[i],)));
                               },
                               child: learnMoreArticle(
                                 title: articles[i].title,
                                 subtitle: articles[i].subtitle,
-                                imagePath: '',
+                                imagePath: paths[i],
                                 textSubtitleSize: 20,
                                 textTitleSize: 35,
                                 imageSize: 150,

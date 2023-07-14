@@ -42,3 +42,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/google-cloud-sdk/
+/google-cloud-sdk/
+/google-cloud-sdk/.install/
+/google-cloud-sdk/bin/
+/google-cloud-sdk/data/
+/google-cloud-sdk/deb/
+/google-cloud-sdk/lib/
+/google-cloud-sdk/platform/
+/google-cloud-sdk/rpm/

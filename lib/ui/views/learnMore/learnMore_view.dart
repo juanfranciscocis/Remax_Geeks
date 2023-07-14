@@ -22,10 +22,8 @@ class LearnMoreView extends StackedView<LearnMoreViewModel> {
     LearnMoreViewModel viewModel,
     Widget? child,
   ) {
-    PixelService().trackCurrentPage('LearnMoreView');
-    PixelService().trackButtonPress('LEARN_MORE_BUTTON_PRESSED');
     return ScreenTypeLayout.builder(
-      mobile: (_) => const LearnMoreViewMobile(),
+      mobile: (_) => LearnMoreViewMobile(),
       tablet: (_) => const LearnMoreViewTablet(), //ADD TABLET VIEW IF NEEDED
       desktop: (_) =>  LearnMoreViewDesktop(),
     );
@@ -37,3 +35,5 @@ class LearnMoreView extends StackedView<LearnMoreViewModel> {
   ) =>
       LearnMoreViewModel();
 }
+
+

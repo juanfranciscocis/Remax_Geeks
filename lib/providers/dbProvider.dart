@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:remax_geeks/models/article.dart';
 import 'package:remax_geeks/models/sellNowFormModel.dart';
+
+import '../models/costumer.dart';
 
 
 class DBProvider extends ChangeNotifier{
@@ -20,10 +24,12 @@ class DBProvider extends ChangeNotifier{
   //GETTING PREMIUM SERVICES TITLES AND DESCRIPTIONS
   late List<String> pTitles;
   late List<String> pDescriptions;
+  late List<String> pPrices;
   late String? pFullServiceIncludes = '';
   //GETTING CUSTOM SERVICES TITLES AND DESCRIPTIONS
   late List<String> cTitles;
   late List<String> cDescriptions;
+  late List<String> cPrices;
   late String? cCustomIncludes = '';
   //GETTING THE ARTICLES
   late List<Article> articles = [];
@@ -164,6 +170,15 @@ class DBProvider extends ChangeNotifier{
     return pDescriptions;
   }
 
+  //GET PREMIUM SERVICES PRICES
+  Future<List<String>> getPremiumServicesPrices() async{
+    final snapshot = await _databaseReference!.child('FULL_SERVICES').child('SELLING_SERVICES').child('FULL_SERVICE_PRICES').get();
+    List<dynamic> premiumServicesPrices = snapshot.value as List<dynamic>;
+    this.pPrices = premiumServicesPrices.map((e) => e.toString()).toList();
+    notifyListeners();
+    return pPrices;
+  }
+
 
   //GET CUSTOM SERVICES TITLES
   Future<List<String>> getCustomServicesTitles() async{
@@ -183,6 +198,15 @@ class DBProvider extends ChangeNotifier{
     return cDescriptions;
   }
 
+  //GET CUSTOM SERVICES PRICES
+  Future<List<String>> getCustomServicesPrices() async{
+    final snapshot = await _databaseReference!.child('CUSTOM_SERVICES').child('SELLING_SERVICES').child('CUSTOM_SERVICES_PRICES').get();
+    List<dynamic> customServicesPrices = snapshot.value as List<dynamic>;
+    this.cPrices = customServicesPrices.map((e) => e.toString()).toList();
+    notifyListeners();
+    return cPrices;
+  }
+
   //GET CUSTOM SERVICES INCLUDES
   Future<String?> getCustomServicesIncludes() async{
     final snapshot = await _databaseReference!.child('CUSTOM_SERVICES').child('CUSTOM_SERVICE_INCLUDES').get();
@@ -192,15 +216,46 @@ class DBProvider extends ChangeNotifier{
     return cCustomIncludes;
   }
 
+  //GET CART FROM COSTUMER
+  Future<List<SellingForm>> getCartFromCostumer(Costumer costumer) async{
+    print('costumer: ' + costumer.fullName!);
+    List<SellingForm> cart = [];
+
+    await getNumberOfSellingForms();
+    for (int i=0; i<=_numberOfSellForms;i++){
+      try {
+        final snapshot = await _databaseReference!.child('SELLING_FORMS').child(
+            'COMPLETED_FORMS').child('SELLING_FROM_' +i.toString()).child(
+            'COSTUMER').child('0').get();
+        final costumerFounded = snapshot.value as String;
+        print('costumer founded: ' + costumerFounded);
+        if (costumerFounded == costumer.fullName) {
+          print('COSTUMER FOUND');
+          print(snapshot);
+        }
+      }catch(e){
+        print('COSTUMER NOT FOUND');
+      }
+    }
+
+
+    return cart;
+
+  }
+
+
+
   //GET TITLES AND DESCRIPTIONS FOR SERVICES
   Future<void> getTitlesAndDescriptions() async{
     //CUSTOM
     getCustomServicesTitles();
     getCustomServicesDescriptions();
+    getCustomServicesPrices();
     getCustomServicesIncludes();
     //PREMIUM
     getPremiumServicesTitles();
     getPremiumServicesDescriptions();
+    getPremiumServicesPrices();
     getFullServiceIncludes();
   }
 

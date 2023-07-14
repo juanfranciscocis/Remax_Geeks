@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:remax_geeks/helpers/getLearnMorePaths.dart';
 import 'package:remax_geeks/models/article.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
@@ -83,7 +82,7 @@ class _ArticleViewDesktopState extends State<ArticleViewDesktop> {
                   child: Container(
                     width: 500,
                     height: 500,
-                    child: Image.asset(
+                    child: Image.network(
                       widget.article.path ?? '',
                       fit: BoxFit.cover,
                     ),

@@ -113,7 +113,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                         children: [
                           Expanded(
                             child: _buildMaterialButton(
-                              buttonColor: fontMainColor,
+                              buttonColor: secondaryCardColor,
                               textSize: 30,
                               title: google.listOfPredictions[0],
                               onPressed: () {
@@ -135,7 +135,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                         children: [
                           Expanded(
                             child: _buildMaterialButton(
-                              buttonColor: fontMainColor,
+                              buttonColor: secondaryCardColor,
                               textSize: 30,
                               title: google.listOfPredictions[1],
                               onPressed: () {
@@ -157,7 +157,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                         children: [
                           Expanded(
                             child: _buildMaterialButton(
-                              buttonColor: fontMainColor,
+                              buttonColor: secondaryCardColor,
                               textSize: 30,
                               title: google.listOfPredictions[2],
                               onPressed: () {

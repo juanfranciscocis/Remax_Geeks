@@ -4,7 +4,7 @@ class Article {
   final String title;
   final String description;
   final String subtitle;
-  final String? path;
+  late dynamic path;
 
   Article({
     required this.title,

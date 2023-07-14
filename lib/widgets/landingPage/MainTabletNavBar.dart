@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:remax_geeks/ui/views/getToKnowUS/getToKnowUs_view.dart';
 
+import '../../providers/storageProvider.dart';
 import '../../ui/common/app_colors.dart';
 import '../../ui/common/app_strings.dart';
 import '../../ui/views/learnMore/learnMore_view.dart';
@@ -20,15 +22,6 @@ class MainTabletNavBar extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           color: navColor,
-          //shadow
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 0,
-              blurRadius: 10,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
         ),
         //inside the rectangle, add an image to the left, and two buttons to the right
         child: Row(
@@ -55,7 +48,9 @@ class MainTabletNavBar extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: MaterialButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      StorageProvider storageProvider = Provider.of<StorageProvider>(context, listen: false);
+                      await storageProvider.getImages();
                       Navigator.pushNamed(context, '/learnMore');
                     },
                     child: const Padding(
@@ -70,7 +65,7 @@ class MainTabletNavBar extends StatelessWidget {
                         ),
                       ),
                     ),
-                    color: secondaryButtonColor,
+                    color: backgroundColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -97,7 +92,7 @@ class MainTabletNavBar extends StatelessWidget {
                         ),
                       ),
                     ),
-                    color: secondaryButtonColor,
+                    color: backgroundColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),

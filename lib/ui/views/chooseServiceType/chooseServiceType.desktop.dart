@@ -60,10 +60,12 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 25.0),
             child: Center(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch, // Updated
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   //TEXT, CENTER IN SCREEN, "Choose a service type...", outfibold, color fontMainColor, size 55
                   verticalSpaceLarge,
+                  verticalSpaceMassive,
                   const Text(
                     chooseServiceTypeTitle,
                     textAlign: TextAlign.center,
@@ -86,20 +88,22 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                         children: [
                           Center(
                             child: Container(
-                              width: 550, // Updated
-                              decoration: BoxDecoration(
-                                color: primaryCardColor,
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.25),
-                                    spreadRadius: 0,
-                                    blurRadius: 4,
-                                    offset: const Offset(
-                                        0, 4), // changes position of shadow
-                                  ),
-                                ],
-                              ),
+                              height: 400,// Updated
+                              width: 550,
+
+                        decoration: BoxDecoration(
+                          color: primaryCardColor,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(0,
+                                  3), // changes position of shadow
+                            ),
+                          ],
+                        ),
                               child: Padding(
                                 padding: const EdgeInsets.all(20.0),
                                 child: Column(
@@ -121,13 +125,16 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                     ),
                                     verticalSpaceTiny,
                                     //SUBTITLE
-                                    Text(
-                                      fullServiceDescription,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: fontWhiteColor,
-                                        fontFamily: fontOutfitRegular,
-                                        fontSize: 25,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        chooseServiceTypeCard1Desc,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: fontWhiteColor,
+                                          fontFamily: fontOutfitRegular,
+                                          fontSize: 25,
+                                        ),
                                       ),
                                     ),
                                     verticalSpaceLarge,
@@ -153,10 +160,14 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8),
                                       ),
-                                      child: Image.asset(
-                                        chooseServiceTypeCardConfirmButton,
+                                      child: Container(
                                         width: 600,
                                         height: 70,
+                                        child: Icon(
+                                          Icons.arrow_forward,
+                                          color: fontWhiteColor,
+                                          size: 50,
+                                        ),
                                       ),
                                     ),
                                     verticalSpaceTiny,
@@ -168,7 +179,8 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                           horizontalSpaceLarge,
                           //CARD 2
                           Container(
-                            width: 550, // Updated
+                            width: 550,
+                            height: 400,// Updated
                             decoration: BoxDecoration(
                               color: primaryCardColor,
                               borderRadius: BorderRadius.circular(8),
@@ -203,13 +215,16 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                   ),
                                   verticalSpaceTiny,
                                   //SUBTITLE
-                                  Text(
-                                    customServiceDescription,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: fontWhiteColor,
-                                      fontFamily: fontOutfitRegular,
-                                      fontSize: 25,
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      chooseServiceTypeCard2Desc,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: fontWhiteColor,
+                                        fontFamily: fontOutfitRegular,
+                                        fontSize: 25,
+                                      ),
                                     ),
                                   ),
                                   verticalSpaceLarge,
@@ -234,10 +249,14 @@ class ChooseServiceTypeDesktop extends StatelessWidget {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    child: Image.asset(
-                                      chooseServiceTypeCardConfirmButton,
+                                    child: Container(
                                       width: 600,
                                       height: 70,
+                                      child: Icon(
+                                        Icons.arrow_forward,
+                                        color: fontWhiteColor,
+                                        size: 50,
+                                      ),
                                     ),
                                   ),
                                   verticalSpaceTiny,

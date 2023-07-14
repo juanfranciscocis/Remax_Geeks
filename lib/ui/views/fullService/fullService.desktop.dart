@@ -27,9 +27,11 @@ class FullServiceDesktop extends StatefulWidget {
   SellFormProvider sellFormProvider;
   List<String> premiumTitles;
   List<String> premiumDescriptions;
+  List<String> premiumPrices;
+
   String fullServiceIncludes;
 
-  FullServiceDesktop({super.key, required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions, required this.fullServiceIncludes});
+  FullServiceDesktop({super.key, required this.premiumPrices,required this.dbProvider, required this.sellFormProvider, required this.premiumTitles, required this.premiumDescriptions, required this.fullServiceIncludes});
 
   @override
   State<FullServiceDesktop> createState() => _FullServiceDesktopState();
@@ -122,7 +124,7 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
               //CARD 2
               Center(
                 child: Card(
-                  color: secondaryCardColor,
+                  color: primaryCardColor,
                   elevation: 10.0,
                   //ROUND CORNERS
                   shape: RoundedRectangleBorder(
@@ -138,7 +140,7 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
                           child: Padding(
                             padding: const EdgeInsets.only(left:20, right: 20.0),
                             child: Text(
-                              sendAgent,
+                              sendAgentFullService,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: fontWhiteColor,
@@ -149,7 +151,7 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
                           ),
                         ),
                         verticalSpaceMedium,
-                        _buildMaterialButton(title: 'PICK DATE AND TIME', onPressed: () => _selectDateTime(context),buttonColor: secondaryButtonColor, textSize: 20),
+                        _buildMaterialButton(title: 'PICK DATE AND TIME', onPressed: () => _selectDateTime(context),buttonColor: pressedButtonColor, textSize: 20),
                         verticalSpaceLarge,
                       ],
                     ),
@@ -236,6 +238,7 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
                   ...widget.premiumTitles.map((e) => CardServicesDesktop(
                     color: goldCardColor,
                     title: e,
+                    price: "\$"+widget.premiumPrices[widget.premiumTitles.indexOf(e)],
                     description: widget.premiumDescriptions[widget.premiumTitles.indexOf(e)],
                     sellformProvider: widget.sellFormProvider,
                   )).toList(),
@@ -263,7 +266,8 @@ class _FullServiceDesktopState extends State<FullServiceDesktop> {
                         'COSTUMER': widget.sellFormProvider.getCostumerInformation(),
                       };
                       await db.setSellingFormData(data);
-                      await SendMail().sendEmail(widget.sellFormProvider.costumer);
+                      await EmailSender.sendEmail(condition:widget.sellFormProvider.condition,address:widget.sellFormProvider.address,type:widget.sellFormProvider.type,serviceType:widget.sellFormProvider.serviceType,apiPrices: widget.sellFormProvider.apiPrices,averageApiPrice:averageApiPrice,costumerPrice:widget.sellFormProvider.costumerPrice,sendAgent:widget.sellFormProvider.sendAgent,costumerInformation:widget.sellFormProvider.getCostumerInformation(),context: context);
+
                       PixelService().trackForms('SELL_HOUSE_FORM_FULL_SERVICE', data);
                       showConfirmationDialog(context);
                       //Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));

@@ -6,11 +6,11 @@ import 'package:remax_geeks/ui/views/article/article_view.dart';
 import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../helpers/getLearnMorePaths.dart';
 import '../../../models/article.dart';
 import '../../../providers/costumerProvider.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
+import '../../../providers/storageProvider.dart';
 import '../../../services/authEmailPassword.dart';
 import '../../../services/authFacebook.dart';
 import '../../../services/authGoogle.dart';
@@ -26,17 +26,22 @@ import 'learnMore_view.desktop.dart';
 import 'learnMore_viewmodel.dart';
 
 class LearnMoreViewMobile extends StatefulWidget {
-  const LearnMoreViewMobile({super.key});
+
+
+  LearnMoreViewMobile({super.key});
 
   @override
   State<LearnMoreViewMobile> createState() => _LearnMoreViewMobileState();
 }
 
 class _LearnMoreViewMobileState extends State<LearnMoreViewMobile> {
-
+  late List paths;
   late List<Article> articles=[];
 
   void initState() {
+    StorageProvider storageProvider =
+    Provider.of<StorageProvider>(context, listen: false);
+    paths = storageProvider.paths;
     articlesInit();
     super.initState();
   }
@@ -67,9 +72,10 @@ class _LearnMoreViewMobileState extends State<LearnMoreViewMobile> {
 
                     verticalSpaceLarge,
                     //for each path in paths create a article, using the articles list get the title and subtitle
-                    if(articles.length == 0)
+                    if(articles.isEmpty)
                       CircularProgressIndicator(),
-                    if(articles.length != 0)
+
+                    if(articles.isNotEmpty)
                       for (int i = 0; i < articles.length; i++)
                         Column(
                           children: [
@@ -77,28 +83,22 @@ class _LearnMoreViewMobileState extends State<LearnMoreViewMobile> {
                               width: 1400,
                               child: GestureDetector(
                                 onTap: () {
+                                  articles[i].path = paths[i];
                                   String articleTitle = articles[i].title;
                                   PixelService().trackEvent('ARTICLE_$articleTitle');
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ArticleView(
-                                        article: articles[i],
-                                      ),
-                                    ),
-                                  );
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ArticleView(article: articles[i],)));
                                 },
                                 child: learnMoreArticle(
                                   title: articles[i].title,
                                   subtitle: articles[i].subtitle,
-                                  imagePath: '',
+                                  imagePath: paths[i],
                                   textSubtitleSize: 15,
                                   textTitleSize: 25,
                                   imageSize: 100,
                                 ),
                               ),
                             ),
-                            verticalSpaceMedium,
+                            //verticalSpaceMedium,
                           ],
                         ),
 
@@ -108,6 +108,75 @@ class _LearnMoreViewMobileState extends State<LearnMoreViewMobile> {
             ),
           ),
         ));
+  }
+}
+
+class learnMoreArticle extends StatelessWidget {
+
+  String title = 'Title';
+  String subtitle = 'Subtitle';
+  String imagePath = 'path';
+  double? textTitleSize;
+  double? textSubtitleSize;
+  double? imageSize;
+
+  learnMoreArticle({
+    required this.title,
+    required this.subtitle,
+    required this.imagePath,
+    this.textTitleSize,
+    this.textSubtitleSize,
+    this.imageSize,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: navColor,
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+              width: imageSize??200,
+              height: imageSize??200,
+              child: Image.network(
+                imagePath,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: textTitleSize ??50,
+                    fontFamily: fontOutfitBold,
+                    color: fontMainColor,
+
+                  ),
+                ),
+                Text(subtitle,
+                  style: TextStyle(
+                    fontSize: textSubtitleSize??30,
+                    fontFamily: fontOutfitMedium,
+                    color: fontMainColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 

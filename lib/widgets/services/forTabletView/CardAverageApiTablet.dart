@@ -19,7 +19,7 @@ class CardAverageApiTablet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        color: secondaryCardColor,
+        color: thirdCardColor,
         elevation: 10.0,
         //ROUND CORNERS
         shape: RoundedRectangleBorder(
@@ -52,7 +52,7 @@ class CardAverageApiTablet extends StatelessWidget {
                     averageApiPrice,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      color: Colors.black,
+                      color: fontWhiteColor,
                       fontFamily: fontOutfitMedium,
                       fontSize: 70,
                     ),

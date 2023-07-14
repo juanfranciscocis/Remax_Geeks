@@ -41,10 +41,12 @@ const String addressContinueButton = 'assets/confirm.png';
 const String chooseServiceTypeTitle = 'Choose service type...';
 const String chooseServiceTypeCard1Title = 'Full Service';
 const String chooseServiceTypeCard2Title = 'Custom Service';
+const String chooseServiceTypeCard1Desc = 'Choose the full service option,want to sell your home with the complete deal? We got you covered!';
+const String chooseServiceTypeCard2Desc = 'Customize your service, choose what you need and we will take care of the rest. You are in control!';
 const String chooseServiceTypeCardConfirmButton = 'assets/confirm.png';
 
 //GENERAL SERVICES
-const String thisIsWhatWeFound = 'This is what we found out!';
+const String thisIsWhatWeFound = 'According to popular real estate automatic pricing models your house is worth...';
 const String estimatesPrice = 'ESTIMATES YOUR PROPERTY PRICE AT:';
 const String imageZillow = 'assets/services/zillow.png';
 const String imageRM  = 'assets/services/rm.png';
@@ -52,7 +54,8 @@ const String imageAmericanRealState = 'assets/services/americanRealState.png';
 const String averagePrice = 'Average Price';
 const String enterYourDesiredPrice = 'ENTER YOUR DESIRED PRICE';
 const String enterYourDesiredPriceBox = 'Enter Price';
-const String sendAgent = 'SEND AN AGENT FOR COMPARATIVE MARKET ANALYSIS?';
+const String sendAgentFullService = 'Schedule a home visit from one of our price geeks specialists for a free market analysis of your property';
+const String sendAgentCustomService = 'Do you prefer a remax geeks specialist help you determine the value of your house? Schedule a consultation here!';
 const String confirmForm = 'assets/confirm.png';
 const String sendInformation = 'Send Information';
 

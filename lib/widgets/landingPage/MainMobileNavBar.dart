@@ -18,15 +18,7 @@ class MainMobileNavBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: navColor,
         borderRadius: BorderRadius.circular(8),
-        //shadow
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 0,
-            blurRadius: 10,
-            offset: const Offset(0, 3), // changes position of shadow
-          ),
-        ],
+
       ),
       //inside the rectangle, add an image to the left, and one button to the right
       child: Row(
@@ -64,17 +56,8 @@ class MainMobileNavBar extends StatelessWidget {
                     child: Container(
                       //MAKE IT secondaryCardColor, add a shadow to it
                         decoration: BoxDecoration(
-                          color: secondaryButtonColor,
+                          color: backgroundColor,
                           borderRadius: BorderRadius.circular(8),
-                          //shadow
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 0,
-                              blurRadius: 10,
-                              offset: const Offset(0, 3), // changes position of shadow
-                            ),
-                          ],
                         ),
                         child: const Image(
                           image: AssetImage(landingPageNavBarBurgerMenu),

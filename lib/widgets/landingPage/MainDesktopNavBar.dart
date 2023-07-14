@@ -1,10 +1,12 @@
 //Import material
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:remax_geeks/providers/costumerProvider.dart';
 import 'package:remax_geeks/providers/storageProvider.dart';
 import 'package:remax_geeks/ui/common/app_strings.dart';
 import 'package:remax_geeks/ui/views/learnMore/learnMore_view.dart';
 
+import '../../providers/dbProvider.dart';
 import '../../ui/common/app_colors.dart';
 import '../../ui/views/getToKnowUS/getToKnowUs_view.dart';
 
@@ -21,15 +23,7 @@ class MainDesktopNavBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: navColor,
         borderRadius: BorderRadius.circular(8),
-        //shadow
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 0,
-            blurRadius: 10,
-            offset: Offset(0, 3), // changes position of shadow
-          ),
-        ],
+
       ),
 
       //inside the rectangle, add an image to the left, and two buttons to the right
@@ -59,7 +53,7 @@ class MainDesktopNavBar extends StatelessWidget {
                 child: MaterialButton(
                   onPressed: () async {
                     StorageProvider storageProvider = Provider.of<StorageProvider>(context, listen: false);
-                    await storageProvider.getImages(['article1.jpg']);
+                    await storageProvider.getImages();
                     Navigator.pushNamed(context, '/learnMore');
                   }, //TODO: CHANGE TO LEARN MORE SCREEN
                   child: const Padding(
@@ -73,7 +67,7 @@ class MainDesktopNavBar extends StatelessWidget {
                       ),
                     ),
                   ),
-                  color: secondaryButtonColor,
+                  color: backgroundColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -83,7 +77,7 @@ class MainDesktopNavBar extends StatelessWidget {
               ),
               //GET TO KNOW US
               Padding(
-                padding: const EdgeInsets.only(right: 50.0),
+                padding: const EdgeInsets.only(right: 20.0),
                 child: MaterialButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/getToKnowUs');
@@ -99,7 +93,7 @@ class MainDesktopNavBar extends StatelessWidget {
                       ),
                     ),
                   ),
-                  color: secondaryButtonColor,
+                  color: backgroundColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -107,6 +101,7 @@ class MainDesktopNavBar extends StatelessWidget {
                   elevation: 5,
                 ),
               ),
+
             ],
           ),
         ],

@@ -52,7 +52,6 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                       fontFamily: fontOutfitBold,
                     ),
                   ),
-
                   SizedBox(height: 40),
                   Container(
                     width: 100,
@@ -60,6 +59,30 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                     child: FittedBox(
                       fit: BoxFit.contain,
                       child: Image.asset(lockIcon),
+                    ),
+                  ),
+                  verticalSpaceMedium,
+                  Text(
+                    textAlign: TextAlign.center,
+                    privacyText,
+                    style: TextStyle(
+                      color: fontMainColor,
+                      fontFamily: fontOutfitRegular,
+                      fontSize: 25,
+                    ),
+                  ),
+                  verticalSpaceTiny,
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed("/privacy");
+                    },
+                    child: Text(
+                      learnMorePrivacy,
+                      style: TextStyle(
+                        color: Colors.blueAccent,
+                        fontFamily: fontOutfitRegular,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ],
@@ -72,21 +95,22 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                 scrollDirection: Axis.horizontal,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 5, right: 5),
-                  child: Card(
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                  child: Column(
+                    children: [
+                      Card(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 10, bottom: 10),
                     child: Container(
                       child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           verticalSpaceMedium,
                           Text(
-                            logInTitlePhone1,
+                            signUpTitlePhone1,
                             style: TextStyle(
                               color: Colors.grey,
                               fontFamily: fontOutfitBold,
@@ -94,7 +118,7 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                             ),
                           ),
                           Text(
-                            logInTitlePhone2,
+                            signUpTitlePhone2,
                             style: TextStyle(
                               color: Colors.grey,
                               fontFamily: fontOutfitBold,
@@ -135,136 +159,130 @@ class LogInViewMobile extends ViewModelWidget<LogInViewModel> {
                             ),
                           ),
                           verticalSpaceMedium,
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Or Sign In Using Email",
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontFamily: fontOutfitBold,
-                                fontSize: 20,
-
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          verticalSpaceMedium,
-                          // Email
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                            child: LogSingForm(
-                              height: 50,
-                              label: "Email",
-                              padding: 10,
-                              font: 20,
-                              query: 1.2,
-                              onChanged: (value) {
-                                costumer.email = value;
-                              },
-                            ),
-                          ),
-                          verticalSpaceSmall,
-                          // Password
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                            child: LogSingForm(
-                              height: 50,
-                              label: "Password",
-                              font: 20,
-                              padding: 10,
-                              query: 1.2,
-                              onChanged: (value) {
-                                costumer.password = value;
-                              },
-                            ),
-                          ),
-                          verticalSpaceMedium,
-                          // Sign Up Button
-                          MaterialButton(
-                            onPressed: () {
-                              authLogIn(costumer, auth, sellForm, db, context);
-                            },
-                            color: primaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "Log In",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: fontOutfitBold,
-                                  fontSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                          verticalSpaceMedium,
-                          // Sign In Text
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Don't have an account yet?",
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                  fontFamily: fontOutfitBold,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              horizontalSpaceSmall,
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context).pushNamed("/signUp");
-                                },
-                                child: Text(
-                                  "Sign Up",
-                                  style: TextStyle(
-                                    color: Colors.blueAccent,
-                                    fontFamily: fontOutfitBold,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          verticalSpaceTiny,
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                privacyText,
-                                style: TextStyle(
-                                  color: Colors.black38,
-                                  fontFamily: fontOutfitRegular,
-                                  fontSize: 10,
-                                ),
-                              ),
-                              horizontalSpaceTiny,
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context).pushNamed("/privacy");
-                                },
-                                child: Text(
-                                  learnMorePrivacy,
-                                  style: TextStyle(
-                                    color: Colors.blueAccent,
-                                    fontFamily: fontOutfitRegular,
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          verticalSpaceMedium,
                         ],
                       ),
                     ),
                   ),
                 ),
+                      verticalSpaceMedium,
+                      Card(
+                        margin: EdgeInsets.only(left: 10, right: 10),
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Container(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              verticalSpaceMedium,
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Or Sign In Using Email",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontFamily: fontOutfitBold,
+                                    fontSize: 20,
+
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              verticalSpaceMedium,
+                              // Email
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: LogSingForm(
+                                  height: 50,
+                                  label: "Email",
+                                  padding: 10,
+                                  font: 20,
+                                  query: 1.2,
+                                  onChanged: (value) {
+                                    costumer.email = value;
+                                  },
+                                ),
+                              ),
+                              verticalSpaceSmall,
+                              // Password
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: LogSingForm(
+                                  height: 50,
+                                  label: "Password",
+                                  font: 20,
+                                  padding: 10,
+                                  query: 1.2,
+                                  onChanged: (value) {
+                                    costumer.password = value;
+                                  },
+                                ),
+                              ),
+                              verticalSpaceMedium,
+                              // Sign Up Button
+                              MaterialButton(
+                                onPressed: () {
+                                  authLogIn(costumer, auth, sellForm, db, context);
+                                },
+                                color: primaryColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "Log In",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: fontOutfitBold,
+                                      fontSize: 30,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              verticalSpaceMedium,
+                              // Sign In Text
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Don't have an account yet?",
+                                    style: TextStyle(
+                                      color: Colors.black45,
+                                      fontFamily: fontOutfitBold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  horizontalSpaceSmall,
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).pushNamed("/signUp");
+                                    },
+                                    child: Text(
+                                      "Sign Up",
+                                      style: TextStyle(
+                                        color: Colors.blueAccent,
+                                        fontFamily: fontOutfitBold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              verticalSpaceMedium,
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
+            verticalSpaceMassive,
           ],
         ),
       ),

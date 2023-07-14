@@ -67,6 +67,15 @@
   /></noscript>
   <!-- End Meta Pixel Code -->
 
+  <script>
+    if (window.history && window.history.pushState) {
+      window.addEventListener('popstate', function () {
+        window.history.back();
+      });
+    }
+  </script>
+
+
 
 </head>
 

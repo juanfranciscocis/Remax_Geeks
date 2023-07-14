@@ -16,7 +16,7 @@ class CardApiInformationTablet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        color: secondaryCardColor,
+        color: thirdCardColor,
         elevation: 10.0,
         //ROUND CORNERS
         shape: RoundedRectangleBorder(
@@ -28,40 +28,17 @@ class CardApiInformationTablet extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               verticalSpaceMedium,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //cross axis, top left
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //IMAGE
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Container(
-                      height: 100.0,
-                      width: 200.0,
-                      child: Image.asset(
-                        imagePath,
-                        //fit: BoxFit.fitHeight,
-                      ),
-                    ),
+              Center(
+                child: Container(
+                  height: 200.0,
+                  width: 300.0,
+                  child: Image.asset(
+                    imagePath,
+                    //fit: BoxFit.fitHeight,
                   ),
-                  //1 Title
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        estimatesPrice,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: fontSecondColor,
-                          fontFamily: fontOutfitMedium,
-                          fontSize: 40,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
+              verticalSpaceMedium,
               //SizedBox(height: 2.0,),
               Center(
                 child: Padding(
@@ -70,7 +47,7 @@ class CardApiInformationTablet extends StatelessWidget {
                     estimatedPriceApi,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: fontWhiteColor,
                       fontFamily: fontOutfitMedium,
                       fontSize: 70,
                     ),

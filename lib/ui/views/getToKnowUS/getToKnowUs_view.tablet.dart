@@ -132,7 +132,7 @@ class _GetToKnowUsViewTabletState extends State<GetToKnowUsViewTablet> {
                                             fontSize: 20,
                                             //color blue, underline
                                             fontFamily: fontOutfitRegular,
-                                            color: Colors.blueAccent,
+                                            color: primaryColor,
                                             decoration: TextDecoration.underline,
                                           ),
                                         ),

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../ui/common/app_colors.dart';
 import '../../ui/common/app_strings.dart';
@@ -11,6 +12,15 @@ class LandingPageTabletSite extends StatelessWidget {
   const LandingPageTabletSite({
     super.key,
   });
+
+  Future<void> openWebPage(String page) async {
+    String launchP = 'https://'+page;
+    if(await canLaunch(launchP)){
+      await launch(launchP);
+    }else{
+      print('Failed to open $launchP');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +106,8 @@ class LandingPageTabletSite extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: MaterialButton(
-                onPressed: () {
-                  print('BUY NOW PRESSED');
+                onPressed: () async {
+                  await openWebPage('luigui.com');
                 },
                 child: const Padding(
                   padding: EdgeInsets.only(

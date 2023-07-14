@@ -19,7 +19,7 @@ class CardAverageApiMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        color: secondaryCardColor,
+        color: thirdCardColor,
         elevation: 10.0,
         //ROUND CORNERS
         shape: RoundedRectangleBorder(
@@ -39,7 +39,7 @@ class CardAverageApiMobile extends StatelessWidget {
                     style: TextStyle(
                       color: fontMainColor,
                       fontFamily: fontOutfitMedium,
-                      fontSize: 70,
+                      fontSize: 50,
                     ),
                   ),
                 ),
@@ -52,9 +52,9 @@ class CardAverageApiMobile extends StatelessWidget {
                     averageApiPrice,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      color: Colors.black,
+                      color: fontWhiteColor,
                       fontFamily: fontOutfitMedium,
-                      fontSize: 50,
+                      fontSize: 30,
                     ),
                   ),
                 ),

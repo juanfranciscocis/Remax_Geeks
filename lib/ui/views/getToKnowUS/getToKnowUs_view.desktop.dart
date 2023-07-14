@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:remax_geeks/helpers/getLearnMorePaths.dart';
 import 'package:remax_geeks/models/article.dart';
 import 'package:remax_geeks/ui/common/app_colors.dart';
 import 'package:remax_geeks/ui/common/app_constants.dart';
@@ -156,7 +155,7 @@ class _GetToKnowUsViewDesktopState extends State<GetToKnowUsViewDesktop>{
                                       fontSize: 40,
                                       //color blue, underline
                                       fontFamily: fontOutfitRegular,
-                                      color: Colors.blueAccent,
+                                      color: primaryColor,
                                       decoration: TextDecoration.underline,
                                     ),
                                   ),

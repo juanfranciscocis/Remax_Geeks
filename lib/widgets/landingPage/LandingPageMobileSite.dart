@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../ui/common/app_colors.dart';
 import '../../ui/common/app_strings.dart';
@@ -11,6 +12,15 @@ class LandingPageMobileSite extends StatelessWidget {
   const LandingPageMobileSite({
     super.key,
   });
+
+  Future<void> openWebPage(String page) async {
+    String launchP = 'https://'+page;
+    if(await canLaunch(launchP)){
+      await launch(launchP);
+    }else{
+      print('Failed to open $launchP');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +62,7 @@ class LandingPageMobileSite extends StatelessWidget {
             ),
           ),
         ),
-        verticalSpaceLarge,
+        verticalSpaceMedium,
         Center(
           child: Image.asset(
             landingPageHouseImage,
@@ -60,7 +70,7 @@ class LandingPageMobileSite extends StatelessWidget {
             width: 400,
           ),
         ),
-        verticalSpaceLarge,
+        verticalSpaceMedium,
         //Buttons
         Row(
           mainAxisSize: MainAxisSize.max,
@@ -91,8 +101,8 @@ class LandingPageMobileSite extends StatelessWidget {
             ),
             //BUY NOW
             MaterialButton(
-              onPressed: () {
-                print('BUY NOW PRESSED');
+              onPressed: () async {
+                await openWebPage('luigui.com');
               },
               child: const Padding(
                 padding: EdgeInsets.all(4.0),

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../helpers/getLearnMorePaths.dart';
 import '../../../models/article.dart';
 import '../../../providers/costumerProvider.dart';
 import '../../../providers/dbProvider.dart';
@@ -98,7 +97,7 @@ class _ArticleViewMobileState extends State<ArticleViewMobile> {
                       child: Container(
                         width: 200,
                         height: 200,
-                        child: Image.asset(
+                        child: Image.network(
                           widget.article.path ?? '',
                           fit: BoxFit.cover,
                         ),

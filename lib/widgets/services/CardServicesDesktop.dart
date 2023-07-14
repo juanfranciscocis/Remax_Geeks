@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:remax_geeks/ui/common/ui_helpers.dart';
 
 import '../../providers/sellFormProvider.dart';
 import '../../ui/common/app_colors.dart';
@@ -9,6 +10,7 @@ class CardServicesDesktop extends StatefulWidget {
   final Color color;
   final String title;
   final String description;
+  final String price;
   final SellFormProvider sellformProvider;
 
   const CardServicesDesktop({
@@ -17,6 +19,7 @@ class CardServicesDesktop extends StatefulWidget {
     required this.title,
     required this.description,
     required this.sellformProvider,
+    required this.price,
   }) : super(key: key);
 
   @override
@@ -63,10 +66,10 @@ class _CardServicesDesktopState extends State<CardServicesDesktop> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    width: 100,
+                    width: 300,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: backgroundColor,
+                      color: thirdCardColor,
                       borderRadius: BorderRadius.circular(2.0),
                       boxShadow: [
                         BoxShadow(
@@ -77,21 +80,37 @@ class _CardServicesDesktopState extends State<CardServicesDesktop> {
                         ),
                       ],
                     ),
-                    child: Checkbox(
-                      activeColor: confirmButtonColor,
-                      value: isChecked,
-                      onChanged: (value) {
-                        setState(() {
-                          isChecked = value ?? false;
-                          if (isChecked) {
-                            widget.sellformProvider.servicesChosen =
-                                widget.title;
-                          } else {
-                            widget.sellformProvider.deleteService =
-                                widget.title;
-                          }
-                        });
-                      },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        horizontalSpaceMedium,
+                        Text(
+                          widget.price,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: fontOutfitBold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        horizontalSpaceTiny,
+                        Checkbox(
+                          activeColor: confirmButtonColor,
+                          value: isChecked,
+                          onChanged: (value) {
+                            setState(() {
+                              isChecked = value ?? false;
+                              if (isChecked) {
+                                widget.sellformProvider.servicesChosen =
+                                    widget.title;
+                              } else {
+                                widget.sellformProvider.deleteService =
+                                    widget.title;
+                              }
+                            });
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ),

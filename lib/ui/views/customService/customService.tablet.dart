@@ -28,8 +28,9 @@ class CustomServiceTablet extends StatefulWidget {
   SellFormProvider sellFormProvider;
   List<String> customTitles;
   List<String> customDescriptions;
+  List<String> customPrices;
 
-  CustomServiceTablet({super.key, required this.dbProvider, required this.sellFormProvider, required this.customTitles, required this.customDescriptions});
+  CustomServiceTablet({super.key,required this.customPrices, required this.dbProvider, required this.sellFormProvider, required this.customTitles, required this.customDescriptions});
 
   @override
   State<CustomServiceTablet> createState() => _CustomServiceTabletState();
@@ -165,7 +166,7 @@ class _CustomServiceTabletState extends State<CustomServiceTablet> {
                   verticalSpaceTiny,
                   Center(
                     child: Card(
-                      color: secondaryCardColor,
+                      color: primaryCardColor,
                       elevation: 10.0,
                       //ROUND CORNERS
                       shape: RoundedRectangleBorder(
@@ -181,7 +182,7 @@ class _CustomServiceTabletState extends State<CustomServiceTablet> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                                 child: Text(
-                                  sendAgent,
+                                  sendAgentCustomService,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: fontWhiteColor,
@@ -193,7 +194,7 @@ class _CustomServiceTabletState extends State<CustomServiceTablet> {
                             ),
                             verticalSpaceMedium,
                             //checkbox, when checked color confirmation, else main color
-                            _buildMaterialButton(title: 'PICK DATE AND TIME', onPressed: () => _selectDateTime(context),buttonColor: secondaryButtonColor, textSize: 20),
+                            _buildMaterialButton(title: 'PICK DATE AND TIME', onPressed: () => _selectDateTime(context),buttonColor: pressedButtonColor, textSize: 20),
                             verticalSpaceMedium,
                           ],
                         ),
@@ -218,6 +219,7 @@ class _CustomServiceTabletState extends State<CustomServiceTablet> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ...widget.customTitles.map((e) => CardServices(
+                        price: "\$"+widget.customPrices[widget.customTitles.indexOf(e)],
                         sellformProvider: widget.sellFormProvider,
                         title: e,
                         description: widget.customDescriptions[widget.customTitles.indexOf(e)], color: primaryCardColor,
@@ -232,7 +234,6 @@ class _CustomServiceTabletState extends State<CustomServiceTablet> {
                         print('Entered text: $enteredText');
 
                         // VERIFY ADDRESS, BUTTONS PRESS AND GO TO NEXT PAGE
-                        if (widget.sellFormProvider.costumerPrice != "0") {
                           DBProvider db = Provider.of<DBProvider>(context, listen: false);
                           Map<String,dynamic> data = {
                             'ADDRESS': widget.sellFormProvider.address,
@@ -247,24 +248,10 @@ class _CustomServiceTabletState extends State<CustomServiceTablet> {
                             'COSTUMER': widget.sellFormProvider.getCostumerInformation(),
                           };
                           await db.setSellingFormData(data);
-                          await SendMail().sendEmail(widget.sellFormProvider.costumer);
+                        await EmailSender.sendEmail(condition:widget.sellFormProvider.condition,address:widget.sellFormProvider.address,type:widget.sellFormProvider.type,serviceType:widget.sellFormProvider.serviceType,apiPrices: widget.sellFormProvider.apiPrices,averageApiPrice:averageApiPrice,costumerPrice:widget.sellFormProvider.costumerPrice,sendAgent:widget.sellFormProvider.sendAgent,costumerInformation:widget.sellFormProvider.getCostumerInformation(),context: context);
                           PixelService().trackForms('SELL_HOUSE_FORM_CUSTOM', data);
                           showConfirmationDialog(context);
-                        } else {
-                          // SHOW ERROR MESSAGE
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Please fill Custom Price',
-                                style: TextStyle(
-                                  fontFamily: fontOutfitRegular,
-                                  fontSize: 15,
-                                ),
-                              ),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        }
+
                       }, buttonColor: confirmButtonColor)),
                   verticalSpaceLarge,
 
@@ -380,7 +367,7 @@ class CustomerPrice extends StatelessWidget {
         labelText: enterYourDesiredPriceBox,
         //label text style
         labelStyle: TextStyle(
-          color: fontSecondColor,
+          color: fontWhiteColor,
           fontFamily: fontOutfitRegular,
           fontSize: 15,
         ),

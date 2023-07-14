@@ -15,6 +15,7 @@ class ArticleView extends StackedView<LearnMoreViewModel> {
 
   Article article;
 
+
   ArticleView({super.key, required this.article});
 
   @override

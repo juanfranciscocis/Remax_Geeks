@@ -110,7 +110,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                         children: [
                           Expanded(
                             child: _buildMaterialButton(
-                              buttonColor: fontMainColor,
+                              buttonColor: secondaryCardColor,
                               textSize: 15,
                               title: google.listOfPredictions[0],
                               onPressed: () {
@@ -132,7 +132,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                         children: [
                           Expanded(
                             child: _buildMaterialButton(
-                              buttonColor: fontMainColor,
+                              buttonColor: secondaryCardColor,
                               textSize: 15,
                               title: google.listOfPredictions[1],
                               onPressed: () {
@@ -154,7 +154,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                         children: [
                           Expanded(
                             child: _buildMaterialButton(
-                              buttonColor: fontMainColor,
+                              buttonColor: secondaryCardColor,
                               textSize: 15,
                               title: google.listOfPredictions[2],
                               onPressed: () {

@@ -8,11 +8,11 @@ import 'package:remax_geeks/ui/views/learnMore/learnMore_view.dart';
 import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../helpers/getLearnMorePaths.dart';
 import '../../../models/article.dart';
 import '../../../providers/costumerProvider.dart';
 import '../../../providers/dbProvider.dart';
 import '../../../providers/sellFormProvider.dart';
+import '../../../providers/storageProvider.dart';
 import '../../../services/authEmailPassword.dart';
 import '../../../services/authFacebook.dart';
 import '../../../services/authGoogle.dart';
@@ -40,7 +40,6 @@ class _BurgerMenuViewMobileState extends State<BurgerMenuViewMobile> {
 
   void initState() {
     DBProvider db = Provider.of<DBProvider>(context, listen: false);
-    paths = getLearnMorePaths();
     articlesInit();
     super.initState();
   }
@@ -83,7 +82,9 @@ class _BurgerMenuViewMobileState extends State<BurgerMenuViewMobile> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               verticalSpaceLarge,
-                              _buildMaterialButton(title: 'LEARN MORE',textSize: 20, onPressed: (){
+                              _buildMaterialButton(title: 'LEARN MORE',textSize: 20, onPressed: () async {
+                                StorageProvider storageProvider = Provider.of<StorageProvider>(context, listen: false);
+                                await storageProvider.getImages();
                                 Navigator.pushNamed(context, '/learnMore');
                               }, isPressed: false),
                               verticalSpaceMedium,

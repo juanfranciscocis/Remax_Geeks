@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remax_geeks/services/zillowService.dart';
 import 'package:remax_geeks/ui/views/logIn/logIn_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../providers/dbProvider.dart';
 import '../../services/authEmailPassword.dart';
@@ -16,6 +17,16 @@ class LandingPageDesktopSite extends StatelessWidget {
   const LandingPageDesktopSite({
     super.key,
   });
+
+  Future<void> openWebPage(String page) async {
+    String launchP = 'https://'+page;
+    if(await canLaunch(launchP)){
+      await launch(launchP);
+    }else{
+      print('Failed to open $launchP');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +79,6 @@ class LandingPageDesktopSite extends StatelessWidget {
                         print('SELL NOW PRESSED');
                         //Navigator push 'address'
                         Navigator.of(context).pushNamed("/addressView");
-
                       }, //TODO: CHANGE TO START SELLING PAGE
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
@@ -94,8 +104,8 @@ class LandingPageDesktopSite extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20.0),
                     child: MaterialButton(
-                      onPressed: () {
-                        print('BUY NOW PRESSED');
+                      onPressed: () async {
+                        await openWebPage('luigui.com');
                       }, //TODO: CHANGE TO GET TO KNOW US PAGE
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),

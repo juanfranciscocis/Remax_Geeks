@@ -7,68 +7,68 @@ import '../models/costumer.dart';
 
 class SellFormProvider extends ChangeNotifier{
   //PROPERTIES
-  late final SellingForm _sellingFormModel = SellingForm();
+  late final SellingForm sellingFormModel = SellingForm();
 
 
   //SETTERS
   set address (String address){
-    _sellingFormModel.address = address;
+    sellingFormModel.address = address;
     notifyListeners();
   }
   set condition (String condition){
-    _sellingFormModel.condition = condition;
+    sellingFormModel.condition = condition;
     notifyListeners();
   }
   set type (String type){
-    _sellingFormModel.typeProperty = type;
+    sellingFormModel.typeProperty = type;
     notifyListeners();
   }
   set serviceType (String serviceType){
-    _sellingFormModel.serviceType = serviceType;
+    sellingFormModel.serviceType = serviceType;
     notifyListeners();
   }
   set apiPrices (List<double> apiPrices){
-    _sellingFormModel.apiPrices = apiPrices;
+    sellingFormModel.apiPrices = apiPrices;
     notifyListeners();
   }
   set averageApiPrice (double averageApiPrice){
-    _sellingFormModel.averageApiPrice = averageApiPrice;
+    sellingFormModel.averageApiPrice = averageApiPrice;
     notifyListeners();
   }
   set costumerPrice (String costumerPrice){
-    _sellingFormModel.costumerPrice = costumerPrice;
+    sellingFormModel.costumerPrice = costumerPrice;
     notifyListeners();
   }
   set sendAgent (String sendAgent){
-    _sellingFormModel.sendAgent = sendAgent;
+    sellingFormModel.sendAgent = sendAgent;
     notifyListeners();
   }
   set servicesChosen (String servicesChosen){
-    _sellingFormModel.addService(servicesChosen);
+    sellingFormModel.addService(servicesChosen);
     notifyListeners();
   }
 
   set deleteService (String service){
-    _sellingFormModel.servicesChosen.remove(service);
-    print(_sellingFormModel.servicesChosen);
+    sellingFormModel.servicesChosen.remove(service);
+    print(sellingFormModel.servicesChosen);
     notifyListeners();
   }
 
   set costumer(Costumer costumer){
-    _sellingFormModel.costumer = costumer;
+    sellingFormModel.costumer = costumer;
     notifyListeners();
   }
 
   //GETTERS
-  String get condition => _sellingFormModel.condition ?? 'NO CONDITION';
-  String get address => _sellingFormModel.address ?? 'NO ADDRESS';
-  String get type => _sellingFormModel.typeProperty ?? 'NO TYPE';
-  String get serviceType => _sellingFormModel.serviceType ?? 'NO SERVICE TYPE';
-  List<double> get apiPrices => _sellingFormModel.apiPrices ?? [0,0];
-  String get costumerPrice => _sellingFormModel.costumerPrice ?? "0";
-  String get sendAgent => _sellingFormModel.sendAgent ?? '';
-  List<String>  getServicesChosen() => _sellingFormModel.servicesChosen ?? [];
-  Costumer get costumer => _sellingFormModel.costumer ?? Costumer();
+  String get condition => sellingFormModel.condition ?? 'NO CONDITION';
+  String get address => sellingFormModel.address ?? 'NO ADDRESS';
+  String get type => sellingFormModel.typeProperty ?? 'NO TYPE';
+  String get serviceType => sellingFormModel.serviceType ?? 'NO SERVICE TYPE';
+  List<double> get apiPrices => sellingFormModel.apiPrices ?? [0,0];
+  String get costumerPrice => sellingFormModel.costumerPrice ?? "0";
+  String get sendAgent => sellingFormModel.sendAgent ?? '';
+  List<String>  getServicesChosen() => sellingFormModel.servicesChosen ?? [];
+  Costumer get costumer => sellingFormModel.costumer ?? Costumer();
 
   double getAverage(){
     double sum = 0;

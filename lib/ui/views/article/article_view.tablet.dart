@@ -84,7 +84,7 @@ class _ArticleViewTabletState extends State<ArticleViewTablet> {
                     child: Container(
                       width: 400,
                       height: 400,
-                      child: Image.asset(
+                      child: Image.network(
                         widget.article.path ?? '',
                         fit: BoxFit.cover,
                       ),

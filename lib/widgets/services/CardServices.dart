@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:remax_geeks/providers/sellFormProvider.dart';
+import 'package:remax_geeks/ui/common/ui_helpers.dart';
 
 import '../../ui/common/app_colors.dart';
 import '../../ui/common/app_strings.dart';
@@ -9,6 +10,7 @@ class CardServices extends StatefulWidget {
   final String title;
   final String description;
   final SellFormProvider sellformProvider;
+  final String price;
 
   const CardServices({
     Key? key,
@@ -16,6 +18,7 @@ class CardServices extends StatefulWidget {
     required this.title,
     required this.description,
     required this.sellformProvider,
+    required this.price,
   }) : super(key: key);
 
   @override
@@ -45,7 +48,7 @@ class _CardServicesState extends State<CardServices> {
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: fontOutfitBold,
-                  fontSize: 35,
+                  fontSize: 20,
                 ),
               ),
               SizedBox(height: 8.0),
@@ -54,18 +57,18 @@ class _CardServicesState extends State<CardServices> {
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: fontOutfitRegular,
-                  fontSize: 20,
+                  fontSize: 10,
                 ),
               ),
               SizedBox(height: 8.0),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  width: 100,
+                  width: 300,
                   height: 50,
                   //shadow
                   decoration: BoxDecoration(
-                    color: backgroundColor,
+                    color: thirdCardColor,
                     borderRadius: BorderRadius.circular(2.0),
                     boxShadow: [
                       BoxShadow(
@@ -76,20 +79,36 @@ class _CardServicesState extends State<CardServices> {
                       ),
                     ],
                   ),
-                  child: Checkbox(
-                    activeColor: confirmButtonColor,
-                    value: isChecked,
-                    onChanged: (value) {
-                      setState(() {
-                        isChecked = value ?? false;
-                        // if checked, add to form; otherwise, remove
-                        if (isChecked) {
-                          widget.sellformProvider.servicesChosen = widget.title;
-                        } else {
-                          widget.sellformProvider.deleteService = widget.title;
-                        }
-                      });
-                    },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      horizontalSpaceMedium,
+                      Text(
+                        widget.price,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: fontOutfitBold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      horizontalSpaceTiny,
+                      Checkbox(
+                        activeColor: confirmButtonColor,
+                        value: isChecked,
+                        onChanged: (value) {
+                          setState(() {
+                            isChecked = value ?? false;
+                            // if checked, add to form; otherwise, remove
+                            if (isChecked) {
+                              widget.sellformProvider.servicesChosen = widget.title;
+                            } else {
+                              widget.sellformProvider.deleteService = widget.title;
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),

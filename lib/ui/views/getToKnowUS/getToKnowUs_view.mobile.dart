@@ -7,7 +7,6 @@ import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../helpers/getLearnMorePaths.dart';
 import '../../../models/article.dart';
 import '../../../providers/costumerProvider.dart';
 import '../../../providers/dbProvider.dart';
@@ -142,7 +141,7 @@ class _GetToKnowUsViewMobileState extends State<GetToKnowUsViewMobile> {
                                   fontSize: 20,
                                   //color blue, underline
                                   fontFamily: fontOutfitRegular,
-                                  color: Colors.blueAccent,
+                                  color: primaryColor,
                                   decoration: TextDecoration.underline,
                                 ),
                               ),

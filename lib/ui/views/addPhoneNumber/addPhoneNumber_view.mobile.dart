@@ -61,7 +61,7 @@ class AddPhoneNumberMobile extends ViewModelWidget<AddPhoneNumberViewModel> {
                           child: Text(
                             "One More Thing...",
                             style: TextStyle(
-                              color: fontMainColor,
+                              color: inputColor,
                               fontFamily: fontOutfitBold,
                               fontSize: 30,
                             ),
@@ -71,19 +71,21 @@ class AddPhoneNumberMobile extends ViewModelWidget<AddPhoneNumberViewModel> {
                         verticalSpaceMedium,
                         TextWidget(
                           text: "Please enter your phone so that we can contact you:",
-                          color: fontMainColor,
+                          color: inputColor,
                           fontFamily: fontOutfitMedium,
                           fontSize: 20,
                         ),
                         verticalSpaceSmall,
                         LogSingForm(
+                          phoneNumber: true,
                           height: 50,
                           label: "Phone Number",
                           font: 20,
                           padding: 10,
                           query: 1.2,
                           onChanged: (value) {
-                            costumer.phoneNumber = value;
+                            if(validatePhoneNumber(value)==null) {costumer.phoneNumber = '';}else{
+                              costumer.phoneNumber = value;}
                           },
                         ),
                         verticalSpaceMedium,
@@ -128,7 +130,7 @@ class AddPhoneNumberMobile extends ViewModelWidget<AddPhoneNumberViewModel> {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                      'Please fill all the fields',
+                                      'US Phone number is required',
                                       style: TextStyle(
                                         fontFamily: fontOutfitRegular,
                                         fontSize: 15,
