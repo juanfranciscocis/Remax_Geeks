@@ -83,7 +83,7 @@ class _AddressViewDesktopState extends State<AddressViewDesktop> {
                   decoration: InputDecoration(
                     labelText: addressBox,
                     labelStyle: TextStyle(
-                      color: fontSecondColor,
+                      color: fontMainColor,
                       fontFamily: fontOutfitRegular,
                       fontSize: 30,
                     ),

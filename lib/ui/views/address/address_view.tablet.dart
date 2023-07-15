@@ -80,7 +80,7 @@ class _AddressViewTabletState extends State<AddressViewTablet> {
                   decoration: InputDecoration(
                     labelText: addressBox,
                     labelStyle: TextStyle(
-                      color: fontSecondColor,
+                      color: fontMainColor,
                       fontFamily: fontOutfitRegular,
                       fontSize: 30,
                     ),

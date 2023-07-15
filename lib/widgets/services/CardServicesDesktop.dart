@@ -69,7 +69,7 @@ class _CardServicesDesktopState extends State<CardServicesDesktop> {
                     width: 300,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: thirdCardColor,
+                      color: secondaryCardColor,
                       borderRadius: BorderRadius.circular(2.0),
                       boxShadow: [
                         BoxShadow(

@@ -65,7 +65,7 @@ class MainTabletNavBar extends StatelessWidget {
                         ),
                       ),
                     ),
-                    color: backgroundColor,
+                    color: secondaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -92,7 +92,7 @@ class MainTabletNavBar extends StatelessWidget {
                         ),
                       ),
                     ),
-                    color: backgroundColor,
+                    color: secondaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),

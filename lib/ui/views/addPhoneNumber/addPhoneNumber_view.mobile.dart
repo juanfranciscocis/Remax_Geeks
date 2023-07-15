@@ -61,7 +61,7 @@ class AddPhoneNumberMobile extends ViewModelWidget<AddPhoneNumberViewModel> {
                           child: Text(
                             "One More Thing...",
                             style: TextStyle(
-                              color: inputColor,
+                              color: inputColor2,
                               fontFamily: fontOutfitBold,
                               fontSize: 30,
                             ),
@@ -71,7 +71,7 @@ class AddPhoneNumberMobile extends ViewModelWidget<AddPhoneNumberViewModel> {
                         verticalSpaceMedium,
                         TextWidget(
                           text: "Please enter your phone so that we can contact you:",
-                          color: inputColor,
+                          color: inputColor2,
                           fontFamily: fontOutfitMedium,
                           fontSize: 20,
                         ),

@@ -7,6 +7,7 @@ import 'package:remax_geeks/ui/views/getToKnowUS/getToKnowUs_view.dart';
 import 'package:remax_geeks/ui/views/learnMore/learnMore_view.dart';
 import 'package:remax_geeks/widgets/landingPage/LandingPageMobileSite.dart';
 import 'package:stacked/stacked.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../models/article.dart';
 import '../../../providers/costumerProvider.dart';
@@ -50,6 +51,15 @@ class _BurgerMenuViewMobileState extends State<BurgerMenuViewMobile> {
     setState(() {
       articles = db.articles;
     });
+  }
+
+  Future<void> openWebPage(String page) async {
+    String launchP = 'https://'+page;
+    if(await canLaunch(launchP)){
+      await launch(launchP);
+    }else{
+      print('Failed to open $launchP');
+    }
   }
 
 
@@ -108,8 +118,9 @@ class _BurgerMenuViewMobileState extends State<BurgerMenuViewMobile> {
                           Navigator.pushNamed(context, '/addressView');
                         }, isPressed: false),
                         verticalSpaceMedium,
-                        _buildMaterialButton(title: 'Buy Now',textSize: 20, onPressed: (){
-                          //Navigator.push(context, MaterialPageRoute(builder: (context) => const GetToKnowUsView()));
+                        _buildMaterialButton(title: 'Buy Now',textSize: 20, onPressed: () async {
+                          await openWebPage('luigui.com');
+
                         }, isPressed: false),
                         verticalSpaceLarge,
                       ],

@@ -165,7 +165,7 @@ class LogSingForm extends StatelessWidget {
             ),
           ),
           style: TextStyle(
-            color: inputColor,
+            color: inputColor2,
             fontFamily: fontOutfitBold,
             fontSize: font,
           ),

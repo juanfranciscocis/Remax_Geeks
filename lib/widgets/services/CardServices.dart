@@ -68,7 +68,7 @@ class _CardServicesState extends State<CardServices> {
                   height: 50,
                   //shadow
                   decoration: BoxDecoration(
-                    color: thirdCardColor,
+                    color: secondaryCardColor,
                     borderRadius: BorderRadius.circular(2.0),
                     boxShadow: [
                       BoxShadow(

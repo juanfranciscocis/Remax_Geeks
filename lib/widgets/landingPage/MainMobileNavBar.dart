@@ -56,7 +56,7 @@ class MainMobileNavBar extends StatelessWidget {
                     child: Container(
                       //MAKE IT secondaryCardColor, add a shadow to it
                         decoration: BoxDecoration(
-                          color: backgroundColor,
+                          color: secondaryColor,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Image(

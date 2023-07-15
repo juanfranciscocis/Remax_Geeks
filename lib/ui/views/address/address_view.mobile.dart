@@ -77,7 +77,7 @@ class _AddressViewMobileState extends State<AddressViewMobile> {
                   decoration: InputDecoration(
                     labelText: addressBox,
                     labelStyle: TextStyle(
-                      color: fontSecondColor,
+                      color: fontMainColor,
                       fontFamily: fontOutfitRegular,
                       fontSize: 10,
                     ),

@@ -161,7 +161,7 @@ class _FullServiceMobileState extends State<FullServiceMobile> {
                           //checkbox, when checked color confirmation, else main color
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20.0),
-                            child: _buildMaterialButton(title: 'PICK DATE AND TIME', onPressed: () => _selectDateTime(context),buttonColor: pressedButtonColor, textSize: 20),
+                            child: _buildMaterialButton(title: 'PICK DATE AND TIME', onPressed: () => _selectDateTime(context),buttonColor: secondaryCardColor, textSize: 20),
                           ),
                         ],
                       ),

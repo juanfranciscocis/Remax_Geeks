@@ -152,7 +152,7 @@ class _FullServiceTabletState extends State<FullServiceTablet> {
                             ),
                             verticalSpaceMedium,
                             //checkbox, when checked color confirmation, else main color
-                            _buildMaterialButton(title: 'PICK DATE AND TIME', onPressed: () => _selectDateTime(context),buttonColor: pressedButtonColor, textSize: 20),
+                            _buildMaterialButton(title: 'PICK DATE AND TIME', onPressed: () => _selectDateTime(context),buttonColor: secondaryCardColor, textSize: 20),
                             verticalSpaceMedium,
                           ],
                         ),

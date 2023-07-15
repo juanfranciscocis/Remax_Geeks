@@ -16,7 +16,7 @@ class CardApiInformationMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        color: thirdCardColor,
+        color: whiteCardColor,
         elevation: 10.0,
         //ROUND CORNERS
         shape: RoundedRectangleBorder(

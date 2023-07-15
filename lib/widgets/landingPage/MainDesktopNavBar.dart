@@ -67,7 +67,7 @@ class MainDesktopNavBar extends StatelessWidget {
                       ),
                     ),
                   ),
-                  color: backgroundColor,
+                  color: secondaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -93,7 +93,7 @@ class MainDesktopNavBar extends StatelessWidget {
                       ),
                     ),
                   ),
-                  color: backgroundColor,
+                  color: secondaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
