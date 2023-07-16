@@ -93,8 +93,8 @@ class _ArticleViewDesktopState extends State<ArticleViewDesktop> {
                 Container(
                   width: 1000,
                   child: Text(
-                    widget.article.description,
-                    textAlign: TextAlign.center,
+                    widget.article.description.replaceAll('\\n', '\n'),
+                    textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontSize: 40,
                       fontFamily: fontOutfitRegular,

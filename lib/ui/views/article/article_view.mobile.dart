@@ -107,8 +107,8 @@ class _ArticleViewMobileState extends State<ArticleViewMobile> {
                     Container(
                       width: 800,
                       child: Text(
-                        widget.article.description,
-                        textAlign: TextAlign.center,
+                        widget.article.description.replaceAll('\\n', '\n'),
+                        textAlign: TextAlign.justify,
                         style: TextStyle(
                           fontSize: 20,
                           fontFamily: fontOutfitRegular,

@@ -139,27 +139,30 @@ class learnMoreArticle extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: textTitleSize ??50,
-                    fontFamily: fontOutfitBold,
-                    color: fontMainColor,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: textTitleSize ??50,
+                      fontFamily: fontOutfitBold,
+                      color: fontMainColor,
 
+                    ),
                   ),
-                ),
-                Text(subtitle,
-                  style: TextStyle(
-                    fontSize: textSubtitleSize??30,
-                    fontFamily: fontOutfitMedium,
-                    color: fontMainColor,
+                  Text(subtitle,
+                    style: TextStyle(
+                      fontSize: textSubtitleSize??30,
+                      fontFamily: fontOutfitMedium,
+                      color: fontMainColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
       ],
