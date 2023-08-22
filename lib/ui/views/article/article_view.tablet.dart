@@ -104,6 +104,7 @@ class _ArticleViewTabletState extends State<ArticleViewTablet> {
                       ),
                     ),
                   ),
+                  verticalSpaceMedium,
 
 
 

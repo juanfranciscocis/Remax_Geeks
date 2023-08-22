@@ -116,6 +116,7 @@ class _ArticleViewMobileState extends State<ArticleViewMobile> {
                         ),
                       ),
                     ),
+                    verticalSpaceMedium,
 
                   ],
                 ),

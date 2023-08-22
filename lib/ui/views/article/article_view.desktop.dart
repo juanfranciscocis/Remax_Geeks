@@ -102,6 +102,7 @@ class _ArticleViewDesktopState extends State<ArticleViewDesktop> {
                     ),
                   ),
                 ),
+                verticalSpaceMedium,
 
 
 
