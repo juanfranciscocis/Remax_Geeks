@@ -1,17 +1,18 @@
-# stacked_app
+# Remax Geeks
 
-A new Flutter project.
+RemaxGeeks is a real state webpage where users can get an estimated price for their property answering just a few questions.
 
-## Getting Started
+## Visit the webpage
 
-This project is a starting point for a Flutter application.
+[remaxgeeks.com](remaxgeeks.com)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Technology Used
+- Main app was developed in Flutter + Firebase (intrested in how Firebase works with Flutter, check my code!)
+- API Requests to RapidApi Service
+- App was then ported to Wordpress
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
 
